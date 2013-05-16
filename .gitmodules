@@ -22,3 +22,6 @@
 [submodule "puppet/modules/puppetlabs-stdlib"]
 	path = puppet/modules/puppetlabs-stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/modules/redis"]
+	path = puppet/modules/redis
+	url = git@github.com:example42/puppet-redis.git

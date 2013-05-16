@@ -16,30 +16,15 @@ class system-update {
 
 class dev-packages {
 
-    $devPackages = [ "vim", "curl", "git", "nodejs", "npm", "capistrano", "rubygems", "openjdk-7-jdk", "libaugeas-ruby" ]
+    $devPackages = [ "vim", "curl", "git", "nodejs", "npm", "rubygems", "libaugeas-ruby" ]
     package { $devPackages:
         ensure => "installed",
         require => Exec['apt-get update'],
     }
 
-    exec { 'install less using npm':
-        command => 'npm install less -g',
-        require => Package["npm"],
-    }
-
-    exec { 'install capifony using RubyGems':
-        command => 'gem install capifony',
+    exec { 'install sass using RubyGems':
+        command => 'gem install sass',
         require => Package["rubygems"],
-    }
-
-    exec { 'install sass with compass using RubyGems':
-        command => 'gem install compass',
-        require => Package["rubygems"],
-    }
-
-    exec { 'install capistrano_rsync_with_remote_cache using RubyGems':
-        command => 'gem install capistrano_rsync_with_remote_cache',
-        require => Package["capistrano"],
     }
 }
 
@@ -121,11 +106,6 @@ class php-setup {
         require => Package["imagemagick"],
     }
 
-    package { "phpmyadmin":
-        ensure => present,
-        require => Package[$php],
-    }
-
     exec { 'pecl install mongo':
         notify => Service["php5-fpm"],
         command => '/usr/bin/pecl install --force mongo',
@@ -193,11 +173,7 @@ class composer {
     }
 }
 
-class memcached {
-    package { "memcached":
-        ensure => present,
-    }
-}
+class { "redis": }
 
 class { 'apt':
     always_apt_update    => true
@@ -211,4 +187,4 @@ include nginx-setup
 include php-setup
 include composer
 include phpqatools
-include memcached
+include redis

@@ -8,7 +8,7 @@ Vagrant::Config.run do |config|
 
     config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
-    config.vm.network :hostonly, "33.33.33.100" # Host-Only networking required for nfs shares
+    config.vm.network :hostonly, "33.33.33.10"
 
     config.vm.share_folder("symfony", "/vagrant", "./", :nfs => (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/))
 
