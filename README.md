@@ -54,4 +54,4 @@ This is a repo based upon https://github.com/irmantas/symfony2-vagrant with a fe
 To speed up the startup process use ```$ vagrant up --no-provision``` (thanks to [caramba1337](https://github.com/caramba1337))
 
 ## TODO
-You tell me
+* Remove PEAR. It slows the up times to much.
