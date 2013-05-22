@@ -10,7 +10,7 @@ Vagrant::Config.run do |config|
 
     config.vm.network :hostonly, "33.33.33.10"
 
-    config.vm.share_folder("symfony", "/vagrant", "./", :nfs => (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/))
+    #config.vm.share_folder("symfony", "/vagrant", "./", :nfs => (RUBY_PLATFORM =~ /linux/ or RUBY_PLATFORM =~ /darwin/))
 
     config.vm.provision :puppet do |puppet|
         puppet.manifests_path = "puppet/manifests"
