@@ -27,7 +27,7 @@ class dev-packages {
         require => Package["npm"],
     }
 
-    exec { 'install capifony using RubyGems':
+    /*exec { 'install capifony using RubyGems':
         command => 'gem install capifony',
         require => Package["rubygems"],
     }
@@ -40,7 +40,7 @@ class dev-packages {
     exec { 'install capistrano_rsync_with_remote_cache using RubyGems':
         command => 'gem install capistrano_rsync_with_remote_cache',
         require => Package["capistrano"],
-    }
+    }*/
 }
 
 class nginx-setup {
@@ -121,19 +121,14 @@ class php-setup {
         require => Package["imagemagick"],
     }
 
-    package { "phpmyadmin":
-        ensure => present,
-        require => Package[$php],
-    }
-
-    exec { 'pecl install mongo':
+   /* exec { 'pecl install mongo':
         notify => Service["php5-fpm"],
         command => '/usr/bin/pecl install --force mongo',
         logoutput => "on_failure",
         require => Package[$php],
         before => [File['/etc/php5/cli/php.ini'], File['/etc/php5/fpm/php.ini'], File['/etc/php5/fpm/php-fpm.conf'], File['/etc/php5/fpm/pool.d/www.conf']],
         unless => "/usr/bin/php -m | grep mongo",
-    }
+    }*/
 
     file { '/etc/php5/cli/php.ini':
         owner  => root,
@@ -179,10 +174,10 @@ class php-setup {
         require => Package["php5-fpm"],
     }
 
-    service { "mongodb":
+    /*service { "mongodb":
         ensure => running,
         require => Package["mongodb"],
-    }
+    }*/
 }
 
 class composer {
@@ -211,7 +206,7 @@ include system-update
 include dev-packages
 include nginx-setup
 include php-setup
-include composer
-include phpqatools
+#include composer
+#include phpqatools
 #include memcached
 include redis
