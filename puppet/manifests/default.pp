@@ -186,5 +186,5 @@ include dev-packages
 include nginx-setup
 include php-setup
 include composer
-#include phpqatools
+include phpqatools
 include redis
