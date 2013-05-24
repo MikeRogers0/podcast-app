@@ -3,7 +3,7 @@ var Episode = Backbone.Model.extend({
   // Default attributes for an episode
   defaults: function() {
     return {
-      id: null,
+      id: episodeItems.nextID(),
       title: "Some episode title",
       datePublished: null,
       duration: null,
