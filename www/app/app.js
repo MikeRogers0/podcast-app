@@ -9,7 +9,7 @@ head.js(
 	'//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js',
 
 	// LocalStorage plugin for backbone
-	'/js/vendor/backbone.localStorage-min.js',
+	'/js/vendor/backbone.localStorage.js',
 
 	// Now load up the models
 	'/app/models/episode.js',
