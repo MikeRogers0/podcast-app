@@ -11,3 +11,5 @@ var PodcastList = Backbone.Collection.extend({
       return this.last().get('id') + 1;
     }
 });
+
+var podcastItems = new PodcastList();

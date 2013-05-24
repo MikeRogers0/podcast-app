@@ -15,4 +15,4 @@ var EpisodeList = Backbone.Collection.extend({
     }
 });
 
-episodeItems = new EpisodeList();
+var episodeItems = new EpisodeList();

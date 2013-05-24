@@ -12,4 +12,4 @@ var QueueList = Backbone.Collection.extend({
     }
 });
 
-queuedItems = new QueueList();
+var queuedItems = new QueueList();
