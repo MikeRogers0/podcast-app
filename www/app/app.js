@@ -8,6 +8,9 @@ head.js(
 	'//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js',
 	'//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js',
 
+	// LocalStorage plugin for backbone
+	'/js/vendor/backbone.localStorage-min.js',
+
 	// Now load up the models
 	'/app/models/episode.js',
 	'/app/models/podcast.js',

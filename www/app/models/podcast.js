@@ -3,7 +3,7 @@ var Podcast = Backbone.Model.extend({
   // Default attributes for an podcast
   defaults: function() {
     return {
-      id: null,
+      id: podcastItems.nextID(),
       title: "Some podcast title",
       description: "",
       lastChecked: null,
@@ -14,6 +14,6 @@ var Podcast = Backbone.Model.extend({
 
   initialize: function () {
     //var self = this;
-    this.episodes = new EpisodeList();
+    
   }
 });
