@@ -7,9 +7,15 @@ var Queue = Backbone.Model.extend({
       position: null,
       podcastID: null,
       episodeID: null,
+      episode: {},
+      podcast: {},
       lastPlayed: null,
       position: null,
     };
-  }
+  },
 
+  /*initialize: function () {
+    var self = this;
+    this.episodes = new epsiodeList();
+  }*/
 });

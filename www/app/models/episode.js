@@ -7,8 +7,14 @@ var Episode = Backbone.Model.extend({
       title: "Some episode title",
       datePublished: null,
       duration: null,
-      podcast: null // The ID of the podcast?
+      mp3: '',
+      cached: false,
+      podcastID: null // The ID of the podcast
     };
-  }
+  },
 
+  /*initialize: function () {
+    var self = this;
+    this.episodes = new epsiodeList();
+  }*/
 });

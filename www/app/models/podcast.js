@@ -8,8 +8,13 @@ var Podcast = Backbone.Model.extend({
       description: "",
       lastChecked: null,
       lastUpdated: null,
-      feedURL: ''
+      feedURL: '',
+      episodes: {}
     };
-  }
+  },
 
+  initialize: function () {
+    //var self = this;
+    this.episodes = new epsiodeList();
+  }
 });
