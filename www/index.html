@@ -12,9 +12,10 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
 
-        <!-- bootstrap for sure -->
+        <!-- bootstrap for sure in a bit. -->
 
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <!-- http://headjs.com/site/api-documentation.html - we can most most the stuff we need with head.js -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/headjs/0.99/head.min.js"></script>
     </head>
     <body>
         <p>Podcast App - EarJizz?</p>
@@ -23,8 +24,8 @@
 
 
         </div>
-
-        <script src="/js/vendor/backbone-min.js"></script>
-        <script src="/js/main.js"></script>
+        <script>
+            head.js('/app/app.js');
+        </script>
     </body>
 </html>

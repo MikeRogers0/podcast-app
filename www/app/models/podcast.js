@@ -1,4 +1,4 @@
-var podcast = Backbone.Model.extend({
+var Podcast = Backbone.Model.extend({
 
   // Default attributes for an podcast
   defaults: function() {
