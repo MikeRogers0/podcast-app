@@ -1,5 +1,5 @@
 /*global Backbone variable */
-var App = {};
+var app = {};
 
 // Head.js loads in all our libarys async, then excutes the in order.
 head.js(
@@ -25,15 +25,23 @@ head.js(
 	'/app/mockdata/queue.js',
 
 	function(){
-		App = Backbone.View.extend({
+		var App = Backbone.View.extend({
 			el: $('#podcast-app'),
+			queue: $('ul#queue'),
 
 			initialize: function(){
 
+				queuedItems.each(function(queued){
+					var view = new QueueView({ model: queued });
+					
+	                this.queue.append(view.render().el);
+            	}, this);
 			},
 			render: function(){
 				return this;
 			}
 		});
+
+		app = new App();
 	}
- );
+);

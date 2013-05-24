@@ -1,7 +1,7 @@
 var PodcastList = Backbone.Collection.extend({
 	model: Podcast,
 	
-	getByID: function(podcastID){
-		return this.where({podcastID:podcastID});
+	getByID: function(id){
+		return this.where({id:id})[0];
     }
 });

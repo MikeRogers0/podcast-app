@@ -13,10 +13,11 @@ podcastItems = new PodcastList([
 ]);
 
 // Add a few epsidoes to these podcasts
+var gid = 1;
 podcastItems.each(function(podcast){
-	for(var id = 1; id <= 10; id++){
+	for(var id = 1; id <= 3; id++){
 		podcast.episodes.add(
-			new Episode({id:id, title: 'Episode '+id+' of this'})
+			new Episode({id:gid++, title: 'Episode '+id+' of this'})
 		);
 	}
 });

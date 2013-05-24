@@ -14,8 +14,11 @@ var Queue = Backbone.Model.extend({
     };
   },
 
-  /*initialize: function () {
-    var self = this;
-    this.episodes = new EpisodeList();
-  }*/
+  initialize: function () {
+    //var self = this;
+
+    this.podcast = podcastItems.getByID(this.get('podcastID'));
+
+    this.episode = this.podcast.episodes.getByID(this.get('episodeID'));
+  }
 });

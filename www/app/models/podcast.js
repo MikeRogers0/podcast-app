@@ -8,8 +8,7 @@ var Podcast = Backbone.Model.extend({
       description: "",
       lastChecked: null,
       lastUpdated: null,
-      feedURL: '',
-      episodes: {}
+      feedURL: ''
     };
   },
 
