@@ -20,5 +20,9 @@ var Queue = Backbone.Model.extend({
     this.podcast = podcastItems.getByID(this.get('podcastID'));
 
     this.episode = this.podcast.episodes.getByID(this.get('episodeID'));
+  },
+
+  toggle: function(){
+    alert('Clicking like a boss');
   }
 });

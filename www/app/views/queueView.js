@@ -10,7 +10,7 @@ QueueView = Backbone.View.extend({
             // Set up event listeners. The change backbone event
             // is raised when a property changes (like the checked field)
 
-            //this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'change', this.render);
         },
 
         render: function(){
@@ -24,6 +24,6 @@ QueueView = Backbone.View.extend({
         },
 
         toggleService: function(){
-            //this.model.toggle();
+            this.model.toggle();
         }
     });
