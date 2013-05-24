@@ -19,7 +19,7 @@ head.js(
 	'/app/collections/episodeList.js',
 
 	// The Views
-	'/app/collections/queueView.js',
+	'/app/views/queueView.js',
 
 	// Some data
 	'/app/mockdata/queue.js',

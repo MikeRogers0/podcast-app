@@ -5,6 +5,9 @@ server {
   root /vagrant/www;
   index index.html;
 
+  # We're developing, so lets make sure nothing is cached.
+  expires -1;
+
   location / {
     try_files $uri /index.html;
   }

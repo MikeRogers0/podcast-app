@@ -15,6 +15,6 @@ var Episode = Backbone.Model.extend({
 
   /*initialize: function () {
     var self = this;
-    this.episodes = new epsiodeList();
+    this.episodes = new EpisodeList();
   }*/
 });
