@@ -14,6 +14,5 @@ var Podcast = Backbone.Model.extend({
 
   initialize: function () {
     //var self = this;
-    
   }
 });
