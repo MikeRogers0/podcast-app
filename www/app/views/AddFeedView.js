@@ -1,0 +1,3 @@
+AddFeedView = Backbone.View.extend({
+
+});

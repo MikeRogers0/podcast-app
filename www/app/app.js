@@ -23,7 +23,9 @@ head.js(
 	'/app/collections/episodeList.js',
 
 	// The Views
-	'/app/views/queueView.js',
+	'/app/views/QueueView.js',
+	'/app/views/CurrentPlayingView.js',
+	'/app/views/AddFeedView.js',
 
 	// Some data
 	'/app/mockdata/queue.js',

@@ -1,0 +1,3 @@
+CurrentPlayingView = Backbone.View.extend({
+
+});
