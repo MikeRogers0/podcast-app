@@ -4,6 +4,7 @@ var PlayingCollection = Backbone.Collection.extend({
 	localStorage: new Backbone.LocalStorage("ThePlayer-bb"),
 
 	play: function(newModel){
+		this.trigger('play', newModel);
 		alert('saying play');
 	}
 });
