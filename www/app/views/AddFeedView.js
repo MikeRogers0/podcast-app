@@ -10,7 +10,6 @@ AddFeedView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
 		this.feedURL = this.$('input[name="feedURL"]');
-		debugger;
 	},
 
 	render: function(){
@@ -22,7 +21,6 @@ AddFeedView = Backbone.View.extend({
 	},
 
 	addFeed: function(){
-		debugger;
 		alert('Adding feed: '+ this.feedURL.val());
 	}
 });
