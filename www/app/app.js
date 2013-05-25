@@ -21,6 +21,7 @@ head.js(
 	'/app/collections/queueList.js',
 	'/app/collections/podcastList.js',
 	'/app/collections/episodeList.js',
+	'/app/collections/PlayingCollection.js',
 
 	// The Views
 	'/app/views/QueueView.js',

@@ -5,7 +5,6 @@ var Queue = Backbone.Model.extend({
     return {
       id: queuedItems.nextID(),
       position: null,
-      podcastID: null,
       episodeID: null,
       lastPlayed: null,
       position: 0, // In seconds I think?
@@ -16,11 +15,7 @@ var Queue = Backbone.Model.extend({
     //var self = this;
 
     // Grab it's children models.
-    this.podcast = podcastItems.getByID(this.get('podcastID'));
     this.episode = episodeItems.getByID(this.get('episodeID'));
-  },
-
-  toggle: function(){
-    alert('Clicking '+ this.episode.get('title') +' like a boss');
+    this.podcast = podcastItems.getByID(this.episode.get('podcastID'));
   }
 });
