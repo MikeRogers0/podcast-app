@@ -12,12 +12,26 @@ var Episode = Backbone.Model.extend({
       mp3: '',
       cached: false,
       listened: false,
+      playing: false,
       podcastID: null // The ID of the podcast
     };
   },
 
   play: function(){
-    alert('Pausing '+ this.get('title'));
+    if(this.get('playing') == true){
+      alert('Pausing'+ this.get('title'));
+    } else {
+      alert('playing '+ this.get('title'));
+      Player.play(this);
+    }
+    
+  },
+  pause: function(){
+    if(this.get('playing') == true){
+      alert('Pausing'+ this.get('title'));
+    } else {
+      alert('playing '+ this.get('title'));
+    }
   },
   queue: function(){
     alert('Unqueue '+ this.get('title'));

@@ -8,6 +8,7 @@ CurrentPlayingView = Backbone.View.extend({
 	},
 
 	render: function() {
+		alert('Hello');
 		this.$el.html(this.template({
                 playhead: this.model.episode.get('playhead'),
                 duration: this.model.episode.get('duration'),

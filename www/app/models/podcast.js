@@ -14,5 +14,9 @@ var Podcast = Backbone.Model.extend({
 
   initialize: function () {
     //var self = this;
+  },
+
+  getNewEpisodes: function(){
+    // TODO - Get the new episodes
   }
 });

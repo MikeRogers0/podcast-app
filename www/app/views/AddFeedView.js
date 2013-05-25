@@ -21,7 +21,7 @@ AddFeedView = Backbone.View.extend({
 	},
 
 	addFeed: function(){
-		alert('Adding feed: '+ this.feedURL.val());
+		podcastItems.addFeed(this.feedURL.val());
 	}
 });
 
