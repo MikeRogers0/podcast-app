@@ -21,6 +21,6 @@ var Queue = Backbone.Model.extend({
   },
 
   toggle: function(){
-    alert('Clicking like a boss');
+    alert('Clicking '+ this.episode.get('title') +' like a boss');
   }
 });

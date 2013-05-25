@@ -9,25 +9,77 @@
         <title>Podcast App</title>
         <meta name="description" content="">
 
-        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
-
-        <!-- bootstrap for sure in a bit. -->
 
         <!-- http://headjs.com/site/api-documentation.html - we can most most the stuff we need with head.js -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/headjs/0.99/head.min.js"></script>
     </head>
     <body>
-        <p>Podcast App - EarJizz?</p>
-        <div id="podcast-app">
-            <!-- Our app stuff will go here -->
-            <ul id="queue">
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-inner">
+                    <a href="/" class="brand">Podcast App - EarJizz?</a>
+                    <ul class="nav">
+                      <li class="active"><a href="/">Home</a></li>
+                      <li><a href="/queue">Queue</a></li>
+                      <li><a href="/subscriptions">Subscriptions</a></li>
+                      <li><a href="/explore">Explore</a></li>
+                    </ul>
+                </div>
+            </nav>
 
-            </ul>
+            <div id="podcast-app">
+                <div class="row">
+                    <div class="span12">
+                        <div id="player">
+                            <audio controls="control" preload="none" src="" type="audio/mp3"></audio>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <h2>Queued Podcasts</h2>
+                        <ul id="queue">
 
+                        </ul>
+                    </div>
+                    <form id="addFeed" class="span4 form-search">
+                        <h3>Add Feed</h3>
+                        <input type="url" placeholder="http://www.site.com/feed.rss" class="input-medium">
+                        <input type="submit" class="btn" value="Add Feed" />
+
+                        <h4>Example Feeds:</h4>
+                        <ul>
+                            <li><a href="http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/rss.xml">Friday Night Comedy</a></li>
+                            <li><a href="http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss">SUMIHC</a></li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
         </div>
         <script>
             head.js('/app/app.js');
+        </script>
+
+        <!-- Templates -->
+        <script type="text/template" id="episodes-template">
+            <%= episode_title %> - <%= podcast_title %>
+                <a class="play btn">
+                    <% if (playing){ %>
+                        Pause
+                    <% } else { %>
+                        Play
+                    <% } %>
+                </a>
+
+                <a class="queue btn">
+                    <% if (queued){ %>
+                        Unqueue
+                    <% } else { %>
+                        Queue
+                    <% } %>
+                </a>
         </script>
     </body>
 </html>
