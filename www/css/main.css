@@ -8,3 +8,7 @@ body > .container{
 #player audio{
 	width: 100%;
 }
+
+.audiojs{
+	display: none;
+}
