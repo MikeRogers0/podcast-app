@@ -5,7 +5,7 @@ QueueView = Backbone.View.extend({
         template: _.template($('#episodes-template').html()),
 
         events:{
-            'click .play': 'play',
+            'click .playPause': 'playPause',
             'click .queue': 'queue',
         },
 
@@ -14,14 +14,14 @@ QueueView = Backbone.View.extend({
             // Set up event listeners. The change backbone event
             // is raised when a property changes (like the checked field)
 
-            this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model.episode, 'change:playing', this.render);
             this.render();
         },
 
         render: function(){
             // Create the HTML
             var template = this.template({
-                playing: false, // Pull it from the player collection / model.
+                playing: this.model.episode.get('playing'), // Pull it from the player collection / model.
                 queued: true, // Get from queue model.
                 playhead: this.model.episode.get('playhead'),
                 duration: this.model.episode.get('duration'),
@@ -36,8 +36,8 @@ QueueView = Backbone.View.extend({
             return this;
         },
 
-        play: function(){
-            this.model.episode.play();
+        playPause: function(){
+            this.model.episode.playPause();
         },
         queue: function(){
             this.model.episode.queue();

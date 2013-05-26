@@ -19,33 +19,22 @@ var Episode = Backbone.Model.extend({
 
   initialize: function () {
     this.podcast = podcastItems.getByID(this.get('podcastID'));
+
+    //this.listenTo(this, 'change:playing', this.queue);
   },
 
-  play: function(){
+  playPause: function(){
+    // If it's playing pause it.
     if(this.get('playing') == true){
-      //alert('Pausing'+ this.get('title'));
+      this.set('playing', false);
+      Player.pause(this);
     } else {
-      //alert('playing '+ this.get('title'));
+      this.set('playing', true);
       Player.play(this);
     }
-    // Looking through, do you reckon it would be better to model the 
-    // player and load episodes into it, rather than a variable on the 
-    // episodes themselves? - JW (It may not be, just putting it out there)
-    
   },
-  pause: function(){
-    if(this.get('playing') == true){
-      //alert('Pausing'+ this.get('title'));
-    } else {
-      //alert('playing '+ this.get('title'));
-    }
-  },
+
   queue: function(){
     //alert('Unqueue '+ this.get('title'));
   }
-
-  /*initialize: function () {
-    var self = this;
-    this.episodes = new EpisodeList();
-  }*/
 });

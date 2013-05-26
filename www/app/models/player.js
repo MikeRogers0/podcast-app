@@ -6,7 +6,8 @@ var PlayerModel = Backbone.Model.extend({
 	defaults: function() {
 		return {
 			playhead: 0,
-			episodeID: 0
+			episodeID: 0,
+			playing: false
 		};
 	},
 
@@ -15,6 +16,11 @@ var PlayerModel = Backbone.Model.extend({
 		// TODO pause & log anything currently running
 		this.model = model;
 		this.set('episodeID', model.get('id'));
+		this.set('playing', true);
+	},
+
+	pause: function(model){
+		this.set('playing', false);
 	}
 });
 
