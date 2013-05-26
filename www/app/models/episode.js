@@ -24,6 +24,9 @@ var Episode = Backbone.Model.extend({
       alert('playing '+ this.get('title'));
       Player.play(this);
     }
+    // Looking through, do you reckon it would be better to model the 
+    // player and load episodes into it, rather than a variable on the 
+    // episodes themselves? - JW (It may not be, just putting it out there)
     
   },
   pause: function(){
