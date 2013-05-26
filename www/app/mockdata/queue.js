@@ -26,6 +26,6 @@ if(podcastItems.localStorage.findAll()[0] != undefined){
 
 	// Now add them to the queue.
 	episodeItems.each(function(episode){
-		queuedItems.create(new Queue({podcastID:episode.get('podcastID')}));
+		queuedItems.create(new Queue({episodeID:episode.get('id')}));
 	});
 }

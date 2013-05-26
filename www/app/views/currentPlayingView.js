@@ -1,19 +1,26 @@
 CurrentPlayingView = Backbone.View.extend({
-	el: $("#currentlyPlaying"),
+	currentlyPlaying: $("#currentlyPlaying"),
+	player: $('#player'),
 
-	template: _.template($('#currentlyPlaying-template').html()),
+	currentlyPlayingTemplate: _.template($('#currentlyPlaying-template').html()),
 
 	initialize: function() {
 		this.listenTo(Player, 'change', this.render);
+		this.as = audiojs.createAll();
+		this.audioPlayer = this.as[0];
 	},
 
 	render: function() {
-		this.$el.html(this.template({
-                playhead: Player.model.get('playhead'),
-                duration: Player.model.get('duration'),
-                episode_title: Player.model.get('title'), 
-                podcast_title: Player.model.podcast.get('title')
-            }));
+		this.audioPlayer.load(Player.model.get('mp3'));
+		this.audioPlayer.currentTime = Player.model.get('playhead');
+		this.audioPlayer.play();
+
+		this.currentlyPlaying.html(this.currentlyPlayingTemplate({
+            playhead: Player.model.get('playhead'),
+            duration: Player.model.get('duration'),
+            episode_title: Player.model.get('title'), 
+            podcast_title: Player.model.podcast.get('title')
+        }));
 	}
 });
 

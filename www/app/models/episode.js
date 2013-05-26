@@ -9,7 +9,7 @@ var Episode = Backbone.Model.extend({
       duration: null,
       playhead: 0,
       duration: 100,
-      mp3: '',
+      mp3: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/fricomedy_20130524-1859a.mp3',
       cached: false,
       listened: false,
       playing: false,
