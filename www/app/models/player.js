@@ -11,6 +11,8 @@ var PlayerModel = Backbone.Model.extend({
 		};
 	},
 
+	// TODO make it so it listens to it's child model, instead of the shit below.
+
 	play: function(model){
 
 		// TODO pause & log anything currently running
