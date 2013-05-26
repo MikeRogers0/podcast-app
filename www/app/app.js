@@ -16,12 +16,12 @@ head.js(
 	'/app/models/episode.js',
 	'/app/models/podcast.js',
 	'/app/models/queue.js',
+	'/app/models/player.js',
 
 	// The collections
 	'/app/collections/queueList.js',
 	'/app/collections/podcastList.js',
 	'/app/collections/episodeList.js',
-	'/app/collections/PlayingCollection.js',
 
 	// The Views
 	'/app/views/QueueView.js',

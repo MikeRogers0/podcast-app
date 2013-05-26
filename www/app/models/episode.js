@@ -17,11 +17,15 @@ var Episode = Backbone.Model.extend({
     };
   },
 
+  initialize: function () {
+    this.podcast = podcastItems.getByID(this.get('podcastID'));
+  },
+
   play: function(){
     if(this.get('playing') == true){
-      alert('Pausing'+ this.get('title'));
+      //alert('Pausing'+ this.get('title'));
     } else {
-      alert('playing '+ this.get('title'));
+      //alert('playing '+ this.get('title'));
       Player.play(this);
     }
     // Looking through, do you reckon it would be better to model the 
@@ -31,13 +35,13 @@ var Episode = Backbone.Model.extend({
   },
   pause: function(){
     if(this.get('playing') == true){
-      alert('Pausing'+ this.get('title'));
+      //alert('Pausing'+ this.get('title'));
     } else {
-      alert('playing '+ this.get('title'));
+      //alert('playing '+ this.get('title'));
     }
   },
   queue: function(){
-    alert('Unqueue '+ this.get('title'));
+    //alert('Unqueue '+ this.get('title'));
   }
 
   /*initialize: function () {
