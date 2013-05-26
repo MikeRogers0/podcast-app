@@ -22,6 +22,9 @@ CurrentPlayingView = Backbone.View.extend({
             episode_title: Player.model.get('title'), 
             podcast_title: Player.model.podcast.get('title')
         }));
+
+        // Update the Listners so it updates the playhead.
+        //debugger;
 	},
 
 	playPause: function(){

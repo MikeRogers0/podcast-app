@@ -1,11 +1,10 @@
 var PlayerModel = Backbone.Model.extend({
-	model: Episode,
+	model: null,
 
 	localStorage: new Backbone.LocalStorage("EpisodeList-bb"),
 
 	defaults: function() {
 		return {
-			playhead: 0,
 			episodeID: 0,
 			playing: false
 		};
@@ -15,13 +14,17 @@ var PlayerModel = Backbone.Model.extend({
 
 	play: function(model){
 
+		// If something is currently playing, pause it.
+		if(this.model != null &&  this.model != model && this.model.get('playing')){
+			this.model.set('playing', false);
+		}
+
 		// TODO pause & log anything currently running
 		this.model = model;
 		this.set('episodeID', model.get('id'));
 		this.set('playing', true);
 	},
-
-	pause: function(model){
+	pause: function(){
 		this.set('playing', false);
 	}
 });
