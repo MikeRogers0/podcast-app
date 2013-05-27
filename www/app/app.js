@@ -10,7 +10,7 @@ head.js(
 	'/js/vendor/bootstrap.min.js',
 
 	// By default HTML5 audio sucks - http://kolber.github.io/audiojs/ is better.
-	'/js/vendor/audiojs/audio.min.js',
+	//'/js/vendor/audiojs/audio.min.js',
 
 	// LocalStorage plugin for backbone
 	'/js/vendor/backbone.localStorage.js',
