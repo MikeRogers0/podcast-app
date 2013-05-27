@@ -20,7 +20,11 @@ var Episode = Backbone.Model.extend({
   initialize: function () {
     this.podcast = podcastItems.getByID(this.get('podcastID'));
 
-    //this.listenTo(this, 'change:playing', this.queue);
+    this.listenTo(this, 'change', this.cloudSave); // In future we'll need to be more specific.
+  },
+
+  cloudSave: function(){
+    this.save();
   },
 
   playPause: function(){
