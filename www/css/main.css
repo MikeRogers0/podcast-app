@@ -1,14 +1,65 @@
-/* Our Stuff */
-
-body > .container{
-	margin-top: 20px;
+/* Our Stuff - Right now I nicked the css off http://purecss.io/menus/ - it's not a great c&p job, just some filler for now. */
+#layout{
+	padding-left: 175px;
+	padding-top: 50px;
 }
 
+nav#menu{
+	margin-left: -175px;
+	width: 175px;
+	position: fixed;
+	top: 0;
+	left: 175px;
+	bottom: 0;
+	z-index: 1000;
+	background: #191818;
+	overflow-y: auto;
+}
+	#menuLink{
+		display: none;
+	}
 
-#player audio{
+	.pure-menu.pure-menu-open, .pure-menu.pure-menu-horizontal li .pure-menu-children {
+		background: transparent;
+		border:none;
+	}
+
+	.pure-menu li a{
+		color: #999;
+	}
+
+	.pure-menu li a:hover{
+		background: #333;
+	}
+	#menu .pure-menu-heading {
+		font-size: 110%;
+		color: #fff;
+		border: none;
+	}
+	#menu li.pure-menu-heading {
+		font-size: 100%;
+		color: #eee;
+		border: none;
+	}
+
+#player, #main{
 	width: 100%;
 }
 
-.audiojs{
-	display: none;
+.container{
+	margin: 0 auto;
+	width: 90%;
+}
+
+#player{
+	background: #191818;
+	position: fixed;
+	top:0;
+	height: 30px;
+	color: #999;
+	padding: 10px 20px;
+}
+
+#main{
+	padding-top: 20px;
 }
