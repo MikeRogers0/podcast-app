@@ -11,7 +11,7 @@ EpisodeItemView = Backbone.View.extend({
         // Set up event listeners. The change backbone event
         // is raised when a property changes (like the checked field)
 
-        this.listenTo(this.model.episode, 'change:playing', this.render);
+        this.listenTo(this.model.episode, 'change', this.render);
         this.render();
     },
 

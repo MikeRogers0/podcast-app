@@ -20,7 +20,7 @@ CurrentPlayingView = Backbone.View.extend({
 		this.audioPlayer.src = Player.model.get('mp3');
 		this.audioPlayer.load();
 
-		this.currentlyPlaying.html(this.currentlyPlayingTemplate({
+		this.currentlyPlaying.html(this.template({
             playhead: Player.model.get('playhead'),
             duration: Player.model.get('duration'),
             episode_title: Player.model.get('title'), 

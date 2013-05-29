@@ -4,6 +4,7 @@ var AppRouter = Backbone.Router.extend({
         ""                  : "home",
         "queue"				: "queue",
         "my-podcasts"		: "myPodcasts",
+        "explore" : "explore",
         "explore/:feedURL/:episodeName"	: "explore",
         "add-feed"          : "addFeed",
         "dropbox-sync"      : "dropboxSync",

@@ -59,6 +59,12 @@ head.js(
 			'ExploreView'], function() {
 		    app = new AppRouter();
 		    Backbone.history.start({pushState: true});
+
+		    // Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
+			$("#menu").on('click', 'a:not([data-bypass])', function (e) {
+				e.preventDefault();
+				app.navigate($(this).attr('href'), true);
+			});
 		});
 	}
 );
