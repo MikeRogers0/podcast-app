@@ -1,5 +1,6 @@
 EpisodeItemView = Backbone.View.extend({
     tagName: 'li',
+    // I need a el
 
     events:{
         'click .playPause': 'playPause',
