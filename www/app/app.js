@@ -10,7 +10,10 @@ head.js(
 	'/js/vendor/bootstrap.min.js',
 
 	// By default HTML5 audio sucks - http://kolber.github.io/audiojs/ is better.
-	//'/js/vendor/audiojs/audio.min.js',
+	//'/js/vendor/audiojs/audio.min.js', // Default is ok for now.
+
+	// A few utils
+	'/js/vendor/utils.js',
 
 	// LocalStorage plugin for backbone
 	'/js/vendor/backbone.localStorage.js',
@@ -27,31 +30,24 @@ head.js(
 	'/app/collections/episodeList.js',
 
 	// The Views
+	'/app/views/EpisodeItem.js',
 	'/app/views/QueueView.js',
 	'/app/views/CurrentPlayingView.js',
 	'/app/views/AddFeedView.js',
+	'/app/views/HomeView.js',
+	'/app/views/DropboxSyncView.js',
+	'/app/views/ClearDataView.js',
+
+	// The Routers
+	'/app/router/AppRouter.js',
 
 	// Some data
 	'/app/mockdata/queue.js',
 
 	function(){
-		var App = Backbone.View.extend({
-			el: $('#podcast-app'),
-			queue: $('ul#queue'),
-
-			initialize: function(){
-
-				queuedItems.each(function(queued){
-					var view = new QueueView({ model: queued });
-					
-	                this.queue.append(view.render().el);
-            	}, this);
-			},
-			render: function(){
-				return this;
-			}
+		utils.loadTemplate(['HomeView', 'DropboxSyncView', 'EpisodeItemView', 'ClearDataView', 'AddFeedView', 'CurrentPlayingView', 'QueueView'], function() {
+		    app = new AppRouter();
+		    Backbone.history.start({pushState: true});
 		});
-
-		app = new App();
 	}
 );

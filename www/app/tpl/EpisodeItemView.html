@@ -1,0 +1,16 @@
+<%= episode_title %> - <%= podcast_title %> - (<%= playhead %> / <%= duration %>)
+<a class="playPause pure-button">
+    <% if (playing){ %>
+        Pause
+    <% } else { %>
+        Play
+    <% } %>
+</a>
+
+<a class="queue pure-button">
+    <% if (queued){ %>
+        Unqueue
+    <% } else { %>
+        Queue
+    <% } %>
+</a>

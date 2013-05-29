@@ -29,7 +29,7 @@
                 <li><a href="/explore">Add Feed</a></li>
 
                 <li class="pure-menu-heading">Settings</li>
-                <li><a href="/dropbox">Dropbox Syncing</a></li>
+                <li><a href="/dropbox-sync">Dropbox Syncing</a></li>
                 <li><a href="/clear-data">Clear Data</a></li>
                 </li>
             </ul>
@@ -41,44 +41,15 @@
     </div>
     <div class="pure-u" id="main">
         <div class="container">
-            <h2>Queued Podcasts</h2>
-            <ul id="queue"></ul>
+            <div id="content">
+                <!-- content of sites will og here -->
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     head.js('/app/app.js');
-</script>
-
-<!-- Templates -->
-<script type="text/template" id="addFeed-template">
-    <h3>Add Feed</h3>
-    <input name="feedURL" type="url" required placeholder="http://www.site.com/feed.rss" class="input-medium">
-    <input type="submit" class="pure-button" value="Add Feed" />
-</script>
-
-<script type="text/template" id="currentlyPlaying-template">
-    <%= episode_title %> - <%= podcast_title %>
-</script>
-
-<script type="text/template" id="episodes-template">
-    <%= episode_title %> - <%= podcast_title %> - (<%= playhead %> / <%= duration %>)
-        <a class="playPause pure-button">
-            <% if (playing){ %>
-                Pause
-            <% } else { %>
-                Play
-            <% } %>
-        </a>
-
-        <a class="queue pure-button">
-            <% if (queued){ %>
-                Unqueue
-            <% } else { %>
-                Queue
-            <% } %>
-        </a>
 </script>
 </body>
 </html>

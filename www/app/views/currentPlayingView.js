@@ -2,8 +2,6 @@ CurrentPlayingView = Backbone.View.extend({
 	currentlyPlaying: $("#currentlyPlaying"),
 	player: $('#player'),
 
-	currentlyPlayingTemplate: _.template($('#currentlyPlaying-template').html()),
-
 	initialize: function() {
 		//this.as = audiojs.createAll();
 		this.audioPlayer = document.getElementsByTagName('audio')[0];
@@ -62,5 +60,3 @@ CurrentPlayingView = Backbone.View.extend({
 		}
 	}
 });
-
-var CurrentPlaying = new CurrentPlayingView();

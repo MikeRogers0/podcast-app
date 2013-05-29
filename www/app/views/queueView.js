@@ -1,45 +1,18 @@
 QueueView = Backbone.View.extend({
-        tagName: 'li',
+	initialize: function() {
+		this.render();
+	},
 
-        // Cache the template function for a single item.
-        template: _.template($('#episodes-template').html()),
+	render: function(){
+		this.$el.html(this.template({}));
+		this.queue = this.$el.find("#queue");
 
-        events:{
-            'click .playPause': 'playPause',
-            'click .queue': 'queue',
-        },
+		queuedItems.each(function(queued){
+			var view = new EpisodeItemView({ model: queued });
+			
+            this.queue.append(view.render().el);
+    	}, this);
 
-        initialize: function(){
-
-            // Set up event listeners. The change backbone event
-            // is raised when a property changes (like the checked field)
-
-            this.listenTo(this.model.episode, 'change:playing', this.render);
-            this.render();
-        },
-
-        render: function(){
-            // Create the HTML
-            var template = this.template({
-                playing: this.model.episode.get('playing'), // Pull it from the player collection / model.
-                queued: true, // Get from queue model.
-                playhead: this.model.episode.get('playhead'),
-                duration: this.model.episode.get('duration'),
-                episode_title: this.model.episode.get('title'), 
-                podcast_title: this.model.podcast.get('title')
-            });
-
-            this.$el.html(template);
-
-            // Returning the object is a good practice
-            // that makes chaining possible
-            return this;
-        },
-
-        playPause: function(){
-            this.model.episode.playPause();
-        },
-        queue: function(){
-            this.model.episode.queue();
-        },
-    });
+		return this;
+	},
+});

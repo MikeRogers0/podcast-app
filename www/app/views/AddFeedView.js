@@ -1,8 +1,6 @@
 AddFeedView = Backbone.View.extend({
 	el: $("#addFeed"),
 
-	template: _.template($('#addFeed-template').html()),
-
 	events: {
       "submit"   : "addFeed",
     },
@@ -24,5 +22,3 @@ AddFeedView = Backbone.View.extend({
 		podcastItems.addFeed(this.feedURL.val());
 	}
 });
-
-var AddFeed = new AddFeedView();
