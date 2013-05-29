@@ -48,7 +48,7 @@ nav#menu{
 
 .container{
 	margin: 0 auto;
-	width: 90%;
+	width: 95%;
 }
 
 #player{
@@ -61,5 +61,4 @@ nav#menu{
 }
 
 #main{
-	padding-top: 20px;
 }
