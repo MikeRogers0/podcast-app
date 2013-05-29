@@ -18,7 +18,9 @@ AddFeedView = Backbone.View.extend({
 		return this;
 	},
 
-	addFeed: function(){
+	addFeed: function(e){
+		e.preventDefault(); // Stop the form going to a hidden page
+
 		podcastItems.addFeed(this.feedURL.val());
 	}
 });
