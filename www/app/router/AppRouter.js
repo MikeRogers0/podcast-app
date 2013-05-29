@@ -4,10 +4,7 @@ var AppRouter = Backbone.Router.extend({
         ""                  : "home",
         "queue"				: "queue",
         "my-podcasts"		: "myPodcasts",
-        "explore"			: "podcasts",
-        "explore:/id"       : "podcasts",
-        "episodes/:id"		: "episodes",
-        "episodes/:id"      : "episodes",
+        "explore/:feedURL/:episodeName"	: "explore",
         "add-feed"          : "addFeed",
         "dropbox-sync"      : "dropboxSync",
         "clear-data"		: "clearData"
@@ -38,6 +35,18 @@ var AppRouter = Backbone.Router.extend({
         }
         $('#content').html(this.AddFeedView.el);
         //this.headerView.selectMenuItem('home-menu');
+    },
+    myPodcasts: function(){
+        if (!this.MyPodcastsView) {
+            this.MyPodcastsView = new MyPodcastsView();
+        }
+        $('#content').html(this.MyPodcastsView.el);
+    },
+    explore: function(feedURL, episodeName){
+        if (!this.ExploreView) {
+            this.ExploreView = new ExploreView();
+        }
+        $('#content').html(this.ExploreView.el);
     },
     dropboxSync: function(){
         if (!this.DropboxSyncView) {

@@ -37,6 +37,8 @@ head.js(
 	'/app/views/HomeView.js',
 	'/app/views/DropboxSyncView.js',
 	'/app/views/ClearDataView.js',
+	'/app/views/MyPodcastsView.js',
+	'/app/views/ExploreView.js',
 
 	// The Routers
 	'/app/router/AppRouter.js',
@@ -45,7 +47,16 @@ head.js(
 	'/app/mockdata/queue.js',
 
 	function(){
-		utils.loadTemplate(['HomeView', 'DropboxSyncView', 'EpisodeItemView', 'ClearDataView', 'AddFeedView', 'CurrentPlayingView', 'QueueView'], function() {
+		utils.loadTemplate([
+			'HomeView', 
+			'DropboxSyncView', 
+			'EpisodeItemView', 
+			'ClearDataView', 
+			'AddFeedView', 
+			'CurrentPlayingView', 
+			'QueueView',
+			'MyPodcastsView',
+			'ExploreView'], function() {
 		    app = new AppRouter();
 		    Backbone.history.start({pushState: true});
 		});
