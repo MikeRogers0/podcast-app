@@ -1,5 +1,5 @@
 AddFeedView = Backbone.View.extend({
-	el: $("#addFeed"),
+	//el: $("#addFeed"),
 
 	events: {
       "submit"   : "addFeed",

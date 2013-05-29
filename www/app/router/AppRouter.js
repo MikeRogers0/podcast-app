@@ -4,8 +4,11 @@ var AppRouter = Backbone.Router.extend({
         ""                  : "home",
         "queue"				: "queue",
         "subscriptions"		: "subscriptions",
-        "explore"			: "explore",
+        "explore"			: "podcasts",
+        "explore:/id"       : "podcasts",
         "episodes/:id"		: "episodes",
+        "episodes/:id"      : "episodes",
+        "add-feed"          : "addFeed",
         "dropbox-sync"      : "dropboxSync",
         "clear-data"		: "clearData"
     },
@@ -27,6 +30,13 @@ var AppRouter = Backbone.Router.extend({
             this.QueueView = new QueueView();
         }
         $('#content').html(this.QueueView.el);
+        //this.headerView.selectMenuItem('home-menu');
+    },
+    addFeed: function () {
+        if (!this.AddFeed) {
+            this.AddFeedView = new AddFeedView();
+        }
+        $('#content').html(this.AddFeedView.el);
         //this.headerView.selectMenuItem('home-menu');
     },
     dropboxSync: function(){
