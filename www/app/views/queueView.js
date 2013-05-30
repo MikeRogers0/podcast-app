@@ -1,13 +1,22 @@
 QueueView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
+		//this.listenTo(EpisodeList, 'change', this.render); 
 	},
 
 	render: function(){
 		this.$el.html(this.template({}));
 		this.queue = this.$el.find("#queue");
 
-		queuedItems.each(function(queued){
+		var queuedItems = episodeItems.getQueued();
+
+		if(queuedItems.length == 0){
+			// Render not items?
+			this.queue.append('<li>No items in queue</li>');
+			return this;
+		}
+
+		_.each(queuedItems, function(queued){
 			var view = new EpisodeItemView({ model: queued });
 			
             this.queue.append(view.render().el);

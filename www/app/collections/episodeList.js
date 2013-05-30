@@ -9,11 +9,13 @@ var EpisodeList = Backbone.Collection.extend({
   getByPodcastID: function(podcastID){
 		return this.where({podcastID:podcastID});
   },
-  getByQueued: function(queued){
-    var qeuedItems = this.where({queued:queued});
+  getQueued: function(){
+    return this.where({queued:true});
 
-    return qeuedItems.sort(queued);
+    //return qeuedItems.sort('queued');
   },
+
+
   nextID: function() {
       if (!this.length) return 1;
       return this.last().get('id') + 1;

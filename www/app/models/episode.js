@@ -13,12 +13,16 @@ var Episode = Backbone.Model.extend({
       cached: false,
       listened: false,
       podcastID: null, // The ID of the parent podcast,
+      queued: true,
       queuePosition: false
     };
   },
 
   initialize: function () {
     this.podcast = podcastItems.getByID(this.get('podcastID'));
+    if(this.get('queued') == true){
+      this.set('queuePosition', episodeItems.nextQueuePosition());
+    }
 
     this.listenTo(this, 'change', this.cloudSave); // In future we'll need to be more specific.
   },
@@ -28,7 +32,7 @@ var Episode = Backbone.Model.extend({
   },
 
   playPause: function(){
-      Player.playPause(this);
+      app.Player.playPause(this);
   },
 
   queue: function(){

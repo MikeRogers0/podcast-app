@@ -23,7 +23,6 @@ head.js(
 	'/app/models/podcast.js',
 
 	// The collections
-	'/app/collections/queueList.js',
 	'/app/collections/podcastList.js',
 	'/app/collections/episodeList.js',
 
@@ -41,9 +40,6 @@ head.js(
 	// The Routers
 	'/app/router/AppRouter.js',
 
-	// Some data
-	'/app/mockdata/queue.js',
-
 	function(){
 		utils.loadTemplate([
 			'HomeView', 
@@ -57,14 +53,20 @@ head.js(
 			'ExploreView'], function() {
 			episodeItems = new EpisodeList();
 			podcastItems = new PodcastList();
-		    app = new AppRouter();
-		    Backbone.history.start({pushState: true});
+		    
+		    // Add some mock data in quickly
+		    head.js('/app/mockdata/queue.js', function(){
+		    	app = new AppRouter();
+		    	Backbone.history.start({pushState: true});
 
-		    // Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
-			$("#menu").on('click', 'a:not([data-bypass])', function (e) {
-				e.preventDefault();
-				app.navigate($(this).attr('href'), true);
-			});
+		    	// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
+				$("#menu").on('click', 'a:not([data-bypass])', function (e) {
+					e.preventDefault();
+					app.navigate($(this).attr('href'), true);
+				});
+		    });
+
+		    
 		});
 	}
 );

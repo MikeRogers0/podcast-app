@@ -6,19 +6,19 @@ var Podcast = Backbone.Model.extend({
       id: podcastItems.nextID(),
       title: "Some podcast title",
       description: "",
-      subscribe: null, // Bool - can add episodes that you dont subscribe to, so you can get/listen to specific episodes
+      subscribed: false, // Bool - can add episodes that you dont subscribe to, so you can get/listen to specific episodes
       lastChecked: null,
       lastUpdated: null,
-      feedURL: ''
+      feedURL: '',
     };
   },
 
   initialize: function () {
-    //var self = this;
+    this.episodes = episodeItems.getByPodcastID(this.id);
   },
 
   getNewEpisodes: function(){
-    // TODO - Get the new episodes
+    // TODO - Get the new episodes from the feed.
   },
 
   getEpisode: function() {

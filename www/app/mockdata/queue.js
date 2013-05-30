@@ -4,28 +4,32 @@
 if(podcastItems.localStorage.findAll()[0] != undefined){
 	podcastItems.add(podcastItems.localStorage.findAll());
 	episodeItems.add(episodeItems.localStorage.findAll());
-	queuedItems.add(queuedItems.localStorage.findAll());
 } else {
 
 	// Add in a few podcasts
 	podcastItems.create(
 		new Podcast({
 			title:'Friday Night Comedy from BBC Radio 4', 
-			feedURL: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/rss.xml'})
+			feedURL: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/rss.xml',
+			subscribed: true
+		})
 	);
-	podcastItems.create(new Podcast({
+	podcastItems.create(
+		new Podcast({
 			title:'Stuff You Missed in History Class Podcast', 
-			feedURL: 'http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss'})
+			feedURL: 'http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss',
+			subscribed: true
+		})
 	);
 	// Add a few epsidoes to these podcasts
 	podcastItems.each(function(podcast){
 		for(var id = 1; id <= 3; id++){
-			episodeItems.create(new Episode({title: 'Episode '+id+' of this', podcastID: podcast.get('id')}));
+			episodeItems.create(
+				new Episode({
+					title: 'Episode '+id+' of this', podcastID: podcast.get('id'),
+					queued: true // If it's true, it gets put on the end. Neat aye?
+				})
+			);
 		}
-	});
-
-	// Now add them to the queue.
-	episodeItems.each(function(episode){
-		queuedItems.create(new Queue({episodeID:episode.get('id')}));
 	});
 }

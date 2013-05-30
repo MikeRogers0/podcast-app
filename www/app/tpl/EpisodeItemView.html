@@ -1,4 +1,4 @@
-<%= episode_title %> - <%= podcast_title %> - (<%= playhead %> / <%= duration %>)
+<%= episode_title %> - <%= podcast_title %>
 <a class="playPause pure-button">
     <% if (playing){ %>
         Pause
@@ -14,3 +14,5 @@
         Queue
     <% } %>
 </a>
+
+(<%= percentCompleted %>%)

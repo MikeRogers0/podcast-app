@@ -12,18 +12,17 @@ EpisodeItemView = Backbone.View.extend({
         // Set up event listeners. The change backbone event
         // is raised when a property changes (like the checked field)
 
-        this.listenTo(this.model.episode, 'change', this.render);
+        this.listenTo(this.model, 'change', this.render);
         this.render();
     },
 
     render: function(){
         // Create the HTML
         var template = this.template({
-            playing: this.model.episode.get('playing'), // Pull it from the player collection / model.
-            queued: true, // Get from queue model.
-            playhead: this.model.episode.get('playhead'),
-            duration: this.model.episode.get('duration'),
-            episode_title: this.model.episode.get('title'), 
+            playing: app.Player.isCurrentlyPlaying(this.model.get('id')), // Pull it from the player collection / model.
+            queued: this.model.get('queued'), // Get from queue model.
+            percentCompleted: parseInt((this.model.get('playhead') / this.model.get('duration')) * 100),
+            episode_title: this.model.get('title'), 
             podcast_title: this.model.podcast.get('title')
         });
 
@@ -35,9 +34,9 @@ EpisodeItemView = Backbone.View.extend({
     },
 
     playPause: function(){
-        this.model.episode.playPause();
+        this.model.playPause();
     },
     queue: function(){
-        this.model.episode.queue();
+        this.model.queue();
     },
 });
