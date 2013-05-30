@@ -7,6 +7,8 @@ PlayerView = Backbone.View.extend({
 		//this.as = audiojs.createAll();
 		this.audioPlayer = document.getElementsByTagName('audio')[0];
 
+		// TODO, add play pause buttons to the view.
+
 		// Listeners so the model is updated.
         this.audioPlayer.addEventListener('timeupdate', this.currentTime);
         this.audioPlayer.addEventListener('loadedmetadata', this.loadedmetadata);
