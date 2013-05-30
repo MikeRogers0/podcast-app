@@ -36,7 +36,10 @@ var Episode = Backbone.Model.extend({
       this.trigger('change');
   },
 
-  queue: function(){
-    //alert('Unqueue '+ this.get('title'));
+  queueToggle: function(){
+    this.set('queued', !this.get('queued'));
+    if(this.get('queued') == false){
+      this.set('queuePosition', false);
+    }
   }
 });

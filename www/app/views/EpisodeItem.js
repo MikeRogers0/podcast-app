@@ -3,7 +3,7 @@ EpisodeItemView = Backbone.View.extend({
 
     events:{
         'click a.playPause': 'playPause',
-        'click a.queue': 'queue',
+        'click a.queue': 'queueToggle',
     },
 
     initialize: function(){
@@ -35,7 +35,7 @@ EpisodeItemView = Backbone.View.extend({
     playPause: function(){
         this.model.playPause();
     },
-    queue: function(){
-        this.model.queue();
+    queueToggle: function(){
+        this.model.queueToggle();
     },
 });
