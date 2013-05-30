@@ -33,6 +33,7 @@ var Episode = Backbone.Model.extend({
 
   playPause: function(){
       app.Player.playPause(this);
+      this.trigger('change');
   },
 
   queue: function(){

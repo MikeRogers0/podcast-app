@@ -10,6 +10,7 @@ PlayerView = Backbone.View.extend({
 		// Listeners so the model is updated.
         this.audioPlayer.addEventListener('timeupdate', this.currentTime);
         this.audioPlayer.addEventListener('loadedmetadata', this.loadedmetadata);
+        this.audioPlayer.addEventListener('paused', this.paused);
         this.audioPlayer.addEventListener('ended', this.ended);
         this.audioPlayer.addEventListener('canplay', this.canplay);
 
@@ -41,9 +42,13 @@ PlayerView = Backbone.View.extend({
 	canplay: function(e){
 		e.srcElement.currentTime = app.Player.model.get('playhead');
 		e.srcElement.play();
+		app.Player.model.trigger('change');
 	},
-
+	// This function causes the play/pause buttons to fail, it updates to fast.
 	currentTime: function(e){
+		//app.Player.model.set('playhead', e.srcElement.currentTime);
+	},
+	paused: function(e){
 		app.Player.model.set('playhead', e.srcElement.currentTime);
 	},
 	loadedmetadata: function(e){
@@ -59,7 +64,13 @@ PlayerView = Backbone.View.extend({
 	 */
 	playPause: function(model){
 		// If there is nothing already or it's a new model.
-		if(this.model == null || this.model.id != model.id){
+		if(this.model == null){
+			this.model = model;
+			this.render();
+			return;
+		}
+
+		if(this.model.id != model.id){
 			var oldModel = this.model;
 			this.model = model;
 			this.render();

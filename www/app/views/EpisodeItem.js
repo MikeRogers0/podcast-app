@@ -1,10 +1,9 @@
 EpisodeItemView = Backbone.View.extend({
     tagName: 'li',
-    // I need a el
 
     events:{
-        'click .playPause': 'playPause',
-        'click .queue': 'queue',
+        'click a.playPause': 'playPause',
+        'click a.queue': 'queue',
     },
 
     initialize: function(){
