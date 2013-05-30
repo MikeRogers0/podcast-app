@@ -1,3 +1,5 @@
+var Player = {};
+
 var AppRouter = Backbone.Router.extend({
 
     routes: {
@@ -12,8 +14,8 @@ var AppRouter = Backbone.Router.extend({
     },
 
     initialize: function () {
-    	// The currently playing item.
-        this.currentlyPlaying = new CurrentPlayingView();
+    	// The currently playing item. It's set golobally for easier reference.
+        this.Player = new PlayerView();
     },
 
     home: function () {

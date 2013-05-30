@@ -23,5 +23,3 @@ var PodcastList = Backbone.Collection.extend({
     	}));
     }
 });
-
-var podcastItems = new PodcastList();

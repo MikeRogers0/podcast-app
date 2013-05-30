@@ -21,8 +21,6 @@ head.js(
 	// Now load up the models
 	'/app/models/episode.js',
 	'/app/models/podcast.js',
-	'/app/models/queue.js',
-	'/app/models/player.js',
 
 	// The collections
 	'/app/collections/queueList.js',
@@ -32,7 +30,7 @@ head.js(
 	// The Views
 	'/app/views/EpisodeItem.js',
 	'/app/views/QueueView.js',
-	'/app/views/CurrentPlayingView.js',
+	'/app/views/PlayerView.js',
 	'/app/views/AddFeedView.js',
 	'/app/views/HomeView.js',
 	'/app/views/DropboxSyncView.js',
@@ -53,10 +51,12 @@ head.js(
 			'EpisodeItemView', 
 			'ClearDataView', 
 			'AddFeedView', 
-			'CurrentPlayingView', 
+			'PlayerView', 
 			'QueueView',
 			'MyPodcastsView',
 			'ExploreView'], function() {
+			episodeItems = new EpisodeList();
+			podcastItems = new PodcastList();
 		    app = new AppRouter();
 		    Backbone.history.start({pushState: true});
 

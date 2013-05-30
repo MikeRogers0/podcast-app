@@ -12,8 +12,8 @@ var Episode = Backbone.Model.extend({
       mp3: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/fricomedy_20130524-1859a.mp3',
       cached: false,
       listened: false,
-      playing: false,
-      podcastID: null // The ID of the podcast
+      podcastID: null, // The ID of the parent podcast,
+      queuePosition: false
     };
   },
 
@@ -28,14 +28,7 @@ var Episode = Backbone.Model.extend({
   },
 
   playPause: function(){
-    // If it's playing pause it.
-    if(this.get('playing') == true){
-      this.set('playing', false);
-      Player.pause(this);
-    } else {
-      this.set('playing', true);
-      Player.play(this);
-    }
+      Player.playPause(this);
   },
 
   queue: function(){

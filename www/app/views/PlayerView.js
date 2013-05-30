@@ -1,4 +1,4 @@
-CurrentPlayingView = Backbone.View.extend({
+PlayerView = Backbone.View.extend({
 	currentlyPlaying: $("#currentlyPlaying"),
 	player: $('#player'),
 
@@ -52,11 +52,15 @@ CurrentPlayingView = Backbone.View.extend({
 		//debugger;
 	},
 
-	playPause: function(){
-		if(Player.model.get('playing') == false){
-			this.audioPlayer.pause();
-		} else {
-			this.audioPlayer.play();
-		}
+	/**
+	 * Updates the model being used in the player.
+	 */
+	playPause: function(model){
+		debugger;
+		//if(Player.model.get('playing') == false){
+		//	this.audioPlayer.pause();
+		//} else {
+		//	this.audioPlayer.play();
+		//}
 	}
 });
