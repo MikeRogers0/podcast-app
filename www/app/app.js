@@ -15,6 +15,10 @@ head.js(
 	// A few utils
 	'/js/vendor/utils.js',
 
+	//ParseRSS - https://bitbucket.org/GloverDonovan/jquery-parserss
+	'js/vendor/parserss/sugar-date-1.3.9.min.js',
+	//'js/vendor/parserss/parserss-jquery.js',
+
 	// LocalStorage plugin for backbone
 	'/js/vendor/backbone.localStorage.js',
 
