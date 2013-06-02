@@ -10,14 +10,14 @@ if(podcastItems.localStorage.findAll()[0] != undefined){
 	podcastItems.create(
 		new Podcast({
 			title:'Friday Night Comedy from BBC Radio 4', 
-			feedURL: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/rss.xml',
+			feedUrl: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/rss.xml',
 			subscribed: true
 		})
 	);
 	podcastItems.create(
 		new Podcast({
 			title:'Stuff You Missed in History Class Podcast', 
-			feedURL: 'http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss',
+			feedUrl: 'http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss',
 			subscribed: true
 		})
 	);

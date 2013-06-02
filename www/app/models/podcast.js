@@ -9,7 +9,9 @@ var Podcast = Backbone.Model.extend({
       subscribed: false, // Bool - can add episodes that you dont subscribe to, so you can get/listen to specific episodes
       lastChecked: null,
       lastUpdated: null,
-      feedURL: '',
+      feedUrl: '',
+      imageUrl: '',
+      link: ''
     };
   },
 
