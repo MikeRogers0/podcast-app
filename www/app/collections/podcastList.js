@@ -33,7 +33,7 @@ var PodcastList = Backbone.Collection.extend({
                     title: data.responseData.feed.title,
                     feedUrl: data.responseData.feed.feedUrl,
                     description: data.responseData.feed.description,
-                    subscribed: scope.subscribe,
+                    subscribed: subscribe,
                     link: data.responseData.feed.link
                 }));
             }
