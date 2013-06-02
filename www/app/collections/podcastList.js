@@ -26,13 +26,11 @@ var PodcastList = Backbone.Collection.extend({
             url: url,
             dataType: "JSON",
             success: function(data) {
-
-                    console.log(data.responseData.feed);
                 scope.create(new Podcast({
                     title: data.responseData.feed.title,
                     feedUrl: data.responseData.feed.feedUrl,
-                    //description: data.responseData.feed.description,
-                    subscribed: subscribe,
+                    description: data.responseData.feed.description,
+                    subscribed: false,
                     link: data.responseData.feed.link
                 }));
             }

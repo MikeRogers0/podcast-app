@@ -35,6 +35,7 @@ head.js(
 	'/app/views/DropboxSyncView.js',
 	'/app/views/ClearDataView.js',
 	'/app/views/MyPodcastsView.js',
+	'/app/views/PodcastView.js',
 	'/app/views/PodcastListItemView.js',
 	'/app/views/ExploreView.js',
 
@@ -51,6 +52,7 @@ head.js(
 			'PlayerView', 
 			'QueueView',
 			'MyPodcastsView',
+			'PodcastView',
 			'PodcastListItemView',
 			'ExploreView'], function() {
 			episodeItems = new EpisodeList();
