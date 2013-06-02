@@ -19,8 +19,8 @@ PodcastListItemView = Backbone.View.extend({
         // Create the HTML
         var template = this.template({
             title: this.model.get('title'), 
-            link: this.model.get('link'),
-            id: this.model.get('id')
+            feedUrlEncoded: this.model.get('feedUrlEncoded'),
+            //id: this.model.get('id')
         });
 
         this.$el.html(template);

@@ -10,6 +10,7 @@ var Podcast = Backbone.Model.extend({
       lastChecked: null,
       lastUpdated: null,
       feedUrl: '',
+      feedUrlEncoded: '',
       imageUrl: '',
       link: ''
     };
@@ -17,6 +18,7 @@ var Podcast = Backbone.Model.extend({
 
   initialize: function () {
     this.episodes = episodeItems.getByPodcastID(this.id);
+    this.set('feedUrlEncoded', encodeURIComponent(this.get('feedUrl')));
   },
 
   getNewEpisodes: function(){
