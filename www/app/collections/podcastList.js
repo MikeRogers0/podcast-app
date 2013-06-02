@@ -10,15 +10,12 @@ var PodcastList = Backbone.Collection.extend({
       if (!this.length) return 1;
       return this.last().get('id') + 1;
     },
-    getAll: function(){
-        return this;
-    },
-    addFeed: function(feedURL, subscribe){
+    addFeed: function(feedURL){
 
     	// TODO - Parse the feed to get it's details, then add it's episodes.
         // Poss TODO - write & host API for this on cloud (EC2?) rather than rely on google
         var api = "https://ajax.googleapis.com/ajax/services/feed/load",
-            count = '0',
+            count = '1',
             params = "?v=1.0&num=" + count + "&callback=?&q=" + feedURL,
             url = api + params,
             feedResponse = null;
@@ -29,10 +26,12 @@ var PodcastList = Backbone.Collection.extend({
             url: url,
             dataType: "JSON",
             success: function(data) {
+
+                    console.log(data.responseData.feed);
                 scope.create(new Podcast({
                     title: data.responseData.feed.title,
                     feedUrl: data.responseData.feed.feedUrl,
-                    description: data.responseData.feed.description,
+                    //description: data.responseData.feed.description,
                     subscribed: subscribe,
                     link: data.responseData.feed.link
                 }));
