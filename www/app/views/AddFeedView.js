@@ -8,6 +8,7 @@ AddFeedView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
 		this.feedURL = this.$('input[name="feedURL"]');
+		this.subscribe = this.$('input[name="subscribe"]');
 	},
 
 	render: function(){
@@ -21,6 +22,8 @@ AddFeedView = Backbone.View.extend({
 	addFeed: function(e){
 		e.preventDefault(); // Stop the form going to a hidden page
 
-		podcastItems.addFeed(this.feedURL.val());
+		// TODO - Figure out why this.subscribe.val() doesn't reveice boolean
+		// from the checkbox, just 'on'.
+		podcastItems.addFeed(this.feedURL.val(), this.subscribe.val());
 	}
 });
