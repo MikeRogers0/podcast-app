@@ -30,7 +30,7 @@ var PodcastList = Backbone.Collection.extend({
             context: this, // Fuck scope, use this ;)
             fail: function(data, textStatus, jqXHR){
                 // TODO, write fallback. Your anus is leaky!
-            } 
+            },
             done: function(data, textStatus, jqXHR){ // completed is depreciated in jquery 1.8 ಠ_ರೃ
 
                 // Do some checks with the data to make sure we're not duplicating.
