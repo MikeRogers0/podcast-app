@@ -26,9 +26,9 @@ var AppRouter = Backbone.Router.extend({
         //this.headerView.selectMenuItem('home-menu');
     },
     queue: function () {
-        if (!this.QueueView) {
+        //if (!this.QueueView) {
             this.QueueView = new QueueView();
-        }
+        //}
         $('#content').html(this.QueueView.el);
         //this.headerView.selectMenuItem('home-menu');
     },

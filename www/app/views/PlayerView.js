@@ -12,9 +12,11 @@ PlayerView = Backbone.View.extend({
 		// Listeners so the model is updated.
         this.audioPlayer.addEventListener('timeupdate', this.currentTime);
         this.audioPlayer.addEventListener('loadedmetadata', this.loadedmetadata);
-        this.audioPlayer.addEventListener('paused', this.paused);
+        this.audioPlayer.addEventListener('pause', this.pause);
+        this.audioPlayer.addEventListener('playing', this.pause);
         this.audioPlayer.addEventListener('ended', this.ended);
-        this.audioPlayer.addEventListener('canplaythrough', this.canplaythrough);
+        this.audioPlayer.addEventListener('canplay', this.canplay);
+        this.audioPlayer.addEventListener('waiting', this.waiting);
 
         if(this.model != null){
         	this.render();
@@ -34,7 +36,7 @@ PlayerView = Backbone.View.extend({
             podcast_feedUrlEncoded: this.model.podcast.get('feedUrlEncoded')
         }));
 
-        this.model.trigger('starting');
+        this.model.trigger('loading');
 
         /* Some other API references we might want to use. */
         //this.audioPlayer.playbackRate=1.5; // For faster listening
@@ -45,7 +47,7 @@ PlayerView = Backbone.View.extend({
         //this.audioPlayer.muted // if the audio is muted 
 	},
 
-	canplaythrough: function(e){
+	canplay: function(e){
 		e.srcElement.currentTime = app.Player.model.get('playhead');
 		e.srcElement.play();
 		app.Player.model.trigger('playing');
@@ -58,9 +60,12 @@ PlayerView = Backbone.View.extend({
 		}
 		app.Player.model.set('playhead', e.srcElement.currentTime);
 	},
-	paused: function(e){
+	pause: function(e){
 		app.Player.model.set('playhead', e.srcElement.currentTime);
-		this.model.trigger('playing');
+		app.Player.model.trigger('playing');
+	},
+	waiting: function(e){
+		this.model.trigger('loading');
 	},
 	loadedmetadata: function(e){
 		//debugger;

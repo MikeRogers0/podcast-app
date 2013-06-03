@@ -12,7 +12,7 @@ EpisodeItemView = Backbone.View.extend({
         // is raised when a property changes (like the checked field)
 
         this.listenTo(this.model, 'playing', this.render);
-        this.listenTo(this.model, 'starting', this.starting);
+        this.listenTo(this.model, 'loading', this.loading);
         this.listenTo(this.model, 'change:playhead', this.playhead);
         this.render();
     },
@@ -34,7 +34,7 @@ EpisodeItemView = Backbone.View.extend({
         return this;
     },
 
-    starting: function(){
+    loading: function(){
         this.$el.find('a.playPause').text('Loading');
     },
     playhead: function(){
