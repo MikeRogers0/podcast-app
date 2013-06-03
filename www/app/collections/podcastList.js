@@ -19,8 +19,9 @@ var PodcastList = Backbone.Collection.extend({
     addFeed: function(feedURL, redirect){
 
         // If it's already been added, take the user to it.
-        if(podcastItems.getByFeedURL(feedURL) != undefined){
-            app.navigate('podcasts/'+newPodcast.get('feedUrlEncoded'), true);
+        var podcastItem = podcastItems.getByFeedURL(feedURL) 
+        if(podcastItem != undefined){
+            app.navigate('podcasts/'+podcastItem.get('feedUrlEncoded'), true);
             return;
         }
 
