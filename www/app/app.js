@@ -27,7 +27,7 @@ head.js(
 	'/app/collections/episodeList.js',
 
 	// The Views
-	'/app/views/EpisodeItem.js',
+	'/app/views/EpisodeItemView.js',
 	'/app/views/QueueView.js',
 	'/app/views/PlayerView.js',
 	'/app/views/AddFeedView.js',
