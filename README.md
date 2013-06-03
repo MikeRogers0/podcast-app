@@ -8,3 +8,4 @@ Application can then be seen in your browser at the address
 ## Some damn nice sites
 
 - http://www.rdio.com/new/ 
+- http://www.nerdist.com/podcasts/
