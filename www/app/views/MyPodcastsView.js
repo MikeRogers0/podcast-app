@@ -16,11 +16,11 @@ MyPodcastsView = Backbone.View.extend({
 		// Should be get subsribed I think.
 		_.each(podcastItems.models, function(podcastItem){
 			var view = new PodcastListItemView({ model: podcastItem });
-			
+
             this.myPodcasts.append(view.render().el);
     	}, this);
 
-    	this.myPodcasts.append('<li class="pure-u-1-5"><a href="/add-feed" title="Add a new Podcast Feed" class="podcastItem">Add New Podcast Feed</a></li>');
+    	this.myPodcasts.append('<li class="pure-u-1-5"><a href="/add-feed" title="Add a new Podcast Feed" class="podcastItem addPodcast"><p>Add New Podcast Feed</p></a></li>');
 
 
 		return this;
