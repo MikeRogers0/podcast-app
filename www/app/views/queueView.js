@@ -12,7 +12,7 @@ QueueView = Backbone.View.extend({
 
 		if(queuedItems.length == 0){
 			// Render not items?
-			this.queue.append('<li>No items in queue</li>');
+			this.queue.append('<li>Nothing here :(</li>');
 			return this;
 		}
 

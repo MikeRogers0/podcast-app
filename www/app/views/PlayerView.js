@@ -46,14 +46,15 @@ PlayerView = Backbone.View.extend({
 	canplay: function(e){
 		e.srcElement.currentTime = app.Player.model.get('playhead');
 		e.srcElement.play();
-		app.Player.model.trigger('change');
+		app.Player.model.trigger('playing');
 	},
 	// This function causes the play/pause buttons to fail, it updates to fast.
 	currentTime: function(e){
-		//app.Player.model.set('playhead', e.srcElement.currentTime);
+		app.Player.model.set('playhead', e.srcElement.currentTime);
 	},
 	paused: function(e){
 		app.Player.model.set('playhead', e.srcElement.currentTime);
+		this.model.trigger('playing');
 	},
 	loadedmetadata: function(e){
 		//debugger;
@@ -78,7 +79,7 @@ PlayerView = Backbone.View.extend({
 			var oldModel = this.model;
 			this.model = model;
 			this.render();
-			oldModel.trigger('change');
+			oldModel.trigger('playing');
 			return;
 		}
 
@@ -88,6 +89,8 @@ PlayerView = Backbone.View.extend({
 		} else {
 			this.audioPlayer.pause();
 		}
+
+		this.model.trigger('playing');
 	},
 
 	/**
