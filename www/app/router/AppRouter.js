@@ -51,7 +51,7 @@ var AppRouter = Backbone.Router.extend({
         // Load up the podcast we are looking for.
         if(feedUrl != undefined){
             var podcastModel = podcastItems.getByFeedURL(feedUrl);
-
+            
             if(episodeName != undefined){
                 // TODO - Load up the episode model.
             }
