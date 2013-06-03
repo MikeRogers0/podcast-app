@@ -52,6 +52,10 @@ PlayerView = Backbone.View.extend({
 	},
 	// This function causes the play/pause buttons to fail, it updates to fast.
 	currentTime: function(e){
+		// If it's not the first 10 seconds igonre this.
+		if(e.srcElement.currentTime <= 10){
+			return;
+		}
 		app.Player.model.set('playhead', e.srcElement.currentTime);
 	},
 	paused: function(e){

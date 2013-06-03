@@ -13,6 +13,7 @@ EpisodeItemView = Backbone.View.extend({
 
         this.listenTo(this.model, 'playing', this.render);
         this.listenTo(this.model, 'starting', this.starting);
+        this.listenTo(this.model, 'change:playhead', this.playhead);
         this.render();
     },
 
@@ -35,6 +36,9 @@ EpisodeItemView = Backbone.View.extend({
 
     starting: function(){
         this.$el.find('a.playPause').text('Loading');
+    },
+    playhead: function(){
+        this.$el.find('.percentCompleted').text('('+parseInt((this.model.get('playhead') / this.model.get('duration')) * 100)+'%)');
     },
     playPause: function(){
         this.model.playPause();
