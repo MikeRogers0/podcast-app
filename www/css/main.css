@@ -68,13 +68,29 @@ nav#menu{
 	margin-left: -20px;
 }
 
-#myPodcasts .podcastItem {
-	min-height: 200px;
-	padding: 0.5em; 
+.podcastItem {
+	height: 100px; 
 	display: block;
-	background-color: #dedede;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
 	margin: 0 0 20px 20px;
+	color: #fff;
+	text-decoration: none;
+	font-weight: 500;
+	padding-top: 100px;
 }
+	.podcastItem>p {
+		visibility: hidden;
+		height: 50px;
+		text-align: center;
+		background-color: rgba(0,0,0,0.75);
+		padding: 15px 5px;
+		font-size: 20px;
+	}
+	.podcastItem:hover>p {
+		visibility: visible;
+	}
 
 #main{
 }

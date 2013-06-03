@@ -11,6 +11,7 @@ if(podcastItems.localStorage.findAll()[0] != undefined){
 		new Podcast({
 			title:'Friday Night Comedy from BBC Radio 4', 
 			feedUrl: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/rss.xml',
+			imageUrl: 'http://www.bbc.co.uk/podcasts/assets/artwork/fricomedy.jpg',
 			subscribed: true
 		})
 	);
@@ -18,6 +19,7 @@ if(podcastItems.localStorage.findAll()[0] != undefined){
 		new Podcast({
 			title:'Stuff You Missed in History Class Podcast', 
 			feedUrl: 'http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss',
+			imageUrl: 'http://podcasts.howstuffworks.com/hsw/podcasts/symhc/symhc-logo.jpg',
 			subscribed: true
 		})
 	);

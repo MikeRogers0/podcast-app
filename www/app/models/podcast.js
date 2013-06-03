@@ -10,7 +10,7 @@ var Podcast = Backbone.Model.extend({
       lastChecked: null,
       lastUpdated: null,
       feedUrl: '',
-      imageUrl: '',
+      imageUrl: 'http://assets.libsyn.com/content/5463414.jpg',
       link: ''
     };
   },
