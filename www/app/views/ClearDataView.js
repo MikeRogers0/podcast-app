@@ -6,6 +6,7 @@ ClearDataView = Backbone.View.extend({
 
 	initialize: function() {
 		this.render();
+		this.clearButton = this.$el.find('#clearData');
 	},
 
 	render: function(){
@@ -20,6 +21,8 @@ ClearDataView = Backbone.View.extend({
 		podcastItems.reset();
 
 		// Now delete all the local storage.
-		
+		localStorage.clear();
+
+		this.clearButton.text('Data Cleared');
 	}
 });
