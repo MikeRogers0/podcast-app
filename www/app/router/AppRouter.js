@@ -40,9 +40,10 @@ var AppRouter = Backbone.Router.extend({
         //this.headerView.selectMenuItem('home-menu');
     },
     myPodcasts: function(){
-        if (!this.MyPodcastsView) {
+        //if (!this.MyPodcastsView) {
             this.MyPodcastsView = new MyPodcastsView();
-        }
+        //}
+
         $('#content').html(this.MyPodcastsView.el);
     },
 
