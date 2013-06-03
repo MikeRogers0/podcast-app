@@ -1,4 +1,9 @@
 ClearDataView = Backbone.View.extend({
+
+	events: {
+      "click #clearData"   : "clearData",
+    },
+
 	initialize: function() {
 		this.render();
 	},
@@ -8,4 +13,13 @@ ClearDataView = Backbone.View.extend({
 
 		return this;
 	},
+
+	clearData: function(){
+		// Clear these.
+		episodeItems.reset();
+		podcastItems.reset();
+
+		// Now delete all the local storage.
+		
+	}
 });
