@@ -1,7 +1,8 @@
 PodcastView = Backbone.View.extend({
 
     events: {
-        'click .subscribe' : 'subscribeToggle'
+        'click .subscribe' : 'subscribeToggle',
+        'click .updateEpisodes': 'updateEpisodes'
     },
 
     initialize: function(){
@@ -27,5 +28,9 @@ PodcastView = Backbone.View.extend({
     subscribeToggle: function(){
         this.model.set('subscribed', !this.model.get('subscribed'));
         this.model.save();
+    },
+
+    updateEpisodes: function(){
+        this.model.updateEpisodes();
     }
 });

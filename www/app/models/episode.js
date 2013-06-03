@@ -5,15 +5,17 @@ var Episode = Backbone.Model.extend({
     return {
       id: episodeItems.nextID(),
       title: "Some episode title",
+      description: '',
       datePublished: null,
       duration: null,
       playhead: 0,
       duration: 100,
-      mp3: 'http://downloads.bbc.co.uk/podcasts/radio4/fricomedy/fricomedy_20130524-1859a.mp3',
+      mp3: '',
+      mp3_format: 'audio/mpeg',
       cached: false,
       listened: false,
       podcastID: null, // The ID of the parent podcast,
-      queued: true,
+      queued: false,
       queuePosition: false
     };
   },

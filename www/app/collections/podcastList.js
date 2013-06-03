@@ -31,7 +31,6 @@ var PodcastList = Backbone.Collection.extend({
             count = '1',
             params = "?v=1.0&num=" + count + "&output=xml&q=" + encodeURIComponent(feedURL),
             url = api + params,
-            feedResponse = null,
             redirect = redirect;
 
         $.ajax({
