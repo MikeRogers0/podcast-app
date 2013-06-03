@@ -12,6 +12,9 @@ var EpisodeList = Backbone.Collection.extend({
   getByWhere: function(query){
     return this.where(query)[0];
   },
+  findByWhere: function(query){
+    return this.where(query);
+  },
   getQueued: function(){
     return this.where({queued:true});
 

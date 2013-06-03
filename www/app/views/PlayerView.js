@@ -28,8 +28,10 @@ PlayerView = Backbone.View.extend({
 		this.currentlyPlaying.html(this.template({
             playhead: this.model.get('playhead'),
             duration: this.model.get('duration'),
-            episode_title: this.model.get('title'), 
-            podcast_title: this.model.podcast.get('title')
+            title: this.model.get('title'), 
+            titleEncoded: this.model.get('titleEncoded'),
+            podcast_title: this.model.podcast.get('title'),
+            podcast_feedUrlEncoded: this.model.podcast.get('feedUrlEncoded')
         }));
 
         /* Some other API references we might want to use. */

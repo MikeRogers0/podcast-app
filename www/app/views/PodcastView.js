@@ -7,7 +7,7 @@ PodcastView = Backbone.View.extend({
 
     initialize: function(){
         this.render();
-        this.listenTo(this.model, 'change:subscribed', this.render); 
+        this.listenTo(this.model, 'change', this.render); 
     },
 
     render: function(){
@@ -19,6 +19,24 @@ PodcastView = Backbone.View.extend({
         });
 
         this.$el.html(template);
+
+        // Add in the episodes
+        this.episodes = this.$el.find("#episodes");
+
+        var podcastEpisodesItems = this.model.getEpisodes();
+
+        if(podcastEpisodesItems.length == 0){
+            // Render not items?
+            this.episodes.append('<li>No items in queue</li>');
+            return this;
+        }
+
+        _.each(podcastEpisodesItems, function(episode){
+            var view = new EpisodeItemView({ model: episode });
+            
+            this.episodes.append(view.render().el);
+        }, this);
+
 
         // Returning the object is a good practice
         // that makes chaining possible

@@ -5,6 +5,7 @@ var Episode = Backbone.Model.extend({
     return {
       id: episodeItems.nextID(),
       title: "Some episode title",
+      titleEncoded: '',
       description: '',
       datePublished: null,
       duration: null,
@@ -22,6 +23,7 @@ var Episode = Backbone.Model.extend({
 
   initialize: function () {
     this.podcast = podcastItems.getByID(this.get('podcastID'));
+    this.set('titleEncoded', encodeURIComponent(this.get('title')));
     if(this.get('queued') == true){
       this.set('queuePosition', episodeItems.nextQueuePosition());
     }

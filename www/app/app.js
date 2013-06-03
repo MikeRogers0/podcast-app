@@ -64,7 +64,7 @@ head.js(
 		    	Backbone.history.start({pushState: true});
 
 		    	// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
-				$("#menu").on('click', 'a:not([data-bypass])', function (e) {
+				$("#menu, #player, #content").on('click a[href]', 'a:not([data-bypass]), a:not(.pure-button)', function (e) {
 					e.preventDefault();
 					app.navigate($(this).attr('href'), true);
 				});

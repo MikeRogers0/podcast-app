@@ -18,7 +18,7 @@ var Podcast = Backbone.Model.extend({
   },
 
   initialize: function () {
-    this.episodes = episodeItems.getByPodcastID(this.id);
+    //this.episodes = episodeItems.getByPodcastID(this.get('id');
     this.set('feedUrlEncoded', encodeURIComponent(this.get('feedUrl')));
 
     this.listenTo(this, 'change', this.cloudSave);
@@ -28,12 +28,12 @@ var Podcast = Backbone.Model.extend({
     this.save();
   },
 
-  getNewEpisodes: function(){
-    // TODO - Get the new episodes from the feed.
-  },
-
   getEpisode: function() {
     // TODO - Get single episode, from an index of the available episodes on the feed URL.
+  },
+
+  getEpisodes: function() {
+    return episodeItems.findByWhere({podcastID: this.get('id')});
   },
 
   // A Cron to run to get newer episodes. If we have time, this should be done in a Worker. If not, do it in a setTimeout().
