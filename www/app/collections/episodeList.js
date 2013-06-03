@@ -9,6 +9,9 @@ var EpisodeList = Backbone.Collection.extend({
   getByPodcastID: function(podcastID){
 		return this.where({podcastID:podcastID});
   },
+  getByWhere: function(query){
+    return this.where(query)[0];
+  },
   getQueued: function(){
     return this.where({queued:true});
 

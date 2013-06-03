@@ -20,6 +20,12 @@ var Podcast = Backbone.Model.extend({
   initialize: function () {
     this.episodes = episodeItems.getByPodcastID(this.id);
     this.set('feedUrlEncoded', encodeURIComponent(this.get('feedUrl')));
+
+    this.listenTo(this, 'change', this.cloudSave);
+  },
+
+  cloudSave: function(){
+    this.save();
   },
 
   getNewEpisodes: function(){
@@ -40,7 +46,7 @@ var Podcast = Backbone.Model.extend({
 
     $.ajax({
         url: url,
-        async: true,
+        async: false, // This way we don't trigger a page reload before all the episodes have been parsed.
         dataType: 'jsonp',
         context: this, // Fuck scope, use this ;)
         fail: function(data, textStatus, jqXHR){},
@@ -52,7 +58,7 @@ var Podcast = Backbone.Model.extend({
             $xml = $( xmlDoc );
 
             
-
+            var context = this;
             $xml.find('channel item').each(function(index, item){
               var newEpisode = {
                 title: $(item).find('title').text(),
@@ -60,25 +66,24 @@ var Podcast = Backbone.Model.extend({
                 mp3: $(item).find('enclosure').attr('url'),
                 mp3_format: $(item).find('enclosure').attr('type'),
                 duration: $(item).find('enclosure').attr('length'),
-                description: $(item).find('description').text()
+                description: $(item).find('description').text(),
+                podcastID: context.get('id'),
+                queued: (context.get('subscribed') ? true : false) // If they are subscribed, autoqueue it.
               }
 
-              debugger;
+              // Confirm it's legit.
+              if(episodeItems.getByWhere({podcastID: newEpisode.podcastID, title: newEpisode.title}) != undefined){
+                return;
+              }
+
+              // Add it!
+              episodeItems.create(new Episode(newEpisode));
             });
 
-            /*var newPodcast = this.create(new Podcast({
-                title: $xml.find('channel > title').text(),
-                feedUrl: $xml.find('atom\\:link[href], link[href]').attr('href'), // jQuery so smart we have to repeat this shit.
-                description: $xml.find('channel > description').text(),
-                subscribed: false,
-                link: $xml.find('channel > link').text(),
-                imageUrl: $xml.find('channel > itunes\\:image, channel > image').attr('href'),
-                lastChecked: new Date(),
-                lastUpdated: $xml.find('channel > item > pubDate').text(),
-                explicit: ($xml.find('channel > itunes\\:explicit, channel > explicit').text() == 'no' ? false : true)
-            }));*/
-
-            
+            // Update the feed last check info.
+            this.set('lastChecked', new Date());
+            this.set('lastUpdated', $xml.find('channel item:first pubDate').text());
+            this.save();
         }
     });
   }

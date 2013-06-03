@@ -35,6 +35,7 @@ var PodcastList = Backbone.Collection.extend({
 
         $.ajax({
             url: url,
+            async: false, // As the user probably clicked the button, async is kinda unenessary.
             dataType: 'jsonp',
             context: this, // Fuck scope, use this ;)
             fail: function(data, textStatus, jqXHR){},
