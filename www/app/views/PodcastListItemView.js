@@ -27,7 +27,8 @@ PodcastListItemView = Backbone.View.extend({
 
         this.$el.addClass('pure-u-1-5');
         //this.$el.find(".podcastItem").css("background-image", "url(http://assets.libsyn.com/content/5463414.jpg)"); 
-        this.$el.find(".podcastItem").css("background-image", "url(" + this.model.get('imageUrl') + ")"); 
+        this.$el.find(".podcastItem").css("background-image", "url('" + this.model.get('imageUrl') + "')"); 
+
         // Returning the object is a good practice
         // that makes chaining possible
         return this;

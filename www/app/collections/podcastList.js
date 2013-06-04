@@ -31,7 +31,9 @@ var PodcastList = Backbone.Collection.extend({
             count = '1',
             params = "?v=1.0&num=" + count + "&output=xml&q=" + encodeURIComponent(feedURL),
             url = api + params,
-            redirect = redirect;
+            redirect = redirect,
+            feedURL = feedURL;
+
 
         $.ajax({
             url: url,
@@ -46,9 +48,10 @@ var PodcastList = Backbone.Collection.extend({
                 var xmlDoc = $.parseXML( data.responseData.xmlString ),
                 $xml = $( xmlDoc );
 
+                // TODO - check we have all of these, thus it's a podcast.
                 var newPodcast = this.create(new Podcast({
                     title: $xml.find('channel > title').text(),
-                    feedUrl: $xml.find('atom\\:link[href], link[href]').attr('href'), // jQuery so smart we have to repeat this shit.
+                    feedUrl: ($xml.find('atom\\:link[href], link[href]').attr('href') ? $xml.find('atom\\:link[href], link[href]').attr('href') : feedURL), // jQuery so smart we have to repeat this shit.
                     description: $xml.find('channel > description').text(),
                     subscribed: false,
                     link: $xml.find('channel > link').text(),
