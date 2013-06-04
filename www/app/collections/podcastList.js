@@ -13,7 +13,7 @@ var PodcastList = Backbone.Collection.extend({
       if (!this.length) return 1;
       return this.last().get('id') + 1;
     },
-    getSubscribed: function(){
+    findSubscribed: function(){
         return this.where({subscribed:true});
     },
     addFeed: function(feedURL, redirect){
