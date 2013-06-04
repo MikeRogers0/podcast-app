@@ -2,7 +2,7 @@ var EpisodeList = Backbone.Collection.extend({
 	model: Episode,
 
 	localStorage: new Backbone.LocalStorage("EpisodeList-bb"),
-	
+
 	getByID: function(id){
 		return this.where({id:id})[0];
   },

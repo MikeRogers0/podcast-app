@@ -23,8 +23,10 @@ EpisodeItemView = Backbone.View.extend({
             playing: app.Player.isCurrentlyPlaying(this.model.get('id')), // Pull it from the player collection / model.
             queued: this.model.get('queued'), // Get from queue model.
             percentCompleted: parseInt((this.model.get('playhead') / this.model.get('duration')) * 100),
+            episode_titleEncoded: this.model.get('titleEncoded'),
             episode_title: this.model.get('title'), 
-            podcast_title: this.model.podcast.get('title')
+            podcast_title: this.model.podcast.get('title'),
+            podcast_feedUrlEncoded: this.model.podcast.get('feedUrlEncoded')
         });
 
         this.$el.html(template);

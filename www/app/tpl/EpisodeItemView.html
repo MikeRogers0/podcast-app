@@ -1,4 +1,4 @@
-<%= episode_title %> - <%= podcast_title %>
+<a href="/podcasts/<%= podcast_feedUrlEncoded %>/<%= episode_titleEncoded %>"><%= episode_title %></a> - <a href="/podcasts/<%= podcast_feedUrlEncoded %>"><%= podcast_title %></a>
 <a class="playPause pure-button">
     <% if (playing){ %>
         Pause

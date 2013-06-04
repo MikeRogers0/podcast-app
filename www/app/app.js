@@ -55,23 +55,23 @@ head.js(
 			'PodcastView',
 			'PodcastListItemView',
 			'ExploreView'], function() {
-			episodeItems = new EpisodeList();
 			podcastItems = new PodcastList();
-		    
-		    // Add some mock data in quickly
-		    head.js('/app/mockdata/queue.js', function(){
-		    	app = new AppRouter();
-		    	Backbone.history.start({pushState: true});
+			episodeItems = new EpisodeList();
 
-		    	// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
-				$("#menu, #player, #content").on('click', 'a:not([data-bypass])', function (e) {
-					if($(this).attr('href') == null){
-						return;
-					}
-					e.preventDefault();
-					app.navigate($(this).attr('href'), true);
-				});
-		    });
+			podcastItems.fetch();
+			episodeItems.fetch();
+
+		    app = new AppRouter();
+	    	Backbone.history.start({pushState: true});
+
+	    	// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
+			$("#menu, #player, #content").on('click', 'a:not([data-bypass])', function (e) {
+				if($(this).attr('href') == null){
+					return;
+				}
+				e.preventDefault();
+				app.navigate($(this).attr('href'), true);
+			});
 
 		    
 		});
