@@ -28,8 +28,9 @@ var Podcast = Backbone.Model.extend({
     this.save();
   },
 
-  getEpisode: function() {
+  getEpisodesByName: function(slug) {
     // TODO - Get single episode, from an index of the available episodes on the feed URL.
+    return episodeItems.findByWhere({podcastID: this.get('id'), title: slug})[0];
   },
 
   getEpisodes: function() {
@@ -63,6 +64,7 @@ var Podcast = Backbone.Model.extend({
               var newEpisode = {
                 title: $(item).find('title').text(),
                 datePublished: $(item).find('pubDate').text(),
+                link: $(item).find('link').text(),
                 mp3: $(item).find('enclosure').attr('url'),
                 mp3_format: $(item).find('enclosure').attr('type'),
                 duration: $(item).find('enclosure').attr('length'),

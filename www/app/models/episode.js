@@ -8,11 +8,11 @@ var Episode = Backbone.Model.extend({
       titleEncoded: '',
       description: '',
       datePublished: null,
-      duration: null,
       playhead: 0,
       duration: 100,
       mp3: '',
       mp3_format: 'audio/mpeg',
+      link: '',
       cached: false,
       listened: false,
       podcastID: null, // The ID of the parent podcast,
@@ -42,9 +42,12 @@ var Episode = Backbone.Model.extend({
   },
 
   queueToggle: function(){
+    debugger;
     this.set('queued', !this.get('queued'));
     if(this.get('queued') == false){
       this.set('queuePosition', false);
+    }else{
+      this.set('queuePosition', episodeItems.nextQueuePosition());
     }
   }
 });

@@ -13,9 +13,10 @@ PodcastView = Backbone.View.extend({
     render: function(){
         // Create the HTML
         var template = this.template({
-            title: this.model.get('title'), 
-            link: this.model.get('link'),
-            subscribed: this.model.get('subscribed')
+            podcast_title: this.model.get('title'), 
+            podcast_link: this.model.get('link'),
+            subscribed: this.model.get('subscribed'),
+            podcast_description: this.model.get('description')
         });
 
         this.$el.html(template);

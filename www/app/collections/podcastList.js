@@ -58,6 +58,8 @@ var PodcastList = Backbone.Collection.extend({
                     explicit: ($xml.find('channel > itunes\\:explicit, channel > explicit').text() == 'no' ? false : true)
                 }));
 
+                newPodcast.updateEpisodes();
+
                 app.navigate('podcasts/'+newPodcast.get('feedUrlEncoded'), redirect);
             }
         });

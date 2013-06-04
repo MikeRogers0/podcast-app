@@ -50,14 +50,23 @@ var AppRouter = Backbone.Router.extend({
     podcasts: function(feedUrl, episodeName){
         
         // Load up the podcast we are looking for.
-        if(feedUrl != undefined){
+        try{
             var podcastModel = podcastItems.getByFeedURL(feedUrl);
-            
-            if(episodeName != undefined){
-                // TODO - Load up the episode model.
+            if(podcastModel == undefined){
+                throw 'Podcast Not Found';
             }
-
-            this.PodcastView = new PodcastView({model: podcastModel});
+            if(episodeName == undefined){
+                this.PodcastView = new PodcastView({model: podcastModel});
+            } else {
+                var episodeModel = podcastModel.getEpisodesByName(episodeName);
+                if(episodeModel == undefined){
+                    throw 'Episode Not Found'
+                }
+                this.PodcastView = new PodcastEpisodeView({model: episodeModel});
+            }
+        }catch(err){
+            // Do Something
+            alert('404 - ' +err)
         }
 
         

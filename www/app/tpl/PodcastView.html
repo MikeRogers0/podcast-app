@@ -1,4 +1,4 @@
-<h1><%= title %></h1>
+<h1><%= podcast_title %></h1>
 
 <a class="subscribe pure-button">
     <% if (subscribed){ %>
@@ -6,6 +6,10 @@
     <% } else { %>
         Subscribe
     <% } %>
+</a>
+
+<a class="pure-button" href="<%= podcast_link %>">
+	Official Site
 </a>
 
 <% if (subscribed){ %>
@@ -17,6 +21,8 @@
 <a class="updateEpisodes pure-button">
 	Update Episodes
 </a>
+
+<p><%= podcast_description %></p>
 
 <h2>Episodes</h2>
 <ul id="episodes">

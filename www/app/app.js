@@ -38,6 +38,7 @@ head.js(
 	'/app/views/PodcastView.js',
 	'/app/views/PodcastListItemView.js',
 	'/app/views/ExploreView.js',
+	'/app/views/PodcastEpisodeView.js',
 
 	// The Routers
 	'/app/router/AppRouter.js',
@@ -54,6 +55,7 @@ head.js(
 			'MyPodcastsView',
 			'PodcastView',
 			'PodcastListItemView',
+			'PodcastEpisodeView',
 			'ExploreView'], function() {
 			podcastItems = new PodcastList();
 			episodeItems = new EpisodeList();

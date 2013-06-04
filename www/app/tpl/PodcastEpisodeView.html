@@ -1,0 +1,26 @@
+<h1><a href="/podcasts/<%= podcast_feedUrlEncoded %>"><%= podcast_title %></a></h1>
+<h2><%= episode_title %></h2>
+
+<a class="playPause pure-button">
+    <% if (playing){ %>
+        Pause
+    <% } else { %>
+        Play
+    <% } %>
+</a>
+
+<a class="queue pure-button">
+    <% if (queued){ %>
+        Unqueue
+    <% } else { %>
+        Queue
+    <% } %>
+</a>
+
+<span class="percentCompleted">
+	(<%= percentCompleted %>%)
+</span>
+
+<p><%= episode_description %></p>
+
+<p><a href="<%= episode_link %>">More Information</a></p>
