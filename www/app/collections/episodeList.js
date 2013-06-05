@@ -29,5 +29,31 @@ var EpisodeList = Backbone.Collection.extend({
   nextQueuePosition: function() {
       if (!this.length) return 1;
       return this.last().get('queuePosition') + 1;
+  },
+
+  getNextInQueue: function(){
+    var currentlyPlaying = app.Player.model;
+    var foundCurrentlyPlaying = false;
+    var queuedItems = this.getQueued();
+
+    // If there are no items in the queue.
+    if(queuedItems[0] == undefined){
+      return null;
+    }
+
+    // If nothing is currently playing, play the first in the list.
+    if(currentlyPlaying == null){
+      return queuedItems[0];
+    }
+
+    // Find the items current location in the list.
+    var nextItemIndex = (_.lastIndexOf(queuedItems, currentlyPlaying)) + 1;
+
+    if(queuedItems[nextItemIndex] != undefined){
+      return queuedItems[nextItemIndex];
+    }
+
+    // I guess we're at the end :( Start again!
+    return queuedItems[0];
   }
 });

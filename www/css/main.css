@@ -1,7 +1,7 @@
 /* Our Stuff - Right now I nicked the css off http://purecss.io/menus/ - it's not a great c&p job, just some filler for now. */
 #layout{
 	padding-left: 175px;
-	padding-top: 50px;
+	padding-top: 70px;
 }
 ol, ul, menu {
 	padding: 0;
@@ -59,10 +59,17 @@ nav#menu{
 	background: #191818;
 	position: fixed;
 	top:0;
-	height: 30px;
+	height: 50px;
 	color: #999;
 	padding: 10px 20px;
 }
+
+	#player audio{
+		width: 700px;
+	}
+	/*#player */#currentlyPlaying{
+		width: 100%;
+	}
 
 #myPodcasts {
 	margin-left: -20px;

@@ -71,8 +71,31 @@ PlayerView = Backbone.View.extend({
 		//debugger;
 		app.Player.model.set('duration', e.srcElement.duration);
 	},
+
+	/**
+	 * Item has come to an end. Mark it as played etc then move on
+	 */
 	ended: function(e){
-		//debugger;
+		// Just a wrapper.
+		app.Player.playNext();
+	},
+
+	playNext: function(){
+		// Make a note on the last model, so we can ping it.
+		var oldModel = this.model;
+
+		// Ok, it's over. Lets load up the next one.
+		this.model = episodeItems.getNextInQueue();
+		
+		if(this.model != null){
+			this.render();
+		}
+		if(oldModel != null){
+			oldModel.trigger('playing');
+
+			// Unqueue it
+			oldModel.set('queued', false);
+		}
 	},
 
 	/**

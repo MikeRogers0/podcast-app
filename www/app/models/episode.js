@@ -42,7 +42,6 @@ var Episode = Backbone.Model.extend({
   },
 
   queueToggle: function(){
-    debugger;
     this.set('queued', !this.get('queued'));
     if(this.get('queued') == false){
       this.set('queuePosition', false);
