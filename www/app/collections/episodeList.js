@@ -53,6 +53,11 @@ var EpisodeList = Backbone.Collection.extend({
       return queuedItems[nextItemIndex];
     }
 
+    // Unless it's the only item in the queue, we don't want 1 on a loop.
+    if(nextItemIndex == 1){
+      return null;
+    }
+
     // I guess we're at the end :( Start again!
     return queuedItems[0];
   }
