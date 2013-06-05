@@ -47,7 +47,6 @@ var Podcast = Backbone.Model.extend({
 
     $.ajax({
         url: url,
-        async: false, // This way we don't trigger a page reload before all the episodes have been parsed.
         dataType: 'jsonp',
         context: this, // Fuck scope, use this ;)
         fail: function(data, textStatus, jqXHR){},

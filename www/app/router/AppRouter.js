@@ -54,7 +54,13 @@ var AppRouter = Backbone.Router.extend({
         try{
             var podcastModel = podcastItems.getByFeedURL(feedUrl);
             if(podcastModel == undefined){
-                throw 'Podcast Not Found';
+                try{
+                    podcastItems.addFeed(feedUrl, true);
+                }catch(err){
+                    // Do Something
+                    throw 'Podcast Not Found';
+                }
+                return;
             }
             if(episodeName == undefined){
                 this.PodcastView = new PodcastView({model: podcastModel});
@@ -67,11 +73,12 @@ var AppRouter = Backbone.Router.extend({
             }
         }catch(err){
             // Do Something
-            alert('404 - ' +err)
+            alert(err)
         }
 
-        
-        $('#content').html(this.PodcastView.el);
+        if(this.PodcastView != undefined){
+            $('#content').html(this.PodcastView.el);
+        }        
     },
 
     dropboxSync: function(){

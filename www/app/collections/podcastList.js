@@ -37,12 +37,17 @@ var PodcastList = Backbone.Collection.extend({
 
         $.ajax({
             url: url,
-            async: false, // As the user probably clicked the button, async is kinda unenessary.
             dataType: 'jsonp',
             context: this, // Fuck scope, use this ;)
             fail: function(data, textStatus, jqXHR){},
             success: function(data, textStatus, jqXHR){
                 // TODO: Do some checks on the response.
+
+                // Unable to find podcast
+                if(data.responseData == null){
+                    app.navigate('podcasts/404', true);
+                    return;
+                }
 
                 // Conver the XML reponse to a element we can jQuery over.
                 var xmlDoc = $.parseXML( data.responseData.xmlString ),
@@ -63,6 +68,7 @@ var PodcastList = Backbone.Collection.extend({
 
                 newPodcast.updateEpisodes();
 
+                app.navigate('podcasts/301', redirect); // Extra one needed for when adding podcast from url.
                 app.navigate('podcasts/'+newPodcast.get('feedUrlEncoded'), redirect);
             }
         });
