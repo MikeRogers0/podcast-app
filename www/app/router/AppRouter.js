@@ -16,6 +16,7 @@ var AppRouter = Backbone.Router.extend({
     initialize: function () {
     	// The currently playing item. It's set golobally for easier reference.
         this.Player = new PlayerView();
+        $("#player").html(this.Player.el);
     },
 
     home: function () {

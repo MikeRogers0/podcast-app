@@ -26,7 +26,7 @@ head.js(
 	'/app/collections/podcastList.js',
 	'/app/collections/episodeList.js',
 
-	// The Views
+	// The Views - TODO - swap this into an array of some form, which also manages the associated views.
 	'/app/views/EpisodeItemView.js',
 	'/app/views/QueueView.js',
 	'/app/views/PlayerView.js',
@@ -39,6 +39,7 @@ head.js(
 	'/app/views/PodcastListItemView.js',
 	'/app/views/ExploreView.js',
 	'/app/views/PodcastEpisodeView.js',
+	'/app/views/CurrentlyPlayingView.js',
 
 	// The Routers
 	'/app/router/AppRouter.js',
@@ -56,6 +57,7 @@ head.js(
 			'PodcastView',
 			'PodcastListItemView',
 			'PodcastEpisodeView',
+			'CurrentlyPlayingView',
 			'ExploreView'], function() {
 			podcastItems = new PodcastList();
 			episodeItems = new EpisodeList();

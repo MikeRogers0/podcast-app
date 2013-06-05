@@ -1,13 +1,21 @@
 PlayerView = Backbone.View.extend({
-	currentlyPlaying: $("#currentlyPlaying"),
-	player: $('#player'),
 	model: null,
 
-	initialize: function() {
-		//this.as = audiojs.createAll();
-		this.audioPlayer = document.getElementsByTagName('audio')[0];
+	events : {
+		'change input[name=playbackRate]':'playbackRate',
+		'click .back10': 'back10',
+		'click .playNext': 'playNext',
+	},
 
-		// TODO, add play pause buttons to the view.
+	initialize: function() {
+		// Render the inital blank elements
+		this.$el.html(this.template({}));
+		this.currentlyPlaying = this.$el.find('#currentlyPlaying');
+		this.audioPlayer = this.$el.find('audio').get(0);
+
+		// The currently playing bit.
+		this.currentlyPlayingView = new CurrentlyPlayingView({model: this.model});
+		this.currentlyPlaying.html(this.currentlyPlayingView.el);
 
 		// Listeners so the model is updated.
         this.audioPlayer.addEventListener('timeupdate', this.currentTime);
@@ -17,24 +25,14 @@ PlayerView = Backbone.View.extend({
         this.audioPlayer.addEventListener('ended', this.ended);
         this.audioPlayer.addEventListener('canplay', this.canplay);
         this.audioPlayer.addEventListener('waiting', this.waiting);
-
-        if(this.model != null){
-        	this.render();
-        }
 	},
 
 	render: function() {
+		this.currentlyPlayingView.model = this.model;
+		this.currentlyPlayingView.render();
+
 		this.audioPlayer.src = this.model.get('mp3');
 		this.audioPlayer.load();
-
-		this.currentlyPlaying.html(this.template({
-            playhead: this.model.get('playhead'),
-            duration: this.model.get('duration'),
-            title: this.model.get('title'), 
-            titleEncoded: this.model.get('titleEncoded'),
-            podcast_title: this.model.podcast.get('title'),
-            podcast_feedUrlEncoded: this.model.podcast.get('feedUrlEncoded')
-        }));
 
         this.model.trigger('loading');
 
@@ -45,6 +43,23 @@ PlayerView = Backbone.View.extend({
         //this.audioPlayer.error
         //this.audioPlayer.currentTime // gets the current place of the audio.
         //this.audioPlayer.muted // if the audio is muted 
+	},
+
+	back10: function(){
+		var newTime = this.audioPlayer.currentTime - 10;
+		if(newTime >= 1){
+			this.audioPlayer.currentTime = newTime;
+			return ;
+		}
+		this.audioPlayer.currentTime = 1;
+	},
+
+	playNext: function(){
+		this.playNext();
+	},
+
+	playbackRate: function(){
+		this.audioPlayer.playbackRate= this.$el.find('input[name=playbackRate]').val();
 	},
 
 	canplay: function(e){
