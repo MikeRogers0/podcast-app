@@ -65,6 +65,10 @@ PlayerView = Backbone.View.extend({
 	canplay: function(e){
 		e.srcElement.currentTime = app.Player.model.get('playhead');
 		e.srcElement.play();
+
+		// Quickly trigger the playrate. TODO - remember last epsiode setting in podcast.
+		app.Player.$el.find('input[name=playbackRate]').trigger('change');
+
 		app.Player.model.trigger('playing');
 	},
 	// This function causes the play/pause buttons to fail, it updates to fast.
