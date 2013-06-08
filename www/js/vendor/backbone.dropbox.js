@@ -1,13 +1,10 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 DropBoxStorage = (function() {
-  function DropBoxStorage() {
+  function DropBoxStorage(name, client) {
     this.sync = __bind(this.sync, this);
     this.authentificate = __bind(this.authentificate, this);
-    this.client = new Dropbox.Client({
-      key: "gkEKyDpBMsA=|++7iyniKA/kjwqydL7CQEtBv9oZ4hp7gSaPMp7Fk3w==",
-      sandbox: true
-    });
+    this.client = client;
   }
 
   DropBoxStorage.prototype.authentificate = function() {

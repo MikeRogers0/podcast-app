@@ -1,3 +1,11 @@
-<h1>Dropbox Sync</h1>
+<h1>Device Sync</h1>
 
-<p>Details on how to enable shizness here.</p>
+<p>Syncing your podcasts over is avilable via Dropbox. </p>
+
+<% if(isAuthenticated){ %>
+	<p><a class="pure-button" id="signOutDropbox">Sign Out of Dropbox</a></p>
+<% } else { %>
+	<p><a class="pure-button" id="authentificateDropbox">Connect to Dropbox</a></p>
+<% } %>
+
+

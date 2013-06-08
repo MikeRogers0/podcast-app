@@ -10,17 +10,27 @@ var SettingsModel = Backbone.Model.extend({
     return {
     	id: 1,
     	dropboxSync: false,
-    	dropboxUser: null,
     	lastVisit: null,
     };
   },
 
   initialize: function () {
-  	this.listenTo(this, 'change', this.cloudSave); 
+  	this.listenTo(this, 'change', this.cloudSave);
+
+    this.dropboxClient = new Dropbox.Client({
+      key: "gkEKyDpBMsA=|++7iyniKA/kjwqydL7CQEtBv9oZ4hp7gSaPMp7Fk3w==",
+      sandbox: true
+    });
+    this.dropbox = new DropBoxStorage('someName', this.dropboxClient);
+
+    if(this.get('dropboxSync') == true){
+      settings.dropbox.authentificate();
+    }
   },
 
   cloudSave: function(){
     this.save();
   },
 
+  // Move all the auth stuff to here.
 });
