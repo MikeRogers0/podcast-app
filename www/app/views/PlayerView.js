@@ -1,5 +1,6 @@
 PlayerView = Backbone.View.extend({
 	model: null,
+	startPaused: false,
 
 	events : {
 		'change input[name=playbackRate]':'playbackRate',
@@ -25,6 +26,12 @@ PlayerView = Backbone.View.extend({
         this.audioPlayer.addEventListener('ended', this.ended);
         this.audioPlayer.addEventListener('canplay', this.canplay);
         this.audioPlayer.addEventListener('waiting', this.waiting);
+
+        if(globalSettings.get('lastListeningTo') != null){
+        	this.model = episodeItems.getByID(globalSettings.get('lastListeningTo'));
+        	this.startPaused = true;
+        	this.render();
+        }
 	},
 
 	render: function() {
@@ -35,6 +42,9 @@ PlayerView = Backbone.View.extend({
 		this.audioPlayer.load();
 
         this.model.trigger('loading');
+
+        // Reset the last listened to.
+        globalSettings.set('lastListeningTo', this.model.get('id'))
 
         /* Some other API references we might want to use. */
         //this.audioPlayer.playbackRate=1.5; // For faster listening
@@ -64,7 +74,11 @@ PlayerView = Backbone.View.extend({
 
 	canplay: function(e){
 		e.srcElement.currentTime = app.Player.model.get('playhead');
-		e.srcElement.play();
+
+		if(!app.Player.startPaused){
+			e.srcElement.play();
+		}
+		app.Player.startPaused = false;
 
 		// Quickly trigger the playrate. TODO - remember last epsiode setting in podcast.
 		app.Player.$el.find('input[name=playbackRate]').trigger('change');

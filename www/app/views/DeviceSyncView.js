@@ -1,4 +1,4 @@
-DropboxSyncView = Backbone.View.extend({
+DeviceSyncView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
 	},

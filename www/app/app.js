@@ -7,6 +7,8 @@ head.js(
 	'//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', // We might want to ditch this later. For now lets just code.
 	'//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js',
 	'//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js',
+	//'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.min.js',
+	'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.js',
 	'/js/vendor/bootstrap.min.js',
 
 	// By default HTML5 audio sucks - http://kolber.github.io/audiojs/ is better.
@@ -17,10 +19,13 @@ head.js(
 
 	// LocalStorage plugin for backbone
 	'/js/vendor/backbone.localStorage.js',
+	'/js/vendor/backbone.dropbox.js',
 
 	// Now load up the models
 	'/app/models/episode.js',
 	'/app/models/podcast.js',
+	'/app/models/SettingsModel.js',
+	'/app/models/GlobalSettingsModel.js',
 
 	// The collections
 	'/app/collections/podcastList.js',
@@ -32,7 +37,7 @@ head.js(
 	'/app/views/PlayerView.js',
 	'/app/views/AddFeedView.js',
 	'/app/views/HomeView.js',
-	'/app/views/DropboxSyncView.js',
+	'/app/views/DeviceSyncView.js',
 	'/app/views/ClearDataView.js',
 	'/app/views/MyPodcastsView.js',
 	'/app/views/PodcastView.js',
@@ -47,7 +52,7 @@ head.js(
 	function(){
 		utils.loadTemplate([
 			'HomeView', 
-			'DropboxSyncView', 
+			'DeviceSyncView', 
 			'EpisodeItemView', 
 			'ClearDataView', 
 			'AddFeedView', 
@@ -59,6 +64,12 @@ head.js(
 			'PodcastEpisodeView',
 			'CurrentlyPlayingView',
 			'ExploreView'], function() {
+			settings = new SettingsModel();
+			settings.fetch();
+
+			globalSettings = new GlobalSettingsModel();
+			globalSettings.fetch();
+
 			podcastItems = new PodcastList();
 			episodeItems = new EpisodeList();
 

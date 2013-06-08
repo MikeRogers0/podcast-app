@@ -6,11 +6,13 @@ var AppRouter = Backbone.Router.extend({
         ""                  : "home",
         "queue"				: "queue",
         "podcasts"		: "myPodcasts",
+        "podcasts/404":'404',
+        "podcasts/301":'301',
         "podcasts/:feedUrl" : "podcasts",
         "podcasts/:feedUrl/:episodeName" : "podcasts",
         "add-feed"          : "addFeed",
-        "dropbox-sync"      : "dropboxSync",
-        "clear-data"		: "clearData"
+        "settings/device-sync"      : "deviceSync",
+        "settings/clear-data"		: "clearData"
     },
 
     initialize: function () {
@@ -48,6 +50,8 @@ var AppRouter = Backbone.Router.extend({
         $('#content').html(this.MyPodcastsView.el);
     },
 
+    404: function(){},
+    301: function(){},
     podcasts: function(feedUrl, episodeName){
         
         // Load up the podcast we are looking for.
@@ -81,11 +85,9 @@ var AppRouter = Backbone.Router.extend({
         }        
     },
 
-    dropboxSync: function(){
-        if (!this.DropboxSyncView) {
-            this.DropboxSyncView = new DropboxSyncView();
-        }
-        $('#content').html(this.DropboxSyncView.el);
+    deviceSync: function(){
+        this.DeviceSyncView = new DeviceSyncView();
+        $('#content').html(this.DeviceSyncView.el);
     },
     clearData: function(){
         if (!this.ClearDataView) {
