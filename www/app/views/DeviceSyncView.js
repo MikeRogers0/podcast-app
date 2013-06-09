@@ -18,11 +18,11 @@ DeviceSyncView = Backbone.View.extend({
 	},
 
 	authentificateDropbox: function(){
-		settings.dropbox.authentificate();
+		settings.dropboxAuth(true);
 	},
 
 	signOutDropbox: function(){
-		settings.dropbox.signOut();
+		settings.dropboxSignOut();
 		settings.set('dropboxSync', false);
 	},
 });
