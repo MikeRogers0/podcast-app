@@ -1,7 +1,9 @@
 var EpisodeList = Backbone.Collection.extend({
 	model: Episode,
 
-	localStorage: new Backbone.LocalStorage("EpisodeList-bb"),
+  initialize: function () {
+      this.localStorage = (settings.get('dropboxSync') == true ? new Backbone.DropboxStorage('EpisodeList-bb', settings.dropboxClient) : new Backbone.LocalStorage("EpisodeList-bb"));
+  },
 
 	getByID: function(id){
 		return this.where({id:id})[0];

@@ -13,8 +13,7 @@ var GlobalSettingsModel = Backbone.Model.extend({
   },
 
   initialize: function () {
-    this.localStorage = (settings.get('dropboxSync') == true ? new DropBoxStorage('GlobalSettings-bb') : new Backbone.LocalStorage("GlobalSettings-bb"));
-
+    this.localStorage = (settings.get('dropboxSync') == true ? new Backbone.DropboxStorage('GlobalSettings-bb', settings.dropboxClient) : new Backbone.LocalStorage("GlobalSettings-bb"));
     this.listenTo(this, 'change:lastListeningTo', this.cloudSave); 
   },
 

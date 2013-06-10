@@ -19,7 +19,7 @@ head.js(
 
 	// LocalStorage plugin for backbone
 	'/js/vendor/backbone.localStorage.js',
-	'/js/vendor/backbone.dropbox.js',
+	'/js/vendor/backbone.dropboxStorage.js',
 
 	// Now load up the models
 	'/app/models/episode.js',

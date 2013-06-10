@@ -3,6 +3,7 @@
  */
 var SettingsModel = Backbone.Model.extend({
 
+  // This one is always localStorage
   localStorage: new Backbone.LocalStorage("Settings-bb"),
 
   // Default attributes for an podcast
@@ -16,18 +17,16 @@ var SettingsModel = Backbone.Model.extend({
 
   initialize: function () {
   	this.listenTo(this, 'change', this.cloudSave);
-
-    if(this.get('dropboxSync') == true){
-      this.dropboxAuth(false);
-    }
+    this.listenToOnce(this, 'change:dropboxSync', this.dropboxAuth);
   },
 
   cloudSave: function(){
     this.save();
   },
 
-  dropboxAuth: function(redirect){
-    var redirect;
+  dropboxAuth: function(redirect, AuthCallback){
+    var redirect = (redirect === true ? true : false);
+    var AuthCallback = AuthCallback;
     settings.set('dropboxSync', true);
     this.dropboxClient = new Dropbox.Client({
       key: "gkEKyDpBMsA=|++7iyniKA/kjwqydL7CQEtBv9oZ4hp7gSaPMp7Fk3w==",
@@ -45,8 +44,11 @@ var SettingsModel = Backbone.Model.extend({
         return false;
       }
 
+      if(typeof AuthCallback == "function"){
+        AuthCallback();
+      }
+
       if(redirect){
-        app.navigate('301', true);
         app.navigate('settings/device-sync', true);
       }
 
