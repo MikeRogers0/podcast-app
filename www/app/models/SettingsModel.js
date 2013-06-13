@@ -3,13 +3,15 @@
  */
 var SettingsModel = Backbone.Model.extend({
   // This one is always localStorage
+  localStorage: new Backbone.LocalStorage("Settings-bb"),
 
   // Default attributes for an podcast
   defaults: function() {
     return {
     	id: 1,
-    	dropboxSync: true,
+    	dropboxSync: false,
     	lastVisit: null,
+      updated_at: null,
     };
   },
 

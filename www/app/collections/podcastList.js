@@ -2,10 +2,9 @@ var PodcastList = Backbone.Collection.extend({
 	model: Podcast,
     url: 'podcasts',
     path: 'podcasts',
+    localStorage: new Backbone.LocalStorage("PodcastList-bb"),
     
     initialize: function () {
-        this.localStorage = (settings.get('dropboxSync') == true ? new Backbone.DropboxStorage('PodcastList-bb', settings.dropboxClient) : new Backbone.LocalStorage("PodcastList-bb"));
-        //this.localStorage = new Backbone.LocalStorage("PodcastList-bb");
     },
 
 	getByID: function(id){

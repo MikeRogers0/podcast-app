@@ -13,7 +13,8 @@ var Podcast = Backbone.Model.extend({
       feedUrlEncoded: '',
       imageUrl: '',
       link: '',
-      explicit: false
+      explicit: false,
+      updated_at: null,
     };
   },
 

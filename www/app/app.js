@@ -18,8 +18,9 @@ head.js(
 	'/js/vendor/utils.js',
 
 	// LocalStorage plugin for backbone
-	//'/js/vendor/backbone.localStorage.js',
-	'/js/vendor/backbone.dropboxStorage.js',
+	'/js/vendor/backbone.localStorage.js',
+	//'/js/vendor/backbone.dropboxStorage.js',
+	'/js/vendor/backbone.dropbox.js',
 
 	// Now load up the models
 	'/app/models/episode.js',
@@ -68,12 +69,12 @@ head.js(
 			'CurrentlyPlayingView',
 			'ExploreView'], function() {
 			settings = new SettingsModel();
-			//settings.fetch();
+			settings.fetch();
 
 			if(settings.get('dropboxSync')){
 				settings.dropboxAuth(false, startApp);
 			} else {
-				//startApp();
+				startApp();
 			}
 		});
 	}

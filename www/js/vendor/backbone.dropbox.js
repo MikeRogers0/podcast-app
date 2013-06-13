@@ -1,9 +1,6 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
 DropBoxStorage = (function() {
-  function DropBoxStorage(name, client) {
-    this.sync = __bind(this.sync, this);
-    this.authentificate = __bind(this.authentificate, this);
+  function DropBoxStorage(client, AuthCallback) {
+    this.AuthCallback = AuthCallback;
     this.client = client;
   }
 
@@ -71,20 +68,13 @@ DropBoxStorage = (function() {
         if (!model.id) {
           model.set(model.id, model.idAttribute);
         }
-        console.log("id" + model.get("id"));
-        id = model.id;
-        if (model.get("ext")) {
-          id = "" + id + "." + (model.get('ext'));
-        }
-        this.writeFile(id, JSON.stringify(model));
+        console.log("id" + model.url());
+        this.writeFile(model.url(), JSON.stringify(model));
         return model.toJSON();
       case 'update':
         console.log("updating");
-        id = model.id;
-        if (model.get("ext")) {
-          id = "" + id + "." + (model.get('ext'));
-        }
-        if (model.collection.path != null) {
+        id = model.id+'';
+        if (model.collection!= undefined && model.collection.path != null) {
           id = "" + model.collection.path + "/" + id;
         }
         console.log("id: " + id);
@@ -94,10 +84,7 @@ DropBoxStorage = (function() {
         console.log("deleting");
         console.log(model);
         id = model.id;
-        if (model.get("ext")) {
-          id = "" + id + "." + (model.get('ext'));
-        }
-        if (model.collection.path != null) {
+        if (model.collection!= undefined && model.collection.path != null) {
           id = "" + model.collection.path + "/" + id;
         }
         return this.remove(id);
@@ -107,21 +94,12 @@ DropBoxStorage = (function() {
   DropBoxStorage.prototype.find = function(model, options) {
     var parse, path, promise,
       _this = this;
-    path = model.rootPath || model.path || "/";
-    promise = this._findByName(path, model.id);
-    parse = function(res) {
-      var filePath;
-      console.log("res");
-      console.log(res[0]);
-      filePath = res[0].path;
-      return _this._readFile(filePath).then(function(res) {
+    return _this._readFile(model.url()).then(function(res) {
         console.log("gne");
         console.log(res);
         model.set(JSON.parse(res));
         return console.log(model);
       });
-    };
-    return $.when(promise).then(parse);
   };
 
   DropBoxStorage.prototype.findAll = function(model, options) {

@@ -38,27 +38,21 @@ function guid() {
 // Our Store is represented by a single JS object in *localStorage*. Create it
 // with a meaningful name, like the name you'd give a table.
 // window.Store is deprectated, use Backbone.LocalStorage instead
-Backbone.DropboxStorage = window.Store = function(name, client) {
+Backbone.syncStorage = window.Store = function(name) {
   if( !this.localStorage ) {
-    throw "Backbone.dropboxStorage: Environment does not support localStorage."
+    throw "Backbone.localStorage: Environment does not support localStorage."
   }
   this.name = name;
-  this.client = client;
   var store = this.localStorage().getItem(this.name);
   this.records = (store && store.split(",")) || [];
 };
 
-_.extend(Backbone.DropboxStorage.prototype, {
+_.extend(Backbone.syncStorage.prototype, {
 
   // Save the current state of the **Store** to *localStorage*.
   save: function() {
     this.localStorage().setItem(this.name, this.records.join(","));
-
-    // Now drop it to dropbox
-    this.client.writeFile(this.name, this.records.join(","), function(error, stat){});
   },
-
-
 
   // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
   // have an id of it's own.
@@ -68,7 +62,6 @@ _.extend(Backbone.DropboxStorage.prototype, {
       model.set(model.idAttribute, model.id);
     }
     this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
-    this.client.writeFile(this.name+"-"+model.id, JSON.stringify(model), function(error, stat){});
     this.records.push(model.id.toString());
     this.save();
     return this.find(model);
@@ -77,7 +70,6 @@ _.extend(Backbone.DropboxStorage.prototype, {
   // Update a model by replacing its copy in `this.data`.
   update: function(model) {
     this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
-    this.client.writeFile(this.name+"-"+model.id, JSON.stringify(model), function(error, stat){});
     if (!_.include(this.records, model.id.toString()))
       this.records.push(model.id.toString()); this.save();
     return this.find(model);
@@ -85,21 +77,7 @@ _.extend(Backbone.DropboxStorage.prototype, {
 
   // Retrieve a model from `this.data` by id.
   find: function(model) {
-    var _this = this,
-      model = model,
-    d = $.Deferred();
-
-      this._readFile(this.name+"-"+model.id).then(function(data){
-        d.resolve(JSON.parse(data));
-
-        //model.set(JSON.parse(data));
-        //model.save();
-        //_this.localStorage().setItem(_this.name+"-"+model.id, data);
-        //return JSON.parse(data);
-      });
-
-    return d.promise();
-    //return this.jsonData(this.localStorage().getItem(this.name+"-"+model.id));
+    return this.jsonData(this.localStorage().getItem(this.name+"-"+model.id));
   },
 
   // Return the array of all models currently in storage.
@@ -107,20 +85,7 @@ _.extend(Backbone.DropboxStorage.prototype, {
     // Lodash removed _#chain in v1.0.0-rc.1
     return (_.chain || _)(this.records)
       .map(function(id){
-        
-        var _this = this;
-
-        /*this.client.readFile(this.name+"-"+id, function(error, data) {
-          //model.set(_this.jsonData(data));
-          _this.localStorage().setItem(this.name+"-"+id, data);
-        });*/
-
-        return this._readFile(this.name+"-"+id).then(function(data){
-          debugger;
-          _this.localStorage().setItem(_this.name+"-"+id, data);
-        });
-
-        //return this.jsonData(this.localStorage().getItem(this.name+"-"+id));
+        return this.jsonData(this.localStorage().getItem(this.name+"-"+id));
       }, this)
       .compact()
       .value();
@@ -131,7 +96,6 @@ _.extend(Backbone.DropboxStorage.prototype, {
     if (model.isNew())
       return false
     this.localStorage().removeItem(this.name+"-"+model.id);
-    this.client.remove(this.name+"-"+model.id, function(error, userInfo) {});
     this.records = _.reject(this.records, function(id){
       return id === model.id.toString();
     });
@@ -166,59 +130,15 @@ _.extend(Backbone.DropboxStorage.prototype, {
   // Size of localStorage.
   _storageSize: function() {
     return this.localStorage().length;
-  },
-
-  _readDir: function(path) {
-    var d,
-      _this = this;
-    d = $.Deferred();
-    this.client.readdir(path, function(error, entries) {
-      if (error) {
-        //return _this.showError(error);
-        return {};
-      }
-      return d.resolve(entries);
-    });
-    return d.promise();
-  },
-
-  _readFile: function(path) {
-    var d,
-      _this = this;
-    d = $.Deferred();
-    this.client.readFile(path, function(error, data) {
-      if (error) {
-        //return _this.showError(error);
-        return {};
-      }
-      return d.resolve(data);
-    });
-    return d.promise();
-  },
-
-  _findByName: function(path, name) {
-    var d,
-      _this = this;
-    console.log(path, name);
-    d = $.Deferred();
-    this.client.findByName(path, name, function(error, data) {
-      if (error) {
-        //return _this.showError(error);
-        return {};
-      }
-      console.log("found data " + data);
-      return d.resolve(data);
-    });
-    return d.promise();
   }
 
 });
 
 // localSync delegate to the model or collection's
 // *localStorage* property, which should be an instance of `Store`.
-// window.Store.sync and Backbone.localSync is deprecated, use Backbone.DropboxStorage.sync instead
-Backbone.DropboxStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
-  var store = model.localStorage || model.collection.localStorage;
+// window.Store.sync and Backbone.localSync is deprecated, use Backbone.LocalStorage.sync instead
+Backbone.syncStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
+  var store = model.syncStorage || model.collection.syncStorage;
 
   var resp, errorMessage, syncDfd = Backbone.$.Deferred && Backbone.$.Deferred(); //If $ is having Deferred - use it.
 
@@ -283,18 +203,18 @@ Backbone.DropboxStorage.sync = window.Store.sync = Backbone.localSync = function
 Backbone.ajaxSync = Backbone.sync;
 
 Backbone.getSyncMethod = function(model) {
-  if(model.localStorage || (model.collection && model.collection.localStorage)) {
-    return Backbone.localSync;
+  if(model.syncStorage || (model.collection && model.collection.syncStorage)) {
+    return Backbone.syncStorage;
   }
 
   return Backbone.ajaxSync;
 };
 
-// Override 'Backbone.sync' to default to localSync,
+// Override 'Backbone.sync' to default to syncStorage,
 // the original 'Backbone.sync' is still available in 'Backbone.ajaxSync'
 Backbone.sync = function(method, model, options) {
   return Backbone.getSyncMethod(model).apply(this, [method, model, options]);
 };
 
-return Backbone.DropboxStorage;
+return Backbone.LocalStorage;
 }));
