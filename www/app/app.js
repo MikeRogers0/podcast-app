@@ -18,7 +18,7 @@ head.js(
 	'/js/vendor/utils.js',
 
 	// LocalStorage plugin for backbone
-	'/js/vendor/backbone.localStorage.js',
+	//'/js/vendor/backbone.localStorage.js',
 	'/js/vendor/backbone.dropboxStorage.js',
 
 	// Now load up the models
@@ -49,6 +49,9 @@ head.js(
 	// The Routers
 	'/app/router/AppRouter.js',
 
+	// Start App JS function
+	'/app/start.js',
+
 	function(){
 		utils.loadTemplate([
 			'HomeView', 
@@ -65,30 +68,13 @@ head.js(
 			'CurrentlyPlayingView',
 			'ExploreView'], function() {
 			settings = new SettingsModel();
-			settings.fetch();
+			//settings.fetch();
 
-			globalSettings = new GlobalSettingsModel();
-			globalSettings.fetch();
-
-			podcastItems = new PodcastList();
-			episodeItems = new EpisodeList();
-
-			podcastItems.fetch();
-			episodeItems.fetch();
-
-		    app = new AppRouter();
-	    	Backbone.history.start({pushState: true});
-
-	    	// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
-			$("#menu, #player, #content").on('click', 'a:not([data-bypass])', function (e) {
-				if($(this).attr('href') == null){
-					return;
-				}
-				e.preventDefault();
-				app.navigate($(this).attr('href'), true);
-			});
-
-		    
+			if(settings.get('dropboxSync')){
+				settings.dropboxAuth(false, startApp);
+			} else {
+				//startApp();
+			}
 		});
 	}
 );

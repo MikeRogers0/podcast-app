@@ -39,18 +39,23 @@ function guid() {
 // with a meaningful name, like the name you'd give a table.
 // window.Store is deprectated, use Backbone.LocalStorage instead
 Backbone.DropboxStorage = window.Store = function(name, client) {
+  if( !this.localStorage ) {
+    throw "Backbone.dropboxStorage: Environment does not support localStorage."
+  }
   this.name = name;
   this.client = client;
+  var store = this.localStorage().getItem(this.name);
+  this.records = (store && store.split(",")) || [];
 };
 
 _.extend(Backbone.DropboxStorage.prototype, {
 
   // Save the current state of the **Store** to *localStorage*.
   save: function() {
-    //this.localStorage().setItem(this.name, this.records.join(","));
+    this.localStorage().setItem(this.name, this.records.join(","));
 
     // Now drop it to dropbox
-    //this.client.writeFile(this.name, this.records.join(","), function(error, stat){});
+    this.client.writeFile(this.name, this.records.join(","), function(error, stat){});
   },
 
 
@@ -62,98 +67,81 @@ _.extend(Backbone.DropboxStorage.prototype, {
       model.id = guid();
       model.set(model.idAttribute, model.id);
     }
-
-    //this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
-    this.client.writeFile(model.url(), JSON.stringify(model), function(error, stat){});
-    
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    this.client.writeFile(this.name+"-"+model.id, JSON.stringify(model), function(error, stat){});
+    this.records.push(model.id.toString());
+    this.save();
     return this.find(model);
   },
 
   // Update a model by replacing its copy in `this.data`.
   update: function(model) {
-    //this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
-
-    this.client.writeFile(model.url(), JSON.stringify(model), function(error, stat){});
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    this.client.writeFile(this.name+"-"+model.id, JSON.stringify(model), function(error, stat){});
+    if (!_.include(this.records, model.id.toString()))
+      this.records.push(model.id.toString()); this.save();
     return this.find(model);
   },
 
   // Retrieve a model from `this.data` by id.
-  find: function(model, options) {
-    var parse, path, promise,
-      _this = this;
-    path = model.urlRoot || model.path || "/";
-    promise = this._findByName(path, model.id);
-    parse = function(res) {
-      var filePath;
-      console.log("res");
-      console.log(res[0]);
-      filePath = res[0].path;
-      return _this._readFile(filePath).then(function(res) {
-        console.log("gne");
-        console.log(res);
-        model.set(JSON.parse(res));
-        return console.log(model);
+  find: function(model) {
+    var _this = this,
+      model = model,
+    d = $.Deferred();
+
+      this._readFile(this.name+"-"+model.id).then(function(data){
+        d.resolve(JSON.parse(data));
+
+        //model.set(JSON.parse(data));
+        //model.save();
+        //_this.localStorage().setItem(_this.name+"-"+model.id, data);
+        //return JSON.parse(data);
       });
-    };
-    return $.when(promise).then(parse);
+
+    return d.promise();
+    //return this.jsonData(this.localStorage().getItem(this.name+"-"+model.id));
   },
 
   // Return the array of all models currently in storage.
-  findAll: function(model, options) {
-    var error, fetchData, promise, promises, rootPath, success,
-      _this = this;
-    console.log("searching at " + model.path);
-    rootPath = model.path;
-    success = options.success;
-    error = options.error;
-    promises = [];
-    promise = this._readDir(model.path);
-    model.trigger('fetch', model, null, options);
-    fetchData = function(entries) {
-      var fileName, filePath, _i, _len;
-      console.log('fetching data');
-      for (_i = 0, _len = entries.length; _i < _len; _i++) {
-        fileName = entries[_i];
-        filePath = "" + rootPath + "/" + fileName;
-        console.log("file path: " + filePath);
-        promises.push(_this._readFile(filePath));
-      }
-      return $.when.apply($, promises).done(function() {
-        var results;
-        results = arguments;
-        results = $.map(results, JSON.parse);
-        console.log("ALL DONE", results);
-        if (options.update != null) {
-          if (options.update === true) {
-            model.update(results);
-            model.trigger("update", results);
-          } else {
-            model.reset(results, {
-              collection: model
-            });
-          }
-        } else {
-          model.reset(results, {
-            collection: model
-          });
-        }
-        if (success != null) {
-          success(results);
-        }
-        return results;
-      });
-    };
-    return $.when(promise).then(fetchData);
+  findAll: function() {
+    // Lodash removed _#chain in v1.0.0-rc.1
+    return (_.chain || _)(this.records)
+      .map(function(id){
+        
+        var _this = this;
+
+        /*this.client.readFile(this.name+"-"+id, function(error, data) {
+          //model.set(_this.jsonData(data));
+          _this.localStorage().setItem(this.name+"-"+id, data);
+        });*/
+
+        return this._readFile(this.name+"-"+id).then(function(data){
+          debugger;
+          _this.localStorage().setItem(_this.name+"-"+id, data);
+        });
+
+        //return this.jsonData(this.localStorage().getItem(this.name+"-"+id));
+      }, this)
+      .compact()
+      .value();
   },
 
   // Delete a model from `this.data`, returning it.
   destroy: function(model) {
     if (model.isNew())
       return false
+    this.localStorage().removeItem(this.name+"-"+model.id);
     this.client.remove(this.name+"-"+model.id, function(error, userInfo) {});
+    this.records = _.reject(this.records, function(id){
+      return id === model.id.toString();
+    });
+    this.save();
     return model;
   },
 
+  localStorage: function() {
+    return localStorage;
+  },
 
   // fix for "illegal access" error on Android when JSON.parse is passed null
   jsonData: function (data) {
@@ -162,7 +150,7 @@ _.extend(Backbone.DropboxStorage.prototype, {
 
   // Clear localStorage for specific collection.
   _clear: function() {
-    /*var local = this.localStorage(),
+    var local = this.localStorage(),
       itemRe = new RegExp("^" + this.name + "-");
 
     // Remove id-tracking item (e.g., "foo").
@@ -172,7 +160,12 @@ _.extend(Backbone.DropboxStorage.prototype, {
     // Match all data items (e.g., "foo-ID") and remove.
     (_.chain || _)(local).keys()
       .filter(function (k) { return itemRe.test(k); })
-      .each(function (k) { local.removeItem(k); });*/
+      .each(function (k) { local.removeItem(k); });
+  },
+
+  // Size of localStorage.
+  _storageSize: function() {
+    return this.localStorage().length;
   },
 
   _readDir: function(path) {
@@ -224,40 +217,29 @@ _.extend(Backbone.DropboxStorage.prototype, {
 // localSync delegate to the model or collection's
 // *localStorage* property, which should be an instance of `Store`.
 // window.Store.sync and Backbone.localSync is deprecated, use Backbone.DropboxStorage.sync instead
-Backbone.DropboxStorage.sync = Backbone.dropboxSync = function(method, model, options) {
+Backbone.DropboxStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
   var store = model.localStorage || model.collection.localStorage;
 
   var resp, errorMessage, syncDfd = Backbone.$.Deferred && Backbone.$.Deferred(); //If $ is having Deferred - use it.
 
   try {
 
-  switch (method) {
-    case "read":
-      resp = model.id != undefined ? store.find(model, options) : store.findAll(model, options);
-      return resp;
-      break;
-    case "create":
-      resp = store.create(model);
-      return model.toJSON();
-      break;
-    case "update":
-      resp = store.update(model);
-      return model.toJSON();
-      break;
-    case "delete":
-      resp = store.destroy(model);
-      break;
+    switch (method) {
+      case "read":
+        resp = model.id != undefined ? store.find(model) : store.findAll();
+        break;
+      case "create":
+        resp = store.create(model);
+        break;
+      case "update":
+        resp = store.update(model);
+        break;
+      case "delete":
+        resp = store.destroy(model);
+        break;
     }
+
   } catch(error) {
-    errorMessage = error.message;
-  }
-
-  if (options && options.complete) options.complete(resp);
-
-  return resp;
-
-
- /* } catch(error) {
     if (error.code === DOMException.QUOTA_EXCEEDED_ERR && store._storageSize() === 0)
       errorMessage = "Private browsing is unsupported";
     else
@@ -295,14 +277,14 @@ Backbone.DropboxStorage.sync = Backbone.dropboxSync = function(method, model, op
   // always execute callback for success and error
   if (options && options.complete) options.complete(resp);
 
-  return syncDfd && syncDfd.promise();*/
+  return syncDfd && syncDfd.promise();
 };
 
 Backbone.ajaxSync = Backbone.sync;
 
 Backbone.getSyncMethod = function(model) {
   if(model.localStorage || (model.collection && model.collection.localStorage)) {
-    return Backbone.dropboxSync;
+    return Backbone.localSync;
   }
 
   return Backbone.ajaxSync;

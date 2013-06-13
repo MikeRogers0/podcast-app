@@ -21,7 +21,7 @@ DeviceSyncView = Backbone.View.extend({
 
 	authentificateDropbox: function(){
 		settings.dropboxAuth(true, function(){
-			alert();
+			//alert();
 			// set the other models & collections to now use dropbox.
 		});
 	},

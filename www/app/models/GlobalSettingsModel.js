@@ -3,6 +3,8 @@
  **/
 
 var GlobalSettingsModel = Backbone.Model.extend({
+  urlRoot: 'globalSettings',
+  id: 1,
 
   // Default attributes for an podcast
   defaults: function() {
@@ -20,5 +22,4 @@ var GlobalSettingsModel = Backbone.Model.extend({
   cloudSave: function(){
     this.save();
   },
-
 });

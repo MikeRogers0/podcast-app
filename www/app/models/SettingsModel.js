@@ -2,22 +2,19 @@
  * These settings only sync for this device, it'll hold dropbox data.
  */
 var SettingsModel = Backbone.Model.extend({
-
   // This one is always localStorage
-  localStorage: new Backbone.LocalStorage("Settings-bb"),
 
   // Default attributes for an podcast
   defaults: function() {
     return {
     	id: 1,
-    	dropboxSync: false,
+    	dropboxSync: true,
     	lastVisit: null,
     };
   },
 
   initialize: function () {
   	this.listenTo(this, 'change', this.cloudSave);
-    this.listenToOnce(this, 'change:dropboxSync', this.dropboxAuth);
   },
 
   cloudSave: function(){
@@ -37,22 +34,32 @@ var SettingsModel = Backbone.Model.extend({
       useQuery: true
     }));
 
-    this.dropboxClient.authenticate(function(error, client) {
+    this.dropboxClient.authenticate({interactive: false}, function(error, client) {
       if (error) {
-        alert(error);
-        settings.set('dropboxSync', false);
-        return false;
+          settings.set('dropboxSync', false);
+          //return handleError(error);
+          return;
       }
-
-      if(typeof AuthCallback == "function"){
-        AuthCallback();
+      if (client.isAuthenticated()){
+        if(typeof AuthCallback == "function"){
+          AuthCallback();
+        }
+        return;
+      }else{
+        client.authenticate(function(error, client) {
+          if (error) {
+            settings.set('dropboxSync', false);
+            return '';
+          }
+          if(typeof AuthCallback == "function"){
+            AuthCallback();
+          }
+          if(redirect){
+            app.navigate('settings/device-sync', true);
+          }
+          return;
+        });
       }
-
-      if(redirect){
-        app.navigate('settings/device-sync', true);
-      }
-
-      return true;
     });
   },
 
