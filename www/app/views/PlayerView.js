@@ -44,7 +44,7 @@ PlayerView = Backbone.View.extend({
         this.model.trigger('loading');
 
         // Reset the last listened to.
-        globalSettings.set('lastListeningTo', this.model.get('id'))
+        globalSettings.set('lastListeningTo', this.model.get('id'));
 
         /* Some other API references we might want to use. */
         //this.audioPlayer.playbackRate=1.5; // For faster listening

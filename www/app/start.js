@@ -19,4 +19,9 @@ startApp = function(){
 		e.preventDefault();
 		app.navigate($(this).attr('href'), true);
 	});
+
+	// Now trigger the cloud sync - Forcing is bad btw, it's expensive.
+	globalSettings.cloudSync('forcePull');
+	podcastItems.cloudSync('forcePull');
+	episodeItems.cloudSync('forcePull');
 }

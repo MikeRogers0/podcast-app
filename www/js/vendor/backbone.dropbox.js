@@ -194,7 +194,7 @@ DropBoxStorage = (function() {
     var d,
       _this = this;
     d = $.Deferred();
-    this.client.readdir(path, function(error, entries) {
+    this.client.readdir(path, function(error, entries, metadata, headers) {
       if (error) {
         return _this.showError(error);
       }
@@ -207,7 +207,7 @@ DropBoxStorage = (function() {
     var d,
       _this = this;
     d = $.Deferred();
-    this.client.readFile(path, function(error, data) {
+    this.client.readFile(path, function(error, data, metadata, headers) {
       if (error) {
         return _this.showError(error);
       }
