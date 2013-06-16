@@ -25,6 +25,12 @@ var GlobalSettingsModel = Backbone.Model.extend({
   },
 
   cloudSync: function(method, options){
+    // If dropbox isn't on ignore the request.
+    if(!settings.get('dropboxSync')){
+      return false;
+    }
+
+
     //return Backbone.ajaxSync('read', this, options);
     DropBoxSync = new DropBoxStorage(settings.dropboxClient);
     return DropBoxSync.sync(method, this, options);

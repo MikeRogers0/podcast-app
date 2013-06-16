@@ -8,4 +8,7 @@
 	<p><a class="pure-button" id="authentificateDropbox">Connect to Dropbox</a></p>
 <% } %>
 
-
+<% if(isAuthenticated){ %>
+<h2>Magic Buttons!</h2>
+<p><a class="pure-button" id="forcePush">Force Push</a> <a class="pure-button" id="forcePull">Force Pull</a></p>
+<% } %>

@@ -4,33 +4,6 @@ DropBoxStorage = (function() {
     this.client = client;
   }
 
-  DropBoxStorage.prototype.authentificate = function() {
-    var _this = this;
-    this.client.authDriver(new Dropbox.Drivers.Redirect({
-      rememberUser: true,
-      useQuery: true
-    }));
-    return this.client.authenticate(function(error, client) {
-      if (error) {
-        return _this.showError(error);
-      }
-      return _this.validated();
-    });
-  };
-
-  DropBoxStorage.prototype.signOut = function() {
-    var _this = this;
-    return this.client.signOut(function(error) {
-      if (error == null) {
-        return console.log("signout ok");
-      }
-    });
-  };
-
-  DropBoxStorage.prototype.validated = function() {
-    return console.log("all is fine");
-  };
-
   DropBoxStorage.prototype.showError = function(error) {
     console.log("error in dropbox");
     switch (error.status) {
@@ -53,15 +26,23 @@ DropBoxStorage = (function() {
 
   DropBoxStorage.prototype.sync = function(method, model, options) {
     var id;
+
+    // Check we are online
+
     switch (method) {
       case 'read':
         console.log("reading");
-        if (model.id != null) {
-          console.log("bla", model.id);
+        if (model.id != undefined) {
           return this.find(model, options);
         } else {
           return this.findAll(model, options);
         }
+        break;
+      case 'forcePush':
+        return this.forcePush(model, options);
+        break;
+      case 'forcePull':
+        return this.forcePull(model, options);
         break;
       case 'create':
         console.log("creating");
@@ -73,23 +54,47 @@ DropBoxStorage = (function() {
         return model.toJSON();
       case 'update':
         console.log("updating");
-        id = model.id+'';
-        if (model.collection!= undefined && model.collection.path != null) {
-          id = "" + model.collection.path + "/" + id;
+        if (model.id != undefined) {
+          this.writeFile(model.url(), JSON.stringify(model));
+        } else {
+          var _this = this;
+          _.each(model.models, function(model){
+            _this.writeFile(model.url(), JSON.stringify(model));
+          });
         }
-        console.log("id: " + id);
-        this.writeFile(id, JSON.stringify(model));
         return model.toJSON();
       case 'delete':
         console.log("deleting");
         console.log(model);
-        id = model.id;
-        if (model.collection!= undefined && model.collection.path != null) {
-          id = "" + model.collection.path + "/" + id;
-        }
-        return this.remove(id);
+        return this.remove(model.url());
     }
   };
+
+
+
+  /**
+   * Overwrites dropbox with the stuff on localStorge
+   */
+  DropBoxStorage.prototype.forcePush = function(model, options){
+    var model = model, _this = this;
+    // First delete the folder / file
+    promise = this._remove((model.urlRoot || model.url));
+    writeData = function(){
+      _this.sync('update', model, options);
+    }
+
+    return $.when(promise).then(writeData);
+  }
+
+  /**
+   * Overwrites LocalStoage with the stuff on Dropbox
+   */
+  DropBoxStorage.prototype.forcePull = function(model, options){
+    var model = model, _this = this;
+    // First delete the folder / file
+    model.localStorage._clear();
+    return _this.sync('read', model, options);
+  }
 
   DropBoxStorage.prototype.find = function(model, options) {
     var parse, path, promise,
@@ -98,6 +103,7 @@ DropBoxStorage = (function() {
         console.log("gne");
         console.log(res);
         model.set(JSON.parse(res));
+        model.save();
         return console.log(model);
       });
   };
@@ -107,8 +113,6 @@ DropBoxStorage = (function() {
       _this = this;
     console.log("searching at " + model.path);
     rootPath = model.path;
-    success = options.success;
-    error = options.error;
     promises = [];
     promise = this._readDir(model.path);
     model.trigger('fetch', model, null, options);
@@ -125,23 +129,15 @@ DropBoxStorage = (function() {
         results = arguments;
         results = $.map(results, JSON.parse);
         console.log("ALL DONE", results);
-        if (options.update != null) {
-          if (options.update === true) {
-            model.update(results);
-            model.trigger("update", results);
-          } else {
-            model.reset(results, {
-              collection: model
-            });
-          }
-        } else {
-          model.reset(results, {
-            collection: model
-          });
-        }
-        if (success != null) {
-          success(results);
-        }
+
+        // For now just do a hard reset.
+        model.reset(results, {
+          collection: model
+        });
+
+        _.each(model.models, function(model){
+          model.save();
+        });
         return results;
       });
     };
@@ -155,6 +151,23 @@ DropBoxStorage = (function() {
       }
       return console.log("removed " + name);
     });
+  };
+
+  /**
+   * Remove function but with Deferred.
+   */
+  DropBoxStorage.prototype._remove = function(name) {
+    var d,
+      _this = this;
+    d = $.Deferred();
+    this.client.remove(name, function(error, userInfo) {
+      //if (error) {
+      //  return showError(error);
+      //}
+      return d.resolve(name);
+      //return console.log("removed " + name);
+    });
+    return d.promise();
   };
 
   DropBoxStorage.prototype.writeFile = function(name, content) {

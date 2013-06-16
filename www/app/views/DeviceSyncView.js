@@ -2,7 +2,9 @@ DeviceSyncView = Backbone.View.extend({
 
 	events: {
 		'click #authentificateDropbox': 'authentificateDropbox',
-		'click #signOutDropbox': 'signOutDropbox'
+		'click #signOutDropbox': 'signOutDropbox',
+		'click #forcePush': 'forcePush',
+		'click #forcePull': 'forcePull',
 	},
 
 	initialize: function() {
@@ -29,5 +31,16 @@ DeviceSyncView = Backbone.View.extend({
 	signOutDropbox: function(){
 		settings.dropboxSignOut();
 		settings.set('dropboxSync', false);
+	},
+
+	forcePush: function(){
+		globalSettings.cloudSync('forcePush');
+		podcastItems.cloudSync('forcePush');
+		episodeItems.cloudSync('forcePush');
+	},
+	forcePull: function(){
+		globalSettings.cloudSync('forcePull');
+		podcastItems.cloudSync('forcePull');
+		episodeItems.cloudSync('forcePull');
 	},
 });

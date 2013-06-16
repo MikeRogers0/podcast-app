@@ -88,5 +88,5 @@ var Podcast = Backbone.Model.extend({
             this.save();
         }
     });
-  }
+  },
 });

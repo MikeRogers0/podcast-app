@@ -76,5 +76,17 @@ var PodcastList = Backbone.Collection.extend({
                 app.navigate('podcasts/'+newPodcast.get('feedUrlEncoded'), redirect);
             }
         });
-    }
+    },
+
+    cloudSync: function(method, options){
+        // If dropbox isn't on ignore the request.
+        if(!settings.get('dropboxSync')){
+          return false;
+        }
+
+
+        //return Backbone.ajaxSync('read', this, options);
+        DropBoxSync = new DropBoxStorage(settings.dropboxClient);
+        return DropBoxSync.sync(method, this, options);
+      },
 });

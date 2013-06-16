@@ -2,7 +2,7 @@ var EpisodeList = Backbone.Collection.extend({
 	model: Episode,
   url: 'episodes',
   path: 'episodes',
-  localStorage: new Backbone.LocalStorage("PodcastList-bb"),
+  localStorage: new Backbone.LocalStorage("EpisodeList-bb"),
 
   initialize: function () {
   },
@@ -64,5 +64,17 @@ var EpisodeList = Backbone.Collection.extend({
 
     // I guess we're at the end :( Start again!
     return queuedItems[0];
-  }
+  },
+
+  cloudSync: function(method, options){
+    // If dropbox isn't on ignore the request.
+    if(!settings.get('dropboxSync')){
+      return false;
+    }
+
+
+    //return Backbone.ajaxSync('read', this, options);
+    DropBoxSync = new DropBoxStorage(settings.dropboxClient);
+    return DropBoxSync.sync(method, this, options);
+  },
 });

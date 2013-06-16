@@ -49,5 +49,5 @@ var Episode = Backbone.Model.extend({
     }else{
       this.set('queuePosition', episodeItems.nextQueuePosition());
     }
-  }
+  },
 });
