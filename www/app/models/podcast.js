@@ -40,7 +40,7 @@ var Podcast = Backbone.Model.extend({
   // A Cron to run to get newer episodes. If we have time, this should be done in a Worker. If not, do it in a setTimeout().
   updateEpisodes: function(){
     var api = "https://ajax.googleapis.com/ajax/services/feed/load",
-        count = '5', // Get the latest 5
+        count = '500', // Get the latest 5
         params = "?v=1.0&num=" + count + "&output=xml&q=" + this.get('feedUrlEncoded'),
         url = api + params,
         redirect = redirect;
@@ -60,6 +60,11 @@ var Podcast = Backbone.Model.extend({
             
             var context = this;
             $xml.find('channel item').each(function(index, item){
+              // It's not a podcast
+              if($(item).find('enclosure').attr('url') == undefined || (
+                ($(item).find('enclosure').attr('url')).indexOf('.mp3') == -1 && ($(item).find('enclosure').attr('url')).indexOf('.m4a') == -1)){
+                return;
+              }
               var newEpisode = {
                 title: $(item).find('title').text(),
                 datePublished: $(item).find('pubDate').text(),

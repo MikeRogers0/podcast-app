@@ -144,7 +144,7 @@ DropBoxStorage = (function() {
         var results = [], options = _this.options;
 
         // If there is only 1 object in the response
-        if(typeof arguments[1].isFile == 'boolean'){
+        if(typeof arguments[1] == 'undefined' || typeof arguments[1].isFile == 'boolean'){
           results[0] = arguments[0];
         } else {
           _.each(arguments, function(result){
