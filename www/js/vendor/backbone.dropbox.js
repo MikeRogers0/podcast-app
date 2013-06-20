@@ -33,7 +33,7 @@ DropBoxStorage = (function() {
 
     switch (method) {
       case 'read':
-        console.log("reading");
+        //console.log("reading");
         if (model.id != undefined) {
           return this.find(model, options);
         } else {
@@ -47,15 +47,15 @@ DropBoxStorage = (function() {
         return this.itemPull(model, options);
         break;
       case 'create':
-        console.log("creating");
+        //console.log("creating");
         if (!model.id) {
           model.set(model.id, model.idAttribute);
         }
-        console.log("id" + model.url());
+        //console.log("id" + model.url());
         this.writeFile(model.url(), JSON.stringify(model));
         return model.toJSON();
       case 'update':
-        console.log("updating");
+        //console.log("updating");
         if (model.id != undefined) {
           this.writeFile(model.url(), JSON.stringify(model));
         } else {
@@ -66,8 +66,8 @@ DropBoxStorage = (function() {
         }
         return model.toJSON();
       case 'delete':
-        console.log("deleting");
-        console.log(model);
+        //console.log("deleting");
+        //console.log(model);
         return this.remove(model.url());
     }
   };
@@ -109,8 +109,8 @@ DropBoxStorage = (function() {
     var parse, path, promise,
       _this = this;
     return _this._readFile(model.url()).then(function(res, metadata) {
-        console.log("gne");
-        console.log(res);
+        //console.log("gne");
+        //console.log(res);
         model.set(JSON.parse(res));
         model.save();
         return console.log(model);
@@ -120,7 +120,7 @@ DropBoxStorage = (function() {
   DropBoxStorage.prototype.findAll = function(model, options) {
     var error, fetchData, promise, promises, rootPath, success,
       _this = this;
-    console.log("searching at " + model.path);
+    //console.log("searching at " + model.path);
     rootPath = model.path;
     promises = [];
     promise = this._readDir(model.path);
@@ -137,7 +137,7 @@ DropBoxStorage = (function() {
       for (_i = 0, _len = entries.length; _i < _len; _i++) {
         fileName = entries[_i];
         filePath = "" + rootPath + "/" + fileName;
-        console.log("file path: " + filePath);
+        //console.log("file path: " + filePath);
         promises.push(_this._readFile(filePath));
       }
       return $.when.apply($, promises).done(function() {
@@ -155,7 +155,7 @@ DropBoxStorage = (function() {
         }
 
         results = $.map(results, JSON.parse);
-        console.log("ALL DONE", results);
+        //console.log("ALL DONE", results);
 
         // For now just do a hard reset.
         if(options.force == true){
@@ -180,7 +180,8 @@ DropBoxStorage = (function() {
       if (error) {
         return showError(error);
       }
-      return console.log("removed " + name);
+      return true;
+      //return console.log("removed " + name);
     });
   };
 
@@ -207,7 +208,8 @@ DropBoxStorage = (function() {
       if (error) {
         return _this.showError(error);
       }
-      return console.log("File saved as revision " + stat.versionTag);
+      return true;
+      //return console.log("File saved as revision " + stat.versionTag);
     });
   };
 
@@ -217,7 +219,8 @@ DropBoxStorage = (function() {
       if (error) {
         return _this.showError(error);
       }
-      return console.log("folder create ok");
+      return true;
+      //return console.log("folder create ok");
     });
   };
 
@@ -250,13 +253,13 @@ DropBoxStorage = (function() {
   DropBoxStorage.prototype._findByName = function(path, name) {
     var d,
       _this = this;
-    console.log(path, name);
+    //console.log(path, name);
     d = $.Deferred();
     this.client.findByName(path, name, function(error, data) {
       if (error) {
         return _this.showError(error);
       }
-      console.log("found data " + data);
+      //console.log("found data " + data);
       return d.resolve(data);
     });
     return d.promise();
