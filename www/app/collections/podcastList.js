@@ -84,6 +84,9 @@ var PodcastList = Backbone.Collection.extend({
           return false;
         }
 
+        if(options == null){
+          options = {};
+        }
 
         //return Backbone.ajaxSync('read', this, options);
         DropBoxSync = new DropBoxStorage(settings.dropboxClient);

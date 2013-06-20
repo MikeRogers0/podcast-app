@@ -5,6 +5,8 @@ DeviceSyncView = Backbone.View.extend({
 		'click #signOutDropbox': 'signOutDropbox',
 		'click #forcePush': 'forcePush',
 		'click #forcePull': 'forcePull',
+		'click #push': 'itemPush',
+		'click #pull': 'itemPull',
 	},
 
 	initialize: function() {
@@ -22,10 +24,7 @@ DeviceSyncView = Backbone.View.extend({
 	},
 
 	authentificateDropbox: function(){
-		settings.dropboxAuth(true, function(){
-			//alert();
-			// set the other models & collections to now use dropbox.
-		});
+		settings.dropboxConnect();
 	},
 
 	signOutDropbox: function(){
@@ -33,14 +32,36 @@ DeviceSyncView = Backbone.View.extend({
 		settings.set('dropboxSync', false);
 	},
 
+	itemPush: function(){
+		this.itemSync('push', true);
+	},
+	itemPull: function(){
+		this.itemSync('pull', true);
+	},
+
+	itemSync: function(PushPull, force){
+		if(force == null){
+			force = false;
+		}
+
+		var lastSync = settings.get('lastSync');
+		// If it's the first ever sync.
+		if(lastSync == null){
+			force = true;
+		}
+
+		// Now reset the last sync time
+		settings.set('lastSync', (new Date().toUTCString()));
+
+		globalSettings.cloudSync(PushPull, {force: force, lastSync: lastSync});
+		podcastItems.cloudSync(PushPull, {force: force, lastSync: lastSync});
+		episodeItems.cloudSync(PushPull, {force: force, lastSync: lastSync});
+	},
+
 	forcePush: function(){
-		globalSettings.cloudSync('forcePush');
-		podcastItems.cloudSync('forcePush');
-		episodeItems.cloudSync('forcePush');
+		this.itemSync('push', true);
 	},
 	forcePull: function(){
-		globalSettings.cloudSync('forcePull');
-		podcastItems.cloudSync('forcePull');
-		episodeItems.cloudSync('forcePull');
+		this.itemSync('pull', true);
 	},
 });

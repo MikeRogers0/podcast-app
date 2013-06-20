@@ -19,6 +19,8 @@ ClearDataView = Backbone.View.extend({
 		// Clear these.
 		episodeItems.reset();
 		podcastItems.reset();
+		globalSettings.clear();
+		settings.clear();
 
 		// Now delete all the local storage.
 		localStorage.clear();

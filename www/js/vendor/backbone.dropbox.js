@@ -1,6 +1,5 @@
 DropBoxStorage = (function() {
-  function DropBoxStorage(client, AuthCallback) {
-    this.AuthCallback = AuthCallback;
+  function DropBoxStorage(client) {
     this.client = client;
   }
 
@@ -25,9 +24,12 @@ DropBoxStorage = (function() {
   };
 
   DropBoxStorage.prototype.sync = function(method, model, options) {
-    var id;
-
     // Check we are online
+    if(!navigator.onLine){
+      return false;
+    }
+
+    this.options = options;
 
     switch (method) {
       case 'read':
@@ -38,11 +40,11 @@ DropBoxStorage = (function() {
           return this.findAll(model, options);
         }
         break;
-      case 'forcePush':
-        return this.forcePush(model, options);
+      case 'push':
+        return this.itemPush(model, options);
         break;
-      case 'forcePull':
-        return this.forcePull(model, options);
+      case 'pull':
+        return this.itemPull(model, options);
         break;
       case 'create':
         console.log("creating");
@@ -75,7 +77,7 @@ DropBoxStorage = (function() {
   /**
    * Overwrites dropbox with the stuff on localStorge
    */
-  DropBoxStorage.prototype.forcePush = function(model, options){
+  DropBoxStorage.prototype.itemPush = function(model, options){
     var model = model, _this = this;
     // First delete the folder / file
     promise = this._remove((model.urlRoot || model.url));
@@ -89,17 +91,19 @@ DropBoxStorage = (function() {
   /**
    * Overwrites LocalStoage with the stuff on Dropbox
    */
-  DropBoxStorage.prototype.forcePull = function(model, options){
+  DropBoxStorage.prototype.itemPull = function(model, options){
     var model = model, _this = this;
     // First delete the folder / file
-    model.localStorage._clear();
+    if(options.force == true){
+      model.localStorage._clear();
+    }
     return _this.sync('read', model, options);
   }
 
   DropBoxStorage.prototype.find = function(model, options) {
     var parse, path, promise,
       _this = this;
-    return _this._readFile(model.url()).then(function(res) {
+    return _this._readFile(model.url()).then(function(res, metadata) {
         console.log("gne");
         console.log(res);
         model.set(JSON.parse(res));
@@ -116,8 +120,15 @@ DropBoxStorage = (function() {
     promises = [];
     promise = this._readDir(model.path);
     model.trigger('fetch', model, null, options);
-    fetchData = function(entries) {
+    fetchData = function(entries, metadata) {
       var fileName, filePath, _i, _len;
+
+      // If the folder has not changed since last sync.
+      if(options.force != true && (new Date(options.lastSync) > new Date(metadata.modifiedAt))){
+        return true;
+      }
+
+
       for (_i = 0, _len = entries.length; _i < _len; _i++) {
         fileName = entries[_i];
         filePath = "" + rootPath + "/" + fileName;
@@ -125,15 +136,30 @@ DropBoxStorage = (function() {
         promises.push(_this._readFile(filePath));
       }
       return $.when.apply($, promises).done(function() {
-        var results;
-        results = arguments;
+        var results = [], options = _this.options;
+
+        // If there is only 1 object in the response
+        if(typeof arguments[1].isFile == 'boolean'){
+          results[0] = arguments[0];
+        } else {
+          _.each(arguments, function(result){
+            if(options.force == true || (new Date(options.lastSync) < new Date(result[1].modifiedAt))){
+              results.push(result[0]);
+            }
+          });
+        }
+
         results = $.map(results, JSON.parse);
         console.log("ALL DONE", results);
 
         // For now just do a hard reset.
-        model.reset(results, {
-          collection: model
-        });
+        if(options.force == true){
+          model.reset(results, {
+            collection: model
+          });
+        }else{
+          model.add(results);
+        }
 
         _.each(model.models, function(model){
           model.save();
@@ -198,7 +224,7 @@ DropBoxStorage = (function() {
       if (error) {
         return _this.showError(error);
       }
-      return d.resolve(entries);
+      return d.resolve(entries, metadata);
     });
     return d.promise();
   };
@@ -211,7 +237,7 @@ DropBoxStorage = (function() {
       if (error) {
         return _this.showError(error);
       }
-      return d.resolve(data);
+      return d.resolve(data, metadata);
     });
     return d.promise();
   };

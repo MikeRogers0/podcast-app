@@ -10,8 +10,9 @@ var SettingsModel = Backbone.Model.extend({
     return {
     	id: 1,
     	dropboxSync: false,
+      lastSync: null,
     	lastVisit: null,
-      updated_at: null,
+      UTCOffset: null, // The time difference betweeen the user device and UTC (for smarter dropbox syncing).
     };
   },
 
@@ -23,10 +24,7 @@ var SettingsModel = Backbone.Model.extend({
     this.save();
   },
 
-  dropboxAuth: function(redirect, AuthCallback){
-    var redirect = (redirect === true ? true : false);
-    var AuthCallback = AuthCallback;
-    settings.set('dropboxSync', true);
+  dropboxInit: function(){
     this.dropboxClient = new Dropbox.Client({
       key: "gkEKyDpBMsA=|++7iyniKA/kjwqydL7CQEtBv9oZ4hp7gSaPMp7Fk3w==",
       sandbox: true
@@ -35,8 +33,13 @@ var SettingsModel = Backbone.Model.extend({
       rememberUser: true,
       useQuery: true
     }));
+  },
 
+  dropboxAuth: function(AuthCallback){
+    var AuthCallback = AuthCallback;
+    this.dropboxInit();
     this.dropboxClient.authenticate({interactive: false}, function(error, client) {
+      settings.set('dropboxSync', true);
       if (error) {
           settings.set('dropboxSync', false);
           //return handleError(error);
@@ -48,21 +51,40 @@ var SettingsModel = Backbone.Model.extend({
         }
         return;
       }else{
-        client.authenticate(function(error, client) {
-          if (error) {
-            settings.set('dropboxSync', false);
-            return '';
-          }
-          if(typeof AuthCallback == "function"){
-            AuthCallback();
-          }
-          if(redirect){
-            app.navigate('settings/device-sync', true);
-          }
-          return;
-        });
+        settings.set('dropboxSync', false);
+        return;
       }
     });
+  },
+
+  /**
+   * Used for the first time a user connects to Dropbox. This will figure out the time difference 
+   * of each device compared to dropbox.
+   */
+  dropboxConnect: function(){
+    var _this = this;
+    this.dropboxInit();
+    settings.set('dropboxSync', true);
+    this.dropboxClient.authenticate(function(error, client) {
+      if (error) {
+        settings.set('dropboxSync', false);
+        return;
+      }
+      
+      // Figure out the time difference.
+      _this.dropboxDrift();
+
+      app.navigate('settings/device-sync', true);
+      return;
+    });
+  },
+
+  /**
+   * Calucate the time difference between the user and UTC.
+   */
+  dropboxDrift: function(){
+    var x = new Date()
+    this.set('UTCOffset', x.getTimezoneOffset());
   },
 
   dropboxSignOut: function(){

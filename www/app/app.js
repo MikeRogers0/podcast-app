@@ -50,9 +50,6 @@ head.js(
 	// The Routers
 	'/app/router/AppRouter.js',
 
-	// Start App JS function
-	'/app/start.js',
-
 	function(){
 		utils.loadTemplate([
 			'HomeView', 
@@ -71,10 +68,37 @@ head.js(
 			settings = new SettingsModel();
 			settings.fetch();
 
+			// Now start the app.
+			globalSettings = new GlobalSettingsModel();
+			globalSettings.fetch();
+
+			podcastItems = new PodcastList();
+			episodeItems = new EpisodeList();
+
+			podcastItems.fetch();
+			episodeItems.fetch();
+
+		    app = new AppRouter();
+			Backbone.history.start({pushState: true});
+
+			// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
+			$("#menu, #player, #content").on('click', 'a:not([data-bypass])', function (e) {
+				if($(this).attr('href') == null){
+					return;
+				}
+				e.preventDefault();
+				app.navigate($(this).attr('href'), true);
+			});
+
+			// If the user is using dropbox
 			if(settings.get('dropboxSync')){
-				settings.dropboxAuth(false, startApp);
-			} else {
-				startApp();
+				// Authenicate them, then do a sync.
+				settings.dropboxAuth(function(){
+					// Now trigger the cloud sync - Forcing is bad btw, it's expensive.
+					globalSettings.cloudSync('forcePull');
+					podcastItems.cloudSync('forcePull');
+					episodeItems.cloudSync('forcePull');
+				});
 			}
 		});
 	}

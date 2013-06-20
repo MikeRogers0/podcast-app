@@ -35,6 +35,9 @@ PlayerView = Backbone.View.extend({
 	},
 
 	render: function() {
+		if(this.model == null){
+			return;
+		}
 		this.currentlyPlayingView.model = this.model;
 		this.currentlyPlayingView.render();
 

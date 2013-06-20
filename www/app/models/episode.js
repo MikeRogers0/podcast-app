@@ -18,7 +18,6 @@ var Episode = Backbone.Model.extend({
       podcastID: null, // The ID of the parent podcast,
       queued: false,
       queuePosition: false,
-      updated_at: null,
     };
   },
 

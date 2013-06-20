@@ -12,7 +12,6 @@ var GlobalSettingsModel = Backbone.Model.extend({
     return {
     	id: 1,
       lastListeningTo: null,
-      updated_at: null,
     };
   },
 
@@ -28,6 +27,10 @@ var GlobalSettingsModel = Backbone.Model.extend({
     // If dropbox isn't on ignore the request.
     if(!settings.get('dropboxSync')){
       return false;
+    }
+
+    if(options == null){
+      options = {};
     }
 
 
