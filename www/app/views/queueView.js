@@ -1,3 +1,6 @@
+/*
+	The view of queues
+*/
 QueueView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
