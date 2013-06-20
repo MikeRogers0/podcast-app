@@ -203,10 +203,10 @@ class { 'apt':
 Exec["apt-get update"] -> Package <| |>
 
 include system-update
-include dev-packages
+#include dev-packages
 include nginx-setup
-include php-setup
+#include php-setup
 #include composer
 #include phpqatools
 #include memcached
-include redis
+#include redis
