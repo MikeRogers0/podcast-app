@@ -94,10 +94,7 @@ head.js(
 			if(settings.get('dropboxSync')){
 				// Authenicate them, then do a sync.
 				settings.dropboxAuth(function(){
-					// Now trigger the cloud sync - Forcing is bad btw, it's expensive.
-					globalSettings.cloudSync('forcePull');
-					podcastItems.cloudSync('forcePull');
-					episodeItems.cloudSync('forcePull');
+					settings.dropboxPull();
 				});
 			}
 		});

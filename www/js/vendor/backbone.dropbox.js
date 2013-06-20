@@ -80,7 +80,12 @@ DropBoxStorage = (function() {
   DropBoxStorage.prototype.itemPush = function(model, options){
     var model = model, _this = this;
     // First delete the folder / file
-    promise = this._remove((model.urlRoot || model.url));
+    if(options.force){
+      promise = this._remove((model.urlRoot || model.url));
+    } else {
+      promise = true;
+    }
+    
     writeData = function(){
       _this.sync('update', model, options);
     }
@@ -124,7 +129,7 @@ DropBoxStorage = (function() {
       var fileName, filePath, _i, _len;
 
       // If the folder has not changed since last sync.
-      if(options.force != true && (new Date(options.lastSync) > new Date(metadata.modifiedAt))){
+      if(options.force != true && (new Date(options.lastPull) > new Date(metadata.modifiedAt))){
         return true;
       }
 
@@ -143,7 +148,7 @@ DropBoxStorage = (function() {
           results[0] = arguments[0];
         } else {
           _.each(arguments, function(result){
-            if(options.force == true || (new Date(options.lastSync) < new Date(result[1].modifiedAt))){
+            if(options.force == true || (new Date(options.lastPull) < new Date(result[1].modifiedAt))){
               results.push(result[0]);
             }
           });

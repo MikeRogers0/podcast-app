@@ -10,7 +10,8 @@ var SettingsModel = Backbone.Model.extend({
     return {
     	id: 1,
     	dropboxSync: false,
-      lastSync: null,
+      lastPull: null,
+      lastPush: null,
     	lastVisit: null,
       UTCOffset: null, // The time difference betweeen the user device and UTC (for smarter dropbox syncing).
     };
@@ -94,6 +95,37 @@ var SettingsModel = Backbone.Model.extend({
         app.navigate('settings/device-sync', true);
       }
     });
+  },
+
+  // dropbox Pull
+  dropboxPull: function(force){
+    var lastPull = this.get('lastPull');
+    // If it's the first ever sync.
+    if(lastPull == null){
+      force = true;
+    }
+    this.set('lastPull', (new Date().toUTCString()));
+
+    this.dropboxSync('pull', {force: force, lastPull: lastPull});
+  },
+
+  // Dropbox Push
+  dropboxPush: function(force){
+    var lastPush = this.get('lastPush');
+
+    // If it's the first ever sync.
+    if(lastPush == null){
+      force = true;
+    }
+    this.set('lastPush', (new Date().toUTCString()));
+
+    this.dropboxSync('push', {force: force, lastPush: lastPush});
+  },
+
+  dropboxSync: function(method, options){
+    globalSettings.cloudSync(method, options);
+    podcastItems.cloudSync(method, options);
+    episodeItems.cloudSync(method, options);
   }
 
   // Move all the auth stuff to here.
