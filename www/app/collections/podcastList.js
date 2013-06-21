@@ -26,7 +26,7 @@ var PodcastList = Backbone.Collection.extend({
         // If it's already been added, take the user to it.
         var podcastItem = podcastItems.getByFeedURL(feedURL) 
         if(podcastItem != undefined){
-            app.navigate('podcasts/'+podcastItem.get('feedUrlEncoded'), true);
+            app.navigate('podcasts/'+podcastItem.get('slug'), true);
             return;
         }
 
@@ -73,7 +73,7 @@ var PodcastList = Backbone.Collection.extend({
 
                 newPodcast.updateEpisodes(function(){
                     app.navigate('podcasts/301', redirect); // Extra one needed for when adding podcast from url.
-                    app.navigate('podcasts/'+newPodcast.get('feedUrlEncoded'), redirect);
+                    app.navigate('podcasts/'+newPodcast.get('slug'), redirect);
                 });
             }
         });

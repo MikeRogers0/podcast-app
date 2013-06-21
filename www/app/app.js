@@ -43,7 +43,6 @@ head.js(
 	'/app/views/MyPodcastsView.js',
 	'/app/views/PodcastView.js',
 	'/app/views/PodcastListItemView.js',
-	'/app/views/ExploreView.js',
 	'/app/views/CurrentlyPlayingView.js',
 
 	// The Routers
@@ -61,8 +60,7 @@ head.js(
 			'MyPodcastsView',
 			'PodcastView',
 			'PodcastListItemView',
-			'CurrentlyPlayingView',
-			'ExploreView'], function() {
+			'CurrentlyPlayingView'], function() {
 			settings = new SettingsModel();
 			settings.fetch();
 

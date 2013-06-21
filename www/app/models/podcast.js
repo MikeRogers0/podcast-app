@@ -10,7 +10,7 @@ var Podcast = Backbone.Model.extend({
       lastChecked: null,
       lastUpdated: null,
       feedUrl: '',
-      feedUrlEncoded: '',
+      slug: '',
       imageUrl: '',
       link: '',
       explicit: false,
@@ -19,7 +19,7 @@ var Podcast = Backbone.Model.extend({
 
   initialize: function () {
     //this.episodes = episodeItems.getByPodcastID(this.get('id');
-    this.set('feedUrlEncoded', encodeURIComponent(this.get('feedUrl')));
+    this.set('slug', encodeURIComponent(this.get('feedUrl')));
 
     this.listenTo(this, 'change', this.cloudSave);
   },
@@ -43,7 +43,7 @@ var Podcast = Backbone.Model.extend({
   updateEpisodes: function(callback){
     var api = "https://ajax.googleapis.com/ajax/services/feed/load",
         count = '10', // Get the latest 20
-        params = "?v=1.0&num=" + count + "&output=xml&q=" + this.get('feedUrlEncoded'),
+        params = "?v=1.0&num=" + count + "&output=xml&q=" + this.get('slug'),
         url = api + params,
         redirect = redirect,
         callback = callback;
