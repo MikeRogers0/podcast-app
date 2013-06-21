@@ -44,7 +44,6 @@ head.js(
 	'/app/views/PodcastView.js',
 	'/app/views/PodcastListItemView.js',
 	'/app/views/ExploreView.js',
-	'/app/views/PodcastEpisodeView.js',
 	'/app/views/CurrentlyPlayingView.js',
 
 	// The Routers
@@ -62,7 +61,6 @@ head.js(
 			'MyPodcastsView',
 			'PodcastView',
 			'PodcastListItemView',
-			'PodcastEpisodeView',
 			'CurrentlyPlayingView',
 			'ExploreView'], function() {
 			settings = new SettingsModel();
@@ -82,7 +80,7 @@ head.js(
 			Backbone.history.start({pushState: true});
 
 			// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
-			$("#menu, #player, #content").on('click', 'a:not([data-bypass])', function (e) {
+			$("#menu, #player, #content").on('click', 'a:not([data-bypass], [target="_blank"])', function (e) {
 				if($(this).attr('href') == null){
 					return;
 				}
