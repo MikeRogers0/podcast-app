@@ -7,10 +7,6 @@ var EpisodeList = Backbone.Collection.extend({
   initialize: function () {
   },
 
-  comparator: function(m) {
-      return -(new Date(m.get('datePublished')).getTime());
-  },
-
 	getByID: function(id){
 		return this.where({id:id})[0];
   },

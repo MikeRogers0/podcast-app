@@ -9,7 +9,6 @@ var AppRouter = Backbone.Router.extend({
         "podcasts/404":'404',
         "podcasts/301":'301',
         "podcasts/:feedUrl" : "podcasts",
-        "podcasts/:feedUrl/:episodeName" : "podcasts",
         "add-feed"          : "addFeed",
         "settings/device-sync"      : "deviceSync",
         "settings/clear-data"		: "clearData"
@@ -52,32 +51,23 @@ var AppRouter = Backbone.Router.extend({
 
     404: function(){},
     301: function(){},
-    podcasts: function(feedUrl, episodeName){
+    podcasts: function(feedUrl){
         
         // Load up the podcast we are looking for.
-        try{
-            var podcastModel = podcastItems.getByFeedURL(feedUrl);
-            if(podcastModel == undefined){
-                try{
-                    podcastItems.addFeed(feedUrl, true);
-                }catch(err){
-                    // Do Something
-                    throw 'Podcast Not Found';
-                }
-                return;
-            }
-            if(episodeName == undefined){
-                this.PodcastView = new PodcastView({model: podcastModel});
-            } else {
-                var episodeModel = podcastModel.getEpisodesByName(episodeName);
-                if(episodeModel == undefined){
-                    throw 'Episode Not Found'
-                }
-                this.PodcastView = new PodcastEpisodeView({model: episodeModel});
-            }
-        }catch(err){
-            // Do Something
-            alert(err)
+        
+        var podcastModel = podcastItems.getByFeedURL(feedUrl);
+        if(podcastModel == undefined){
+            //try{
+                podcastItems.addFeed(feedUrl, true);
+            //}catch(err){
+                // Do Something
+              //  throw 'Podcast Not Found';
+           // }
+            // A loading screen could be better.
+            this.PodcastView = {};
+            this.PodcastView.el = "<p>Podcast is loading</p>";
+        }else{
+            this.PodcastView = new PodcastView({model: podcastModel});
         }
 
         if(this.PodcastView != undefined){
@@ -90,9 +80,7 @@ var AppRouter = Backbone.Router.extend({
         $('#content').html(this.DeviceSyncView.el);
     },
     clearData: function(){
-        if (!this.ClearDataView) {
-            this.ClearDataView = new ClearDataView();
-        }
+        this.ClearDataView = new ClearDataView();
         $('#content').html(this.ClearDataView.el);
     }
 });

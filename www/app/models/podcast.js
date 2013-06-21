@@ -34,16 +34,19 @@ var Podcast = Backbone.Model.extend({
   },
 
   getEpisodes: function() {
-    return episodeItems.findByWhere({podcastID: this.get('id')});
+    var episodes = episodeItems.findByWhere({podcastID: this.get('id')});
+
+    return _.sortBy(episodes, function(episode) { return -episode.get('datePublished'); });
   },
 
   // A Cron to run to get newer episodes. If we have time, this should be done in a Worker. If not, do it in a setTimeout().
-  updateEpisodes: function(){
+  updateEpisodes: function(callback){
     var api = "https://ajax.googleapis.com/ajax/services/feed/load",
-        count = '20', // Get the latest 20
+        count = '10', // Get the latest 20
         params = "?v=1.0&num=" + count + "&output=xml&q=" + this.get('feedUrlEncoded'),
         url = api + params,
-        redirect = redirect;
+        redirect = redirect,
+        callback = callback;
 
     $.ajax({
         url: url,
@@ -55,7 +58,8 @@ var Podcast = Backbone.Model.extend({
 
             // Conver the XML reponse to a element we can jQuery over.
             var xmlDoc = $.parseXML( data.responseData.xmlString ),
-            $xml = $( xmlDoc );
+            $xml = $( xmlDoc ),
+            lastUpdated = null;
 
             
             var context = this;
@@ -65,9 +69,10 @@ var Podcast = Backbone.Model.extend({
                 ($(item).find('enclosure').attr('url')).indexOf('.mp3') == -1 && ($(item).find('enclosure').attr('url')).indexOf('.m4a') == -1)){
                 return;
               }
+
               var newEpisode = {
                 title: $(item).find('title').text(),
-                datePublished: $(item).find('pubDate').text(),
+                datePublished: (new Date($(item).find('pubDate').text())).getTime(),
                 link: $(item).find('link').text(),
                 mp3: $(item).find('enclosure').attr('url'),
                 mp3_format: $(item).find('enclosure').attr('type'),
@@ -77,6 +82,11 @@ var Podcast = Backbone.Model.extend({
                 queued: (context.get('subscribed') ? true : false) // If they are subscribed, autoqueue it.
               }
 
+              // Get the most recent date updated.
+              if(lastUpdated == null || lastUpdated < newEpisode.datePublished){
+                lastUpdated = newEpisode.datePublished;
+              }
+              
               // Confirm it's legit.
               if(episodeItems.getByWhere({podcastID: newEpisode.podcastID, title: newEpisode.title}) != undefined){
                 return;
@@ -88,8 +98,12 @@ var Podcast = Backbone.Model.extend({
 
             // Update the feed last check info.
             this.set('lastChecked', new Date());
-            this.set('lastUpdated', $xml.find('channel item:first pubDate').text());
+            this.set('lastUpdated', lastUpdated);
             this.save();
+
+            if(typeof callback == 'function'){
+              callback();
+            }
         }
     });
   },

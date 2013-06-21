@@ -7,10 +7,6 @@ var PodcastList = Backbone.Collection.extend({
     initialize: function () {
     },
 
-    comparator: function(m) {
-        return -(new Date(m.get('lastUpdated')).getTime());
-    },
-
 	getByID: function(id){
 		return this.where({id:id})[0];
     },
@@ -22,7 +18,8 @@ var PodcastList = Backbone.Collection.extend({
       return this.last().get('id') + 1;
     },
     findSubscribed: function(){
-        return this.where({subscribed:true});
+        var podcasts = this.where({subscribed:true});
+        return _.sortBy(podcasts, function(podcast) { return -podcast.get('lastUpdated'); });
     },
     addFeed: function(feedURL, redirect){
 
@@ -69,15 +66,15 @@ var PodcastList = Backbone.Collection.extend({
                     subscribed: false,
                     link: $xml.find('channel > link').text(),
                     imageUrl: $xml.find('channel > itunes\\:image, channel > image').attr('href'),
-                    lastChecked: new Date(),
-                    lastUpdated: $xml.find('channel > item > pubDate').text(),
+                    lastChecked: (new Date()).getTime(),
+                    lastUpdated: null,
                     explicit: ($xml.find('channel > itunes\\:explicit, channel > explicit').text() == 'no' ? false : true)
                 }));
 
-                newPodcast.updateEpisodes();
-
-                app.navigate('podcasts/301', redirect); // Extra one needed for when adding podcast from url.
-                app.navigate('podcasts/'+newPodcast.get('feedUrlEncoded'), redirect);
+                newPodcast.updateEpisodes(function(){
+                    app.navigate('podcasts/301', redirect); // Extra one needed for when adding podcast from url.
+                    app.navigate('podcasts/'+newPodcast.get('feedUrlEncoded'), redirect);
+                });
             }
         });
     },
