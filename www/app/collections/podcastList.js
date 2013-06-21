@@ -7,6 +7,10 @@ var PodcastList = Backbone.Collection.extend({
     initialize: function () {
     },
 
+    comparator: function(m) {
+        return -(new Date(m.get('lastUpdated')).getTime());
+    },
+
 	getByID: function(id){
 		return this.where({id:id})[0];
     },

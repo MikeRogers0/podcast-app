@@ -113,7 +113,8 @@ DropBoxStorage = (function() {
         //console.log(res);
         model.set(JSON.parse(res));
         model.save();
-        return console.log(model);
+        return true;
+        //return console.log(model);
       });
   };
 
