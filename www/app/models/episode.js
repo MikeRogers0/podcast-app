@@ -5,7 +5,6 @@ var Episode = Backbone.Model.extend({
     return {
       id: episodeItems.nextID(),
       title: "Some episode title",
-      titleEncoded: '',
       description: '',
       datePublished: null,
       playhead: 0,

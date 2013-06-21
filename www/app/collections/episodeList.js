@@ -10,7 +10,7 @@ var EpisodeList = Backbone.Collection.extend({
 	getByID: function(id){
 		return this.where({id:id})[0];
   },
-  getByPodcastID: function(podcastID){
+  findByPodcastID: function(podcastID){
 		return this.where({podcastID:podcastID});
   },
   getByWhere: function(query){
@@ -19,7 +19,7 @@ var EpisodeList = Backbone.Collection.extend({
   findByWhere: function(query){
     return this.where(query);
   },
-  getQueued: function(){
+  findQueued: function(){
     return this.where({queued:true});
 
     //return qeuedItems.sort('queued');
@@ -38,7 +38,7 @@ var EpisodeList = Backbone.Collection.extend({
   getNextInQueue: function(){
     var currentlyPlaying = app.Player.model;
     var foundCurrentlyPlaying = false;
-    var queuedItems = this.getQueued();
+    var queuedItems = this.findQueued();
 
     // If there are no items in the queue.
     if(queuedItems[0] == undefined){

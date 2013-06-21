@@ -11,7 +11,7 @@ QueueView = Backbone.View.extend({
 		this.$el.html(this.template({}));
 		this.queue = this.$el.find("#queue");
 
-		var queuedItems = episodeItems.getQueued();
+		var queuedItems = episodeItems.findQueued();
 
 		if(queuedItems.length == 0){
 			// Render not items?

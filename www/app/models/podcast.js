@@ -18,7 +18,6 @@ var Podcast = Backbone.Model.extend({
   },
 
   initialize: function () {
-    //this.episodes = episodeItems.getByPodcastID(this.get('id');
     this.set('slug', encodeURIComponent(this.get('feedUrl')));
 
     this.listenTo(this, 'change', this.cloudSave);
