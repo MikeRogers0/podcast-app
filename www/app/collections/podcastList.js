@@ -24,18 +24,32 @@ var PodcastList = Backbone.Collection.extend({
 
     getExpiredPodcast: function(){
         var podcasts = this.models,
-        expiredDate = (new Date()).getTime() - 360, // 6 hours
-        longerExpiredDate = (new Date()).getTime() - 10080 // 7 Days
+        expiredTime = (new Date()).getTime() - 3600000 // 6 hours
+        longerExpiredTime = (new Date()).getTime() - 100800000; // 7 Days
 
         // Filter out the unexpired ones
         podcasts = _.filter(podcasts, function(podcast){
-            if(podcast.get('lastChecked')){
-                return 0;
+            var expireTime = longerExpiredTime;
+            if(podcast.get('subscribed')){
+                expireTime = expiredTime;
+            }
+            if(podcast.get('lastChecked') < expireTime){
+                return podcast;
             }
         });
 
-        // now sort by most out of date
-    }
+        if(podcasts.length == 0){
+            return null;
+        }
+
+        // Now sort it so the one which hasn't been updated in a while goes first.
+        podcasts = _.sortBy(podcasts, function(podcast){
+            return -podcast.get('lastChecked');
+        });
+
+        return podcasts[0];
+    }, 
+
     addFeed: function(feedURL, redirect){
 
         // If it's already been added, take the user to it.

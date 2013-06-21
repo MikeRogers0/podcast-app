@@ -96,7 +96,7 @@ head.js(
 			// Load in the crons
 			head.js('/app/crons/feedUpdater.js', function(){
 				// After 2 minutes the feeds will start updating.
-				setTimeout(feedUpdater, 120);
+				setTimeout(feedUpdater, 60000);
 			});
 		});
 	}
