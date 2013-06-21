@@ -21,6 +21,21 @@ var PodcastList = Backbone.Collection.extend({
         var podcasts = this.where({subscribed:true});
         return _.sortBy(podcasts, function(podcast) { return -podcast.get('lastUpdated'); });
     },
+
+    getExpiredPodcast: function(){
+        var podcasts = this.models,
+        expiredDate = (new Date()).getTime() - 360, // 6 hours
+        longerExpiredDate = (new Date()).getTime() - 10080 // 7 Days
+
+        // Filter out the unexpired ones
+        podcasts = _.filter(podcasts, function(podcast){
+            if(podcast.get('lastChecked')){
+                return 0;
+            }
+        });
+
+        // now sort by most out of date
+    }
     addFeed: function(feedURL, redirect){
 
         // If it's already been added, take the user to it.
@@ -82,15 +97,15 @@ var PodcastList = Backbone.Collection.extend({
     cloudSync: function(method, options){
         // If dropbox isn't on ignore the request.
         if(!settings.get('dropboxSync')){
-          return false;
+            return false;
         }
 
         if(options == null){
-          options = {};
+            options = {};
         }
 
         //return Backbone.ajaxSync('read', this, options);
         DropBoxSync = new DropBoxStorage(settings.dropboxClient);
         return DropBoxSync.sync(method, this, options);
-      },
+    },
 });

@@ -19,7 +19,6 @@ head.js(
 
 	// LocalStorage plugin for backbone
 	'/js/vendor/backbone.localStorage.js',
-	//'/js/vendor/backbone.dropboxStorage.js',
 	'/js/vendor/backbone.dropbox.js',
 
 	// Now load up the models
@@ -93,6 +92,12 @@ head.js(
 					settings.dropboxPull();
 				});
 			}
+
+			// Load in the crons
+			head.js('/app/crons/feedUpdater.js', function(){
+				// After 2 minutes the feeds will start updating.
+				setTimeout(feedUpdater, 120);
+			});
 		});
 	}
 );

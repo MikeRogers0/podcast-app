@@ -96,7 +96,7 @@ var Podcast = Backbone.Model.extend({
             });
 
             // Update the feed last check info.
-            this.set('lastChecked', new Date());
+            this.set('lastChecked', (new Date()).getTime());
             this.set('lastUpdated', lastUpdated);
             this.save();
 

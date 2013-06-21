@@ -1,3 +1,9 @@
+/**
+ * Built upon https://github.com/kaosat-dev/Backbone.dropbox 
+ * At some ponit i want to rewrite this, but for now it'll be good.
+ * I need to make the push & pull more sane at some point.
+ * https://www.dropbox.com/developers/core/docs#metadata - use this to do that.
+ */
 DropBoxStorage = (function() {
   function DropBoxStorage(client) {
     this.client = client;
