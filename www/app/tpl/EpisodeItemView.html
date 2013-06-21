@@ -1,6 +1,6 @@
-<a href="/podcasts/<%= podcast_feedUrlEncoded %>/<%= episode_titleEncoded %>"><%= episode_title %></a> - <a href="/podcasts/<%= podcast_feedUrlEncoded %>"><%= podcast_title %></a>
+<a href="<%= episode.link %>"><%= episode.title %></a> - <a href="/podcasts/<%= podcast.feedUrlEncoded %>"><%= podcast.title %></a>
 <a class="playPause pure-button">
-    <% if (playing){ %>
+    <% if (episode.playing){ %>
         Pause
     <% } else { %>
         Play
@@ -8,7 +8,7 @@
 </a>
 
 <a class="queue pure-button">
-    <% if (queued){ %>
+    <% if (episode.queued){ %>
         Unqueue
     <% } else { %>
         Queue
@@ -16,5 +16,5 @@
 </a>
 
 <span class="percentCompleted">
-(<%= percentCompleted %>%)
+(<%= episode.percentCompleted %>%)
 </span>
