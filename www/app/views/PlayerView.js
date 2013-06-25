@@ -17,20 +17,16 @@ PlayerView = Backbone.View.extend({
 		this.currentlyPlayingView = new CurrentlyPlayingView({model: this.model});
 		this.currentlyPlaying.html(this.currentlyPlayingView.el);
 
-		this.audioPlayer = this.$el.find('audio').get(0);
-
-		this.as = audiojs.createAll({}, this.$el.find('audio'))[0];
-
-		debugger;
+		this.audioPlayer = audiojs.create(this.$el.find('audio').get(0), {});
 
 		// Listeners so the model is updated.
-        this.audioPlayer.addEventListener('timeupdate', this.currentTime);
-        this.audioPlayer.addEventListener('loadedmetadata', this.loadedmetadata);
-        this.audioPlayer.addEventListener('pause', this.pause);
-        this.audioPlayer.addEventListener('playing', this.pause);
-        this.audioPlayer.addEventListener('ended', this.ended);
-        this.audioPlayer.addEventListener('canplay', this.canplay);
-        this.audioPlayer.addEventListener('waiting', this.waiting);
+        this.audioPlayer.element.addEventListener('timeupdate', this.currentTime);
+        this.audioPlayer.element.addEventListener('loadedmetadata', this.loadedmetadata);
+        this.audioPlayer.element.addEventListener('pause', this.pause);
+        this.audioPlayer.element.addEventListener('playing', this.pause);
+        this.audioPlayer.element.addEventListener('ended', this.ended);
+        this.audioPlayer.element.addEventListener('canplay', this.canplay);
+        this.audioPlayer.element.addEventListener('waiting', this.waiting);
 
         if(globalSettings.get('lastListeningTo') != null){
         	this.model = episodeItems.getByID(globalSettings.get('lastListeningTo'));
@@ -45,9 +41,8 @@ PlayerView = Backbone.View.extend({
 		}
 		this.currentlyPlayingView.model = this.model;
 		this.currentlyPlayingView.render();
-
-		this.audioPlayer.src = this.model.get('mp3');
-		this.audioPlayer.load();
+		
+		this.audioPlayer.load(this.model.get('mp3'));
 
         this.model.trigger('loading');
 
