@@ -12,7 +12,7 @@ head.js(
 	'/js/vendor/bootstrap.min.js',
 
 	// By default HTML5 audio sucks - http://kolber.github.io/audiojs/ is better.
-	'/js/vendor/audiojs/audio.min.js', // Default is ok for now.
+	'/js/vendor/audiojs/audio.min.js',
 
 	// A few utils
 	'/js/vendor/utils.js',

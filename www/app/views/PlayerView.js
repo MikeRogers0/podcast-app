@@ -12,11 +12,16 @@ PlayerView = Backbone.View.extend({
 		// Render the inital blank elements
 		this.$el.html(this.template({}));
 		this.currentlyPlaying = this.$el.find('#currentlyPlaying');
-		this.audioPlayer = this.$el.find('audio').get(0);
 
 		// The currently playing bit.
 		this.currentlyPlayingView = new CurrentlyPlayingView({model: this.model});
 		this.currentlyPlaying.html(this.currentlyPlayingView.el);
+
+		this.audioPlayer = this.$el.find('audio').get(0);
+
+		this.as = audiojs.createAll({}, this.$el.find('audio'))[0];
+
+		debugger;
 
 		// Listeners so the model is updated.
         this.audioPlayer.addEventListener('timeupdate', this.currentTime);
