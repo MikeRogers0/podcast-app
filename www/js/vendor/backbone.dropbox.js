@@ -10,7 +10,7 @@ DropBoxStorage = (function() {
   }
 
   DropBoxStorage.prototype.showError = function(error) {
-    console.log("error in dropbox");
+    //console.log("error in dropbox");
     switch (error.status) {
       case 401:
         break;
