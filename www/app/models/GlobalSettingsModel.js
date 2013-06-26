@@ -17,11 +17,12 @@ var GlobalSettingsModel = Backbone.Model.extend({
   },
 
   initialize: function () {
-    this.listenTo(this, 'change:lastListeningTo', this.cloudSave); 
+    this.on('change', function(){this.save();});
+    this.on('change:lastListeningTo', function(){this.cloudSave();}); 
   },
 
   cloudSave: function(){
-    this.save();
+    this.cloudSync('update');
   },
 
   cloudSync: function(method, options){

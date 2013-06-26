@@ -65,7 +65,8 @@ DropBoxStorage = (function() {
             _this.writeFile(model.url(), JSON.stringify(model));
           });
         }
-        return model.toJSON();
+        return true;
+        //return model.toJSON();
       case 'delete':
         //console.log("deleting");
         //console.log(model);

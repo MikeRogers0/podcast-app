@@ -19,11 +19,7 @@ var SettingsModel = Backbone.Model.extend({
   },
 
   initialize: function () {
-  	this.listenTo(this, 'change', this.cloudSave);
-  },
-
-  cloudSave: function(){
-    this.save();
+  	this.on('change', function(){this.save();});
   },
 
   dropboxInit: function(){

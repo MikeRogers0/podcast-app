@@ -28,11 +28,12 @@ var Episode = Backbone.Model.extend({
       this.set('queuePosition', episodeItems.nextQueuePosition());
     }
 
-    this.listenTo(this, 'change', this.cloudSave); // In future we'll need to be more specific.
+    this.on('change', function(){this.save();});
+    this.on('add change:queued', function(){this.cloudSave();}); 
   },
 
   cloudSave: function(){
-    this.save();
+    this.cloudSync('update');
   },
 
   playPause: function(){
@@ -47,5 +48,21 @@ var Episode = Backbone.Model.extend({
     }else{
       this.set('queuePosition', episodeItems.nextQueuePosition());
     }
+  },
+
+  cloudSync: function(method, options){
+    // If dropbox isn't on ignore the request.
+    if(!settings.get('dropboxSync')){
+      return false;
+    }
+
+    if(options == null){
+      options = {};
+    }
+
+
+    //return Backbone.ajaxSync('read', this, options);
+    DropBoxSync = new DropBoxStorage(settings.dropboxClient);
+    return DropBoxSync.sync(method, this, options);
   },
 });

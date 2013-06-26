@@ -21,12 +21,14 @@ var Podcast = Backbone.Model.extend({
   initialize: function () {
     this.set('slug', encodeURIComponent(this.get('feedUrl')));
 
-    this.listenTo(this, 'change', this.cloudSave);
+    this.on('change', function(){this.save();});
+    this.on('add change:subscribed', function(){this.cloudSave();}); 
   },
 
   cloudSave: function(){
-    this.save();
+    this.cloudSync('update');
   },
+
 
   getEpisodesByName: function(slug) {
     // TODO - Get single episode, from an index of the available episodes on the feed URL.
@@ -106,5 +108,21 @@ var Podcast = Backbone.Model.extend({
             }
         }
     });
+  },
+
+  cloudSync: function(method, options){
+    // If dropbox isn't on ignore the request.
+    if(!settings.get('dropboxSync')){
+      return false;
+    }
+
+    if(options == null){
+      options = {};
+    }
+
+
+    //return Backbone.ajaxSync('read', this, options);
+    DropBoxSync = new DropBoxStorage(settings.dropboxClient);
+    return DropBoxSync.sync(method, this, options);
   },
 });
