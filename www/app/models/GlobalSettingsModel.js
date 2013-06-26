@@ -12,6 +12,7 @@ var GlobalSettingsModel = Backbone.Model.extend({
     return {
     	id: 1,
       lastListeningTo: null,
+      modelUpdatedAt: (new Date()).toUTCString()
     };
   },
 

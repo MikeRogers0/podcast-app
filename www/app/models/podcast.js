@@ -14,6 +14,7 @@ var Podcast = Backbone.Model.extend({
       imageUrl: '',
       link: '',
       explicit: false,
+      modelUpdatedAt: (new Date()).toUTCString()
     };
   },
 

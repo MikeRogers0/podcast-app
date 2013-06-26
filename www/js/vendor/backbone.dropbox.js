@@ -93,7 +93,15 @@ DropBoxStorage = (function() {
     }
     
     writeData = function(){
-      _this.sync('update', model, options);
+      if(model.id != undefined && ( options.force == true || new Date(options.lastPush) <  new Date(model.get('modelUpdatedAt')) )){
+        _this.sync('update', model, options);
+      }else {
+        _.each(model.models, function(models){
+          if( options.force == true || new Date(options.lastPush) <  new Date(models.get('modelUpdatedAt')) ){
+            _this.sync('update', models, options);
+          }
+        });
+      }
     }
 
     return $.when(promise).then(writeData);

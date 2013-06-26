@@ -14,6 +14,7 @@ var SettingsModel = Backbone.Model.extend({
       lastPush: null,
     	lastVisit: null,
       UTCOffset: null, // The time difference betweeen the user device and UTC (for smarter dropbox syncing).
+      modelUpdatedAt: (new Date()).toUTCString()
     };
   },
 
