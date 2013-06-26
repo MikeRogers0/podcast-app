@@ -112,7 +112,7 @@ var Podcast = Backbone.Model.extend({
 
   cloudSync: function(method, options){
     // If dropbox isn't on ignore the request.
-    if(!settings.get('dropboxSync')){
+    if(!settings.canDropbox()){
       return false;
     }
 

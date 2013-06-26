@@ -12,7 +12,7 @@ DeviceSyncView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
 
-		this.listenTo(settings, 'dropboxSync', this.render);
+		this.listenTo(settings, 'change:dropboxSync', this.render);
 	},
 
 	render: function(){
