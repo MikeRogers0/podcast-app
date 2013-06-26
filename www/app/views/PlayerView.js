@@ -99,6 +99,9 @@ PlayerView = Backbone.View.extend({
 	pause: function(e){
 		app.Player.model.set('playhead', e.srcElement.currentTime);
 		app.Player.model.trigger('playing');
+
+		// trigger a sync to dropbox
+		settings.dropboxPush();
 	},
 	waiting: function(e){
 		this.model.trigger('loading');
