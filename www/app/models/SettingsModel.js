@@ -36,6 +36,7 @@ var SettingsModel = Backbone.Model.extend({
   dropboxAuth: function(AuthCallback){
     var AuthCallback = AuthCallback;
     this.dropboxInit();
+    settings.set('dropboxSync', false);
     this.dropboxClient.authenticate({interactive: false}, function(error, client) {
       settings.set('dropboxSync', true);
       if (error) {
