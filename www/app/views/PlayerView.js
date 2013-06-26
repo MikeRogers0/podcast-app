@@ -106,6 +106,9 @@ PlayerView = Backbone.View.extend({
 	loadedmetadata: function(e){
 		//debugger;
 		app.Player.model.set('duration', e.srcElement.duration);
+
+		// trigger a sync to dropbox
+		settings.dropboxPush();
 	},
 
 	/**
@@ -132,6 +135,9 @@ PlayerView = Backbone.View.extend({
 			// Unqueue it
 			oldModel.set('queued', false);
 		}
+
+		// trigger a sync to dropbox
+		settings.dropboxPush();
 	},
 
 	/**
