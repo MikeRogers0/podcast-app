@@ -130,7 +130,7 @@ DropBoxStorage = (function() {
     //console.log("searching at " + model.path);
     rootPath = model.path;
     promises = [];
-    promise = this._readDir(model.path);
+    promise = this._metadata(model.path);
     model.trigger('fetch', model, null, options);
     fetchData = function(entries, metadata) {
       var fileName, filePath, _i, _len;
@@ -142,10 +142,14 @@ DropBoxStorage = (function() {
 
 
       for (_i = 0, _len = entries.length; _i < _len; _i++) {
-        fileName = entries[_i];
+        fileName = entries[_i].name;
         filePath = "" + rootPath + "/" + fileName;
         //console.log("file path: " + filePath);
-        promises.push(_this._readFile(filePath));
+
+        if(options.force == true || (new Date(options.lastPull) < new Date(metadata.modifiedAt))){
+          promises.push(_this._readFile(filePath)); 
+        }
+        
       }
       return $.when.apply($, promises).done(function() {
         var results = [], options = _this.options;
@@ -243,6 +247,23 @@ DropBoxStorage = (function() {
     });
     return d.promise();
   };
+
+  DropBoxStorage.prototype._metadata = function(path) {
+    var d,
+      _this = this;
+    d = $.Deferred();
+
+    options = {readDir: true};
+
+    this.client.metadata(path, options,  function(error, stat, entries) {
+      if (error) {
+        return _this.showError(error);
+      }
+      return d.resolve(entries, stat);
+    });
+    return d.promise();
+  };
+
 
   DropBoxStorage.prototype._readFile = function(path) {
     var d,
