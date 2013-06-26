@@ -100,6 +100,10 @@ var SettingsModel = Backbone.Model.extend({
 
   // dropbox Pull
   dropboxPull: function(force){
+    if(!this.canDropbox()){
+      return false;
+    }
+
     var lastPull = this.get('lastPull');
     // If it's the first ever sync.
     if(lastPull == null){
@@ -112,6 +116,10 @@ var SettingsModel = Backbone.Model.extend({
 
   // Dropbox Push
   dropboxPush: function(force){
+    if(!this.canDropbox()){
+      return false;
+    }
+
     var lastPush = this.get('lastPush');
 
     // If it's the first ever sync.
@@ -123,10 +131,31 @@ var SettingsModel = Backbone.Model.extend({
     this.dropboxSync('push', {force: force, lastPush: lastPush});
   },
 
+  dropboxClear: function(){
+    if(!this.canDropbox()){
+      return false;
+    }
+
+    this.dropboxSync('delete', {});
+  },
+
   dropboxSync: function(method, options){
     globalSettings.cloudSync(method, options);
     podcastItems.cloudSync(method, options);
     episodeItems.cloudSync(method, options);
+  },
+
+  canDropbox: function(){
+    if(!this.get('dropboxSync')){
+      return false;
+    }
+
+    // Check we are online
+    if(!navigator.onLine){
+      return false;
+    }
+
+    return true;
   }
 
   // Move all the auth stuff to here.

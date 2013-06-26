@@ -30,11 +30,6 @@ DropBoxStorage = (function() {
   };
 
   DropBoxStorage.prototype.sync = function(method, model, options) {
-    // Check we are online
-    if(!navigator.onLine){
-      return false;
-    }
-
     this.options = options;
 
     switch (method) {
@@ -74,7 +69,7 @@ DropBoxStorage = (function() {
       case 'delete':
         //console.log("deleting");
         //console.log(model);
-        return this.remove(model.url());
+        return this.remove((model.urlRoot || model.url));
     }
   };
 
