@@ -68,6 +68,10 @@ nav#menu{
 		width: 40%;
 		display: none;
 	}
+	#player .audiojs{
+		float: left;
+		margin-right: 20px;
+	}
 	/*#player */#currentlyPlaying{
 		width: 100%;
 	}
