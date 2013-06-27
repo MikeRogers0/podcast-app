@@ -26,10 +26,12 @@ head.js(
 	'/app/models/podcast.js',
 	'/app/models/SettingsModel.js',
 	'/app/models/GlobalSettingsModel.js',
+	'/app/models/FileModel.js',
 
 	// The collections
 	'/app/collections/podcastList.js',
 	'/app/collections/episodeList.js',
+	'/app/collections/FilesCollection.js',
 
 	// The Views - TODO - swap this into an array of some form, which also manages the associated views.
 	'/app/views/EpisodeItemView.js',
@@ -66,6 +68,9 @@ head.js(
 			// Now start the app.
 			globalSettings = new GlobalSettingsModel();
 			globalSettings.fetch();
+
+			filesItems = new FilesCollection();
+			filesItems.fetch();
 
 			podcastItems = new PodcastList();
 			episodeItems = new EpisodeList();
