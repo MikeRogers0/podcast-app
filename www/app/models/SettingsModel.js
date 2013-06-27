@@ -156,7 +156,5 @@ var SettingsModel = Backbone.Model.extend({
     }
 
     return true;
-  }
-
-  // Move all the auth stuff to here.
+  },
 });
