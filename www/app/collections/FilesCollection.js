@@ -5,7 +5,7 @@ var FilesCollection = Backbone.Collection.extend({
 	localStorage: new Backbone.LocalStorage("FilesCollection-bb"),
 
 	// I this build is allowed to cache, set this to true on PhoneGap Builds.
-	canCache: true,
+	canCache: false,
 	fileSystem: null,
 
 	initialize: function () {
@@ -16,21 +16,19 @@ var FilesCollection = Backbone.Collection.extend({
 				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
 			}catch(e){
 				navigator.PersistentStorage = navigator.PersistentStorage|| navigator.webkitPersistentStorage;
-				navigator.PersistentStorage.requestQuota(5*1024*1024, function(gb) {
-					window.requestFileSystem(window.PERSISTENT, 5*1024*1024, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
+				navigator.PersistentStorage.requestQuota(8000*1024*1024, function(gb) {
+					window.requestFileSystem(window.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
 				}, _this.errorHandler);
 			}	
 		}
     },
 
     onFileSystemSuccess: function(fileSystem){
-    	console.log(fileSystem.name);
-        console.log(fileSystem.root.name);
         this.fileSystem = fileSystem;
     },
 
     onFileSystemFail: function(evt){
-    	console.log(evt.target.error.code);
+    	//console.log(evt.target.error.code);
     },
 
 	errorHandler: function(e) {
@@ -57,43 +55,91 @@ var FilesCollection = Backbone.Collection.extend({
 			break;
 		};
 
-		console.log('Error: ' + msg);
+		//console.log('Error: ' + msg);
 	},
 
-    getCachedURL: function(url){
+    getFile: function(url){
+    	if(!this.canCache){
+    		return url;
+    	}
+    	
 		var file = this.where({url:url})[0];
 
 		if(file == null || !file.get('cached')){
 			return url;
 		}
-		return file.get('cacheLocation');
+		return file.get('cacheURL');
+    },
+
+    removeFile: function(url){
+    	var _this = this,
+    	name = encodeURIComponent(url);
+
+    	if(!this.canCache){
+    		return url;
+    	}
+
+    	file = this.where({url:url})[0];
+    	if(file != null){
+    		file.destroy();
+
+	    	this.fileSystem.root.getFile(name, {create: true}, function (fe) {
+	    		fe.remove(function(){});
+	    	}, _this.errorHandler);
+    	}
     },
 
     // Mostly taken from http://css.dzone.com/articles/offline-files-html5-filesystem
     cacheFile: function(url){
     	var _this = this,
-    	file = new FileModel({url:url}),
     	xhr = new XMLHttpRequest,
-    	name = 'hat.txt',
-    	url = url;
-    	//name = encodeURIComponent(url);
+    	url = url,
+    	_xhr = null;
+    	name = encodeURIComponent(url);
+
+    	if(!this.canCache){
+    		return url;
+    	}
+
+    	var fileTest = this.getFile(url);
+    	if(fileTest != url){
+    		return true;
+    	}
 
     	xhr.open('get', url, true);
 		xhr.responseType = 'arraybuffer'; // give us an array buffer back please
 		xhr.onload = function () {
-			var res = this.response,
-			_fe = null; // ArrayBuffer!
+			var res = this.response, // ArrayBuffer!
+			_fe = null,
+			_xhr = this; 
+
 			_this.fileSystem.root.getFile(name, {create: true}, function (fe) {
-				_fe = fe;
+				_fe = fe,
+				_xhr = _xhr;
 				fe.createWriter(function(writer) {
 					// create a blob builder to append the data to
-					var bb = new Blob([res]);
+					var bb = new Blob([res], {'type':_xhr.getResponseHeader('Content-Type')});
 
 					writer.onwriteend = function (e) {
-						//_fe.toURL()
-						debugger;
+						// If the url already exits update it
+						var file = _this.where({url:url})[0];
+						if(file != null){
+							file.set({
+								cacheURL: _fe.toURL(),
+								cached: true
+							});
+							return;
+						}
+
+						// Otherwise make it.
+						_this.create(new FileModel({
+							url: url,
+							cacheURL: _fe.toURL(),
+							cached: true
+						}));
+						
 						//api.flagSynced(fe) // mark as synced in the UI
-					}
+					};
 					//writer.onerror = api.err;
 
 					// append the data and write to the file
@@ -104,14 +150,4 @@ var FilesCollection = Backbone.Collection.extend({
 
 		xhr.send();
     },
-
-    getFile: function(url){
-    	var _this = this,
-    	//name = encodeURIComponent(url),
-    	name = 'hat.txt';
-
-    	_this.fileSystem.root.getFile(name, {}, function (fe) {
-    		debugger;
-    	}, _this.errorHandler);
-    }
 });

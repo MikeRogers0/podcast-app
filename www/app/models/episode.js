@@ -45,8 +45,10 @@ var Episode = Backbone.Model.extend({
     this.set('queued', !this.get('queued'));
     if(this.get('queued') == false){
       this.set('queuePosition', false);
+      filesItems.removeFile(this.get('mp3'));
     }else{
       this.set('queuePosition', episodeItems.nextQueuePosition());
+      filesItems.cacheFile(this.get('mp3'));
     }
   },
 
