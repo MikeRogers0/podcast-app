@@ -42,7 +42,7 @@ PlayerView = Backbone.View.extend({
 		this.currentlyPlayingView.model = this.model;
 		this.currentlyPlayingView.render();
 		
-		this.audioPlayer.load(this.model.get('mp3'));
+		this.audioPlayer.load(filesItems.getFile(this.model.get('mp3')));
 
         this.model.trigger('loading');
 
