@@ -18,6 +18,9 @@ var AppRouter = Backbone.Router.extend({
     	// The currently playing item. It's set golobally for easier reference.
         this.Player = new PlayerView();
         $("#player").html(this.Player.el);
+
+        // Now it's been appended, add the listners
+        this.Player.initAudioElement();
     },
 
     home: function () {

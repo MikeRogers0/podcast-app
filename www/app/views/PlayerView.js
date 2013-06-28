@@ -1,6 +1,6 @@
 PlayerView = Backbone.View.extend({
 	model: null,
-	startPaused: false,
+	startPaused: true,
 
 	events : {
 		'change input[name=playbackRate]':'playbackRate',
@@ -8,6 +8,9 @@ PlayerView = Backbone.View.extend({
 		'click .playNext': 'playNext',
 	},
 
+	/**
+	 * Renders a blank template.
+	 */
 	initialize: function() {
 		// Render the inital blank elements
 		this.$el.html(this.template({}));
@@ -17,22 +20,43 @@ PlayerView = Backbone.View.extend({
 		this.currentlyPlayingView = new CurrentlyPlayingView({model: this.model});
 		this.currentlyPlaying.html(this.currentlyPlayingView.el);
 
-		this.audioPlayer = audiojs.create(this.$el.find('audio').get(0), {});
-
-		// Listeners so the model is updated.
-        this.audioPlayer.element.addEventListener('timeupdate', this.currentTime);
-        this.audioPlayer.element.addEventListener('loadedmetadata', this.loadedmetadata);
-        this.audioPlayer.element.addEventListener('pause', this.pause);
-        this.audioPlayer.element.addEventListener('playing', this.pause);
-        this.audioPlayer.element.addEventListener('ended', this.ended);
-        this.audioPlayer.element.addEventListener('canplay', this.canplay);
-        this.audioPlayer.element.addEventListener('waiting', this.waiting);
-
-        if(globalSettings.get('lastListeningTo') != null){
+		if(globalSettings.get('lastListeningTo') != null){
         	this.model = episodeItems.getByID(globalSettings.get('lastListeningTo'));
         	this.startPaused = true;
-        	this.render();
         }
+
+		return this;
+	},
+
+	initAudioElement: function(){
+		var _this = this;
+		this.audioElement = this.$el.find('audio').get(0);
+		new mediaelementplayer({
+			success: function(mediaElement, domObject){
+				_this.audioPlayer = mediaElement;
+				_this.addListners();
+			},
+			plugins: ['flash'],
+			type: '',
+			isVideo: false,
+			startVolume: 1,
+			features: ['playpause','progress','current','duration','volume'],
+			alwaysShowControls: true,
+			pluginPath: '/js/vendor/mediaelement/',
+			flashName: 'flashmediaelement.swf',
+		});
+	},
+
+	addListners: function(){
+
+		// Listeners so the model is updated.
+        this.audioPlayer.addEventListener('timeupdate', this.currentTime);
+        this.audioPlayer.addEventListener('loadedmetadata', this.loadedmetadata);
+        this.audioPlayer.addEventListener('pause', this.pause);
+        this.audioPlayer.addEventListener('playing', this.pause);
+        this.audioPlayer.addEventListener('ended', this.ended);
+        this.audioPlayer.addEventListener('canplay', this.canplay);
+        this.audioPlayer.addEventListener('waiting', this.waiting);
 	},
 
 	render: function() {
@@ -41,21 +65,16 @@ PlayerView = Backbone.View.extend({
 		}
 		this.currentlyPlayingView.model = this.model;
 		this.currentlyPlayingView.render();
-		
-		this.audioPlayer.load(filesItems.getFile(this.model.get('mp3')));
+
+		this.audioPlayer.pause();
+		this.audioPlayer.setSrc(this.model.get('mp3'));
+		this.audioPlayer.setSrc({
+			src: filesItems.getFile(this.model.get('mp3')), 
+			type: this.model.get('mp3_format')
+		});
+		this.audioPlayer.load();
 
         this.model.trigger('loading');
-
-        // Reset the last listened to.
-        globalSettings.set('lastListeningTo', this.model.get('id'));
-
-        /* Some other API references we might want to use. */
-        //this.audioPlayer.playbackRate=1.5; // For faster listening
-        //this.audioPlayer.duration // The duration of the audio.
-        //this.audioPlayer.ended // When it's over
-        //this.audioPlayer.error
-        //this.audioPlayer.currentTime // gets the current place of the audio.
-        //this.audioPlayer.muted // if the audio is muted 
 	},
 
 	back10: function(){
@@ -76,39 +95,47 @@ PlayerView = Backbone.View.extend({
 	},
 
 	canplay: function(e){
-		e.srcElement.currentTime = app.Player.model.get('playhead');
+		_this = app.Player;
+		_this.audioPlayer.currentTime = app.Player.model.get('playhead');
 
-		if(!app.Player.startPaused){
-			e.srcElement.play();
+		if(!_this.startPaused){
+			_this.audioPlayer.play();
 		}
-		app.Player.startPaused = false;
+		_this.startPaused = false;
 
-		// Quickly trigger the playrate. TODO - remember last epsiode setting in podcast.
-		app.Player.$el.find('input[name=playbackRate]').trigger('change');
+        // Reset the last listened to.
+        globalSettings.set('lastListeningTo', _this.model.get('id'));
 
-		app.Player.model.trigger('playing');
+		// Quickly trigger the playrate. 
+		_this.$el.find('input[name=playbackRate]').trigger('change');
+
+		_this.model.trigger('playing');
 	},
 	// This function causes the play/pause buttons to fail, it updates to fast.
 	currentTime: function(e){
+		_this = app.Player;
+
 		// If it's not the first 10 seconds igonre this.
-		if(e.srcElement.currentTime <= 10){
+		if(_this.audioPlayer.currentTime <= 10){
 			return;
 		}
-		app.Player.model.set('playhead', e.srcElement.currentTime);
+		_this.model.set('playhead', _this.audioPlayer.currentTime);
 	},
 	pause: function(e){
-		app.Player.model.set('playhead', e.srcElement.currentTime);
-		app.Player.model.trigger('playing');
+		_this = app.Player;
+		_this.model.set('playhead', _this.audioPlayer.currentTime);
+		_this.model.trigger('playing');
 
 		// trigger a sync to dropbox
 		settings.dropboxPush();
 	},
 	waiting: function(e){
-		this.model.trigger('loading');
+		_this = app.Player;
+		_this.model.trigger('loading');
 	},
 	loadedmetadata: function(e){
-		//debugger;
-		app.Player.model.set('duration', e.srcElement.duration);
+		_this = app.Player;
+		_this.model.set('duration', _this.audioPlayer.duration);
 
 		// trigger a sync to dropbox
 		settings.dropboxPush();
@@ -118,8 +145,9 @@ PlayerView = Backbone.View.extend({
 	 * Item has come to an end. Mark it as played etc then move on
 	 */
 	ended: function(e){
+		_this = app.Player;
 		// Just a wrapper.
-		app.Player.playNext();
+		_this.playNext();
 	},
 
 	playNext: function(){
@@ -163,10 +191,10 @@ PlayerView = Backbone.View.extend({
 		}
 
 		// It's the same episode I guess:
-		if(this.audioPlayer.paused){
-			this.audioPlayer.play();
+		if(this.audioElement.paused){
+			this.audioElement.play();
 		} else {
-			this.audioPlayer.pause();
+			this.audioElement.pause();
 		}
 
 		this.model.trigger('playing');
@@ -176,7 +204,7 @@ PlayerView = Backbone.View.extend({
 	 * Tells someone if the ID they provide is playing or not.
 	 */
 	isCurrentlyPlaying: function(id){
-		if(this.model == null || this.audioPlayer.paused){
+		if(this.model == null || this.audioElement.paused){
 			return false;
 		}
 

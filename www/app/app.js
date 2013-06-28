@@ -11,8 +11,8 @@ head.js(
 	'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.js',
 	'/js/vendor/bootstrap.min.js',
 
-	// By default HTML5 audio sucks - http://kolber.github.io/audiojs/ is better.
-	'/js/vendor/audiojs/audio.min.js',
+	// By default HTML5 audio sucks - http://mediaelementjs.com/#howitworks - is way better.
+	'/js/vendor/mediaelement/mediaelement-and-player.min.js',
 
 	// A few utils
 	'/js/vendor/utils.js',

@@ -48,6 +48,9 @@
   text-decoration: none;
   color: #111;
 }
+.unqueued{
+  color: #999!important;
+}
 #content {
   min-height: 460px;
 }
