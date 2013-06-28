@@ -1,19 +1,15 @@
 <a href="<%= episode.link %>" target="_blank"><%= episode.title %></a> - <a href="/podcasts/<%= podcast.slug %>"><%= podcast.title %></a>
-<a class="playPause pure-button">
     <% if (episode.playing){ %>
-        Pause
+        <a class="playPause batch" data-icon="&#xF16C;"></a>
     <% } else { %>
-        Play
+        <a class="playPause batch" data-icon="&#xF16B;"></a>
     <% } %>
-</a>
 
-<a class="queue pure-button">
     <% if (episode.queued){ %>
-        Unqueue
+        <a class="queue batch" data-icon="&#xF0B4;"></a>
     <% } else { %>
-        Queue
+        <a class="queue batch" data-icon="&#xF0B4;"></a>
     <% } %>
-</a>
 
 <span class="percentCompleted">
 (<%= episode.percentCompleted %>%)

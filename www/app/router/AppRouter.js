@@ -23,8 +23,10 @@ var AppRouter = Backbone.Router.extend({
     home: function () {
         if (!this.homeView) {
             this.homeView = new HomeView();
+            this.QueueView = new QueueView();
         }
         $('#content').html(this.homeView.el);
+        $('#queue').html(this.QueueView.el);
         //this.headerView.selectMenuItem('home-menu');
     },
     queue: function () {
@@ -32,20 +34,23 @@ var AppRouter = Backbone.Router.extend({
             this.QueueView = new QueueView();
         //}
         $('#content').html(this.QueueView.el);
+        $('#queue').html(this.QueueView.el);
         //this.headerView.selectMenuItem('home-menu');
     },
     addFeed: function () {
         if (!this.AddFeed) {
             this.AddFeedView = new AddFeedView();
+            this.QueueView = new QueueView();
         }
+        $('#queue').html(this.QueueView.el);
         $('#content').html(this.AddFeedView.el);
         //this.headerView.selectMenuItem('home-menu');
     },
     myPodcasts: function(){
         //if (!this.MyPodcastsView) {
             this.MyPodcastsView = new MyPodcastsView();
-        //}
-
+            this.QueueView = new QueueView();
+        $('#queue').html(this.QueueView.el);
         $('#content').html(this.MyPodcastsView.el);
     },
 
@@ -68,19 +73,26 @@ var AppRouter = Backbone.Router.extend({
             this.PodcastView.el = "<p>Podcast is loading</p>";
         }else{
             this.PodcastView = new PodcastView({model: podcastModel});
+            
+            this.QueueView = new QueueView();
         }
 
         if(this.PodcastView != undefined){
             $('#content').html(this.PodcastView.el);
+            $('#queue').html(this.QueueView.el);
         }        
     },
 
     deviceSync: function(){
         this.DeviceSyncView = new DeviceSyncView();
+            this.QueueView = new QueueView();
+        $('#queue').html(this.QueueView.el);
         $('#content').html(this.DeviceSyncView.el);
     },
     clearData: function(){
         this.ClearDataView = new ClearDataView();
+            this.QueueView = new QueueView();
+        $('#queue').html(this.QueueView.el);
         $('#content').html(this.ClearDataView.el);
     }
 });

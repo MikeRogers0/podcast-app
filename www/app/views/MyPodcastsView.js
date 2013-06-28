@@ -22,7 +22,7 @@ MyPodcastsView = Backbone.View.extend({
             this.myPodcasts.append(view.render().el);
     	}, this);
 
-    	this.myPodcasts.append('<li class="pure-u-1-5"><a href="/add-feed" title="Add a new Podcast Feed" class="podcastItem addPodcast"><p>Add New Podcast Feed</p></a></li>');
+    	this.myPodcasts.append('<a href="/add-feed" title="Add a new Podcast Feed" class="podcastItem addPodcast"><p>Add New Podcast Feed</p></a>');
 
 
 		return this;

@@ -2,11 +2,14 @@ ClearDataView = Backbone.View.extend({
 
 	events: {
       "click #clearData"   : "clearData",
+      "click #clearQueue"   : "clearQueue"
+
     },
 
 	initialize: function() {
 		this.render();
 		this.clearButton = this.$el.find('#clearData');
+		this.clearQueueButton = this.$el.find('#clearQueue');
 	},
 
 	render: function(){
@@ -29,5 +32,15 @@ ClearDataView = Backbone.View.extend({
 		localStorage.clear();
 		
 		this.clearButton.text('Data Cleared');
+	},
+
+	clearQueue: function(){
+
+		var queuedItems = episodeItems.findQueued();
+
+		_.each(queuedItems, function(episode){
+            episode.queueToggle();
+        }, this);
+
 	}
 });

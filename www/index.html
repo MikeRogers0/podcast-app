@@ -7,40 +7,42 @@
     <meta name="description" content="">
 
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/styles.css">
 
     <!-- http://headjs.com/site/api-documentation.html - we can load most the stuff we need with head.js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/headjs/0.99/head.min.js"></script>
 </head>
 <body>
         
-<div class="pure-g-r " id="layout">
-    <a href="#menu" id="menuLink" class="pure-menu-link">
-    = 
-    <!--<img src="/img/navicon-png2x.png" width="20" alt="Menu toggle">-->
-    </a>
-    <nav class="pure-u" id="menu">
-        <div class="pure-menu pure-menu-open">
-            <a class="pure-menu-heading" href="/">Podcast App</a>
+<div class="pure-g-r" id="container">
+    <nav class="pure-u-1" id="menu">
+            <a class="" href="/">Podcast App</a>
             <ul>
-                <li><a href="/queue">Queue</a></li>
-                <li><a href="/podcasts">My Podcasts</a></li>
-                <li><a href="/add-feed">Add Feed</a></li>
-
-                <li class="pure-menu-heading">Settings</li>
-                <li><a href="/settings/device-sync">Device Syncing</a></li>
-                <li><a href="/settings/clear-data">Clear Data</a></li>
+                <li>
+                    <a href="/podcasts" class="batch" data-icon="&#xF04B;"></a>
+                </li>
+                <li>
+                    <a href="/add-feed" class="batch" data-icon="&#xF094;"></a>
+                </li>
+                <li>
+                    <a href="/settings/device-sync" class="batch" data-icon="&#xF04E;"></a>
+                </li>
+                <li>
+                    <a href="/settings/clear-data" class="batch" data-icon="&#xF04E;"></a>
+                </li>
             </ul>
-        </div>
     </nav>
-    <div class="pure-u" id="player">
-        
+    <div class="pure-u-2-5" id="left">
+        <div id="player">
+            
+        </div>
+        <ul id="queue">
+            
+        </ul>
     </div>
-    <div class="pure-u" id="main">
-        <div class="container">
-            <div id="content">
-                <!-- content of sites will og here -->
-            </div>
+    <div class="pure-u-3-5" id="right">
+        <div id="content">
+            <!-- content of sites will og here -->
         </div>
     </div>
 </div>

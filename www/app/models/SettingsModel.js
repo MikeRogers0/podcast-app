@@ -22,6 +22,10 @@ var SettingsModel = Backbone.Model.extend({
   	this.on('change', function(){this.save();});
   },
 
+  clearQueue: function(){
+
+  },
+
   dropboxInit: function(){
     this.dropboxClient = new Dropbox.Client({
       key: "gkEKyDpBMsA=|++7iyniKA/kjwqydL7CQEtBv9oZ4hp7gSaPMp7Fk3w==",
