@@ -13,12 +13,7 @@ PlayerView = Backbone.View.extend({
 	 */
 	initialize: function() {
 		// Render the inital blank elements
-		this.$el.html(this.template({}));
-		this.currentlyPlaying = this.$el.find('#currentlyPlaying');
-
-		// The currently playing bit.
-		this.currentlyPlayingView = new CurrentlyPlayingView({model: this.model});
-		this.currentlyPlaying.html(this.currentlyPlayingView.el);
+		this.renderBlank();
 
 		if(globalSettings.get('lastListeningTo') != null){
         	this.model = episodeItems.getByID(globalSettings.get('lastListeningTo'));
@@ -28,13 +23,40 @@ PlayerView = Backbone.View.extend({
 		return this;
 	},
 
-	initAudioElement: function(){
+	renderBlank: function(){
+		if(this.audioPlayer != undefined && typeof this.audioPlayer.remove == "function"){
+			this.audioPlayer.remove();
+		}
+
+		this.$el.html(this.template({}));
+		this.currentlyPlaying = this.$el.find('#currentlyPlaying');
+
+		// The currently playing bit.
+		this.currentlyPlayingView = new CurrentlyPlayingView({model: this.model});
+		this.currentlyPlaying.html(this.currentlyPlayingView.el);
+
+		// Resetup the audio 
+		this.audioElement = this.$el.find('audio');
+		this.audioElementRaw = this.audioElement.get(0);
+	},
+
+	render: function(){
 		var _this = this;
-		this.audioElement = this.$el.find('audio').get(0);
-		new mediaelementplayer({
+		this.renderBlank();
+
+		if(!this.loadtrack()){
+			return;
+		}
+
+		this.audioElement.mediaelementplayer({
 			success: function(mediaElement, domObject){
 				_this.audioPlayer = mediaElement;
 				_this.addListners();
+
+				_this.audioPlayer.load();
+			},
+			error: function(e){
+				//debugger;
 			},
 			plugins: ['flash'],
 			type: '',
@@ -59,22 +81,19 @@ PlayerView = Backbone.View.extend({
         this.audioPlayer.addEventListener('waiting', this.waiting);
 	},
 
-	render: function() {
+	/**
+	 * Changes the source of the media element.
+	 */
+	loadtrack: function() {
 		if(this.model == null){
-			return;
+			return false;
 		}
-		this.currentlyPlayingView.model = this.model;
-		this.currentlyPlayingView.render();
 
-		this.audioPlayer.pause();
-		this.audioPlayer.setSrc(this.model.get('mp3'));
-		this.audioPlayer.setSrc({
-			src: filesItems.getFile(this.model.get('mp3')), 
-			type: this.model.get('mp3_format')
-		});
-		this.audioPlayer.load();
+		this.audioElementRaw.src = filesItems.getFile(this.model.get('mp3'));
 
         this.model.trigger('loading');
+
+        return true;
 	},
 
 	back10: function(){
@@ -191,10 +210,10 @@ PlayerView = Backbone.View.extend({
 		}
 
 		// It's the same episode I guess:
-		if(this.audioElement.paused){
-			this.audioElement.play();
+		if(this.audioPlayer.paused){
+			this.audioPlayer.play();
 		} else {
-			this.audioElement.pause();
+			this.audioPlayer.pause();
 		}
 
 		this.model.trigger('playing');
@@ -204,7 +223,7 @@ PlayerView = Backbone.View.extend({
 	 * Tells someone if the ID they provide is playing or not.
 	 */
 	isCurrentlyPlaying: function(id){
-		if(this.model == null || this.audioElement.paused){
+		if(this.model == null || this.audioPlayer == undefined || (this.audioPlayer == undefined && this.audioPlayer.paused)){
 			return false;
 		}
 

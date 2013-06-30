@@ -19,8 +19,8 @@ var AppRouter = Backbone.Router.extend({
         this.Player = new PlayerView();
         $("#player").html(this.Player.el);
 
-        // Now it's been appended, add the listners
-        this.Player.initAudioElement();
+        // Now it's been appended, add the listners etc.
+        this.Player.render();
     },
 
     home: function () {
