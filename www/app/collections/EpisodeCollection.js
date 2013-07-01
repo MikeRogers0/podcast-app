@@ -24,7 +24,7 @@ EpisodeCollection = CloudCollection.extend({
     var Queueditems = this.where({queued:true});
 
     // Sort them by Queue Position.
-    return _.sortBy(Queueditems, function(episode) { return episode.get('queuePosition'); });
+    return _.sortBy(Queueditems, function(episode) { return -episode.get('queuePosition'); });
   },
 
 
