@@ -1,4 +1,4 @@
-var Episode = Backbone.Model.extend({
+EpisodeModel = CloudModel.extend({
 
   // Default attributes for an episode
   defaults: function() {
@@ -32,9 +32,7 @@ var Episode = Backbone.Model.extend({
     this.on('add change:queued', function(){this.cloudSave();}); 
   },
 
-  cloudSave: function(){
-    this.cloudSync('update');
-  },
+  
 
   playPause: function(){
       app.Player.playPause(this);
@@ -52,19 +50,5 @@ var Episode = Backbone.Model.extend({
     }
   },
 
-  cloudSync: function(method, options){
-    // If dropbox isn't on ignore the request.
-    if(!settings.canDropbox()){
-      return false;
-    }
-
-    if(options == null){
-      options = {};
-    }
-
-
-    //return Backbone.ajaxSync('read', this, options);
-    DropBoxSync = new DropBoxStorage(settings.dropboxClient);
-    return DropBoxSync.sync(method, this, options);
-  },
+  
 });

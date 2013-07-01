@@ -1,8 +1,9 @@
 /**
  * Used to manage storage of local files.
  */
-var FilesCollection = Backbone.Collection.extend({
+FilesCollection = Backbone.Collection.extend({
 	localStorage: new Backbone.LocalStorage("FilesCollection-bb"),
+	model: FileModel,
 
 	// I this build is allowed to cache, set this to true on PhoneGap Builds.
 	canCache: false,

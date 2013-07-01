@@ -22,15 +22,17 @@ head.js(
 	'/js/vendor/backbone.dropbox.js',
 
 	// Now load up the models
-	'/app/models/episode.js',
-	'/app/models/podcast.js',
+	'/app/models/CloudModel.js',
+	'/app/models/EpisodeModel.js',
+	'/app/models/PodcastModel.js',
 	'/app/models/SettingsModel.js',
 	'/app/models/GlobalSettingsModel.js',
 	'/app/models/FileModel.js',
 
 	// The collections
-	'/app/collections/podcastList.js',
-	'/app/collections/episodeList.js',
+	'/app/collections/CloudCollection.js',
+	'/app/collections/PodcastCollection.js',
+	'/app/collections/EpisodeCollection.js',
 	'/app/collections/FilesCollection.js',
 
 	// The Views - TODO - swap this into an array of some form, which also manages the associated views.
@@ -74,8 +76,8 @@ head.js(
 			filesItems = new FilesCollection();
 			filesItems.fetch();
 
-			podcastItems = new PodcastList();
-			episodeItems = new EpisodeList();
+			podcastItems = new PodcastCollection();
+			episodeItems = new EpisodeCollection();
 
 			podcastItems.fetch();
 			episodeItems.fetch();

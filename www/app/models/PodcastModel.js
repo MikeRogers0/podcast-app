@@ -1,4 +1,4 @@
-var Podcast = Backbone.Model.extend({
+PodcastModel = CloudModel.extend({
 
   // Default attributes for an podcast
   defaults: function() {
@@ -24,11 +24,6 @@ var Podcast = Backbone.Model.extend({
     this.on('change', function(){this.save();});
     this.on('add change:subscribed', function(){this.cloudSave();}); 
   },
-
-  cloudSave: function(){
-    this.cloudSync('update');
-  },
-
 
   getEpisodesByName: function(slug) {
     // TODO - Get single episode, from an index of the available episodes on the feed URL.
@@ -61,7 +56,8 @@ var Podcast = Backbone.Model.extend({
             // Conver the XML reponse to a element we can jQuery over.
             var xmlDoc = $.parseXML( data.responseData.xmlString ),
             $xml = $( xmlDoc ),
-            lastUpdated = null;
+            lastUpdated = null,
+            mostRecentEpisode = null;
 
             
             var context = this;
@@ -81,23 +77,30 @@ var Podcast = Backbone.Model.extend({
                 duration: $(item).find('enclosure').attr('length'),
                 description: $(item).find('description').text(),
                 podcastID: context.get('id'),
-                queued: (context.get('subscribed') ? true : false) // If they are subscribed, autoqueue it.
+                queued: false,
+                //queued: (context.get('subscribed') ? true : false) // If they are subscribed, autoqueue it.
               }
 
-              // Get the most recent date updated.
-              if(lastUpdated == null || lastUpdated < newEpisode.datePublished){
-                lastUpdated = newEpisode.datePublished;
-              }
-              
               // Confirm it's legit.
               if(episodeItems.getByWhere({podcastID: newEpisode.podcastID, title: newEpisode.title}) != undefined){
                 return;
               }
 
               // Add it!
-              episodeItems.create(new Episode(newEpisode));
+              newEpisode = episodeItems.create(new EpisodeModel(newEpisode));
+
+               // Get the most recent date updated.
+              if(lastUpdated == null || lastUpdated < newEpisode.datePublished){
+                lastUpdated = newEpisode.datePublished;
+                mostRecentEpisode = newEpisode;
+              }
+
+              
             });
 
+            if(mostRecentEpisode != null){
+              mostRecentEpisode.set({queued: true});
+            }
             // Update the feed last check info.
             this.set('lastChecked', (new Date()).getTime());
             this.set('lastUpdated', lastUpdated);
@@ -108,21 +111,5 @@ var Podcast = Backbone.Model.extend({
             }
         }
     });
-  },
-
-  cloudSync: function(method, options){
-    // If dropbox isn't on ignore the request.
-    if(!settings.canDropbox()){
-      return false;
-    }
-
-    if(options == null){
-      options = {};
-    }
-
-
-    //return Backbone.ajaxSync('read', this, options);
-    DropBoxSync = new DropBoxStorage(settings.dropboxClient);
-    return DropBoxSync.sync(method, this, options);
   },
 });

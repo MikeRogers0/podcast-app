@@ -1,5 +1,5 @@
-var PodcastList = Backbone.Collection.extend({
-	model: Podcast,
+PodcastCollection = CloudCollection.extend({
+	model: PodcastModel,
     url: 'podcasts',
     path: 'podcasts',
     localStorage: new Backbone.LocalStorage("PodcastList-bb"),
@@ -88,7 +88,7 @@ var PodcastList = Backbone.Collection.extend({
                 $xml = $( xmlDoc );
 
                 // TODO - check we have all of these, thus it's a podcast.
-                var newPodcast = this.create(new Podcast({
+                var newPodcast = this.create(new PodcastModel({
                     title: $xml.find('channel > title').text(),
                     feedUrl: ($xml.find('atom\\:link[href], link[href]').attr('href') ? $xml.find('atom\\:link[href], link[href]').attr('href') : feedURL), // jQuery so smart we have to repeat this shit.
                     description: $xml.find('channel > description').text(),
@@ -106,20 +106,5 @@ var PodcastList = Backbone.Collection.extend({
                 });
             }
         });
-    },
-
-    cloudSync: function(method, options){
-        // If dropbox isn't on ignore the request.
-        if(!settings.canDropbox()){
-            return false;
-        }
-
-        if(options == null){
-            options = {};
-        }
-
-        //return Backbone.ajaxSync('read', this, options);
-        DropBoxSync = new DropBoxStorage(settings.dropboxClient);
-        return DropBoxSync.sync(method, this, options);
     },
 });

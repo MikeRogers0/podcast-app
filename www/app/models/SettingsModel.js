@@ -1,7 +1,7 @@
 /**
  * These settings only sync for this device, it'll hold dropbox data.
  */
-var SettingsModel = Backbone.Model.extend({
+SettingsModel = Backbone.Model.extend({
   // This one is always localStorage
   localStorage: new Backbone.LocalStorage("Settings-bb"),
 
