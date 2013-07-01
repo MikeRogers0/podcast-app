@@ -20,7 +20,7 @@ QueueView = Backbone.View.extend({
 		}
 
 		_.each(queuedItems, function(queued){
-			var view = new EpisodeItemView({ model: queued });
+			var view = new QueueItemView({ model: queued });
 			
             this.queue.append(view.render().el);
     	}, this);

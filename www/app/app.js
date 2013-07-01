@@ -34,7 +34,8 @@ head.js(
 	'/app/collections/FilesCollection.js',
 
 	// The Views - TODO - swap this into an array of some form, which also manages the associated views.
-	'/app/views/EpisodeItemView.js',
+	'/app/views/PodcastItemView.js',
+	'/app/views/QueueItemView.js',
 	'/app/views/QueueView.js',
 	'/app/views/PlayerView.js',
 	'/app/views/AddFeedView.js',
@@ -52,8 +53,9 @@ head.js(
 	function(){
 		utils.loadTemplate([
 			'HomeView', 
-			'DeviceSyncView', 
-			'EpisodeItemView', 
+			'DeviceSyncView',
+			'PodcastItemView',  
+			'QueueItemView', 
 			'ClearDataView', 
 			'AddFeedView', 
 			'PlayerView', 
