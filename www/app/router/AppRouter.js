@@ -106,7 +106,9 @@ var AppRouter = Backbone.Router.extend({
             $('#content').html(this.PodcastView.el);
             $('#queue').html(this.QueueView.el);
 
-            options.title = this.PodcastView.model.get('title');
+            if(this.PodcastView.model != null){
+                options.title = this.PodcastView.model.get('title');
+            }
         }
 
         this.updateMeta(options);

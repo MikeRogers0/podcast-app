@@ -78,7 +78,6 @@ PodcastModel = CloudModel.extend({
                 description: $(item).find('description').text(),
                 podcastID: context.get('id'),
                 queued: false,
-                //queued: (context.get('subscribed') ? true : false) // If they are subscribed, autoqueue it.
               }
 
               // Confirm it's legit.
@@ -90,17 +89,18 @@ PodcastModel = CloudModel.extend({
               newEpisode = episodeItems.create(new EpisodeModel(newEpisode));
 
                // Get the most recent date updated.
-              if(lastUpdated == null || lastUpdated < newEpisode.datePublished){
-                lastUpdated = newEpisode.datePublished;
+              if(lastUpdated == null || lastUpdated < newEpisode.get('datePublished')){
+                lastUpdated = newEpisode.get('datePublished');
                 mostRecentEpisode = newEpisode;
               }
 
               
             });
 
-            if(mostRecentEpisode != null){
-              mostRecentEpisode.set({queued: true});
+            if(mostRecentEpisode != null && context.get('subscribed')){
+              mostRecentEpisode.queueToggle();
             }
+
             // Update the feed last check info.
             this.set('lastChecked', (new Date()).getTime());
             this.set('lastUpdated', lastUpdated);

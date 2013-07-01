@@ -26,9 +26,17 @@ EpisodeModel = CloudModel.extend({
 
     this.on('change', function(){this.save();});
     this.on('add change:queued', function(){this.cloudSave();}); 
+    this.on('change:queued', function(){this.queuedChanged();}); 
   },
 
-  
+  /**
+   * Update the Queued view when new stuff is added.
+   */
+  queuedChanged: function(){
+    if(app.QueueView != undefined){
+      app.QueueView.trigger('queueChanged');
+    }
+  },
 
   playPause: function(){
       app.Player.playPause(this);
@@ -43,10 +51,6 @@ EpisodeModel = CloudModel.extend({
     }else{
       this.set('queuePosition', episodeItems.nextQueuePosition());
       filesItems.cacheFile(this.get('mp3'));
-    }
-
-    if(app.QueueView != undefined){
-      app.QueueView.trigger('queueChanged');
     }
   },
 
