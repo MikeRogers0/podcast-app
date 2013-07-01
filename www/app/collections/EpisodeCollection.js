@@ -21,11 +21,10 @@ EpisodeCollection = CloudCollection.extend({
   },
 
   findQueued: function(){
-    return this.where({queued:true});
+    var Queueditems = this.where({queued:true});
 
     // Sort them by Queue Position.
-
-    //return qeuedItems.sort('queued');
+    return _.sortBy(Queueditems, function(episode) { return episode.get('queuePosition'); });
   },
 
 
@@ -34,8 +33,9 @@ EpisodeCollection = CloudCollection.extend({
       return this.last().get('id') + 1;
   },
   nextQueuePosition: function() {
-      if (!this.length) return 1;
-      return this.last().get('queuePosition') + 1;
+      var Queueditems = this.where({queued:true});
+      if (!Queueditems.length) return 1;
+      return Queueditems[Queueditems.length - 1].get('queuePosition') + 1;
   },
 
   getNextInQueue: function(){

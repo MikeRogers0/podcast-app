@@ -23,10 +23,6 @@ EpisodeModel = CloudModel.extend({
 
   initialize: function () {
     this.podcast = podcastItems.getByID(this.get('podcastID'));
-    
-    if(this.get('queued') == true){
-      this.set('queuePosition', episodeItems.nextQueuePosition());
-    }
 
     this.on('change', function(){this.save();});
     this.on('add change:queued', function(){this.cloudSave();}); 
