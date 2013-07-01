@@ -23,6 +23,8 @@ EpisodeCollection = CloudCollection.extend({
   findQueued: function(){
     return this.where({queued:true});
 
+    // Sort them by Queue Position.
+
     //return qeuedItems.sort('queued');
   },
 

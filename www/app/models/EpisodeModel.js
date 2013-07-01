@@ -48,6 +48,10 @@ EpisodeModel = CloudModel.extend({
       this.set('queuePosition', episodeItems.nextQueuePosition());
       filesItems.cacheFile(this.get('mp3'));
     }
+
+    if(app.QueueView != undefined){
+      app.QueueView.trigger('queueChanged');
+    }
   },
 
   
