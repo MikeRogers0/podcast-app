@@ -1,5 +1,5 @@
 #menu {
-	background-color: @black;
+	background-color: $black;
 }
 @font-face{
     font-family:'Batch';
@@ -56,7 +56,7 @@ h1 {
 
 nav#menu {
 	a {
-		color: @white;
+		color: $white;
 		float: left;
 		text-decoration: none;
 	}

@@ -20,13 +20,18 @@ PodcastItemView = Backbone.View.extend({
 
     render: function(){
         // Create the HTML
+        var percentCompleted = 0;
+        if(this.model.get('playhead') != null && this.model.get('duration') != null && this.model.get('duration') != 0){
+            percentCompleted = parseInt((this.model.get('playhead') / this.model.get('duration')) * 100);
+            //console.log(this.model.get('playhead'), this.model.get('duration'), percentCompleted);
+        }
         var template = this.template({
             podcast: this.model.podcast.attributes,
             episode: _.extend(
                 this.model.attributes, 
                 {
                     playing: app.Player.isCurrentlyPlaying(this.model.get('id')),
-                    percentCompleted: parseInt((this.model.get('playhead') / this.model.get('duration')) * 100)
+                    percentCompleted: percentCompleted
                 }
             ),
         });

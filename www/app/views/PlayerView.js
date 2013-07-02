@@ -1,6 +1,6 @@
 PlayerView = Backbone.View.extend({
 	model: null,
-	startPaused: true,
+	startPaused: false,
 
 	events : {
 		'change input[name=playbackRate]':'playbackRate',
@@ -25,6 +25,7 @@ PlayerView = Backbone.View.extend({
 
 	renderBlank: function(){
 		if(this.audioPlayer != undefined && typeof this.audioPlayer.remove == "function"){
+			this.audioPlayer.pause();
 			this.audioPlayer.remove();
 		}
 
@@ -115,12 +116,13 @@ PlayerView = Backbone.View.extend({
 
 	canplay: function(e){
 		_this = app.Player;
-		_this.audioPlayer.currentTime = app.Player.model.get('playhead');
 
-		if(!_this.startPaused){
-			_this.audioPlayer.play();
+		_this.audioPlayer.play();
+		if(_this.startPaused){
+			_this.audioPlayer.pause();
 		}
 		_this.startPaused = false;
+		_this.audioPlayer.currentTime = app.Player.model.get('playhead');
 
         // Reset the last listened to.
         globalSettings.set('lastListeningTo', _this.model.get('id'));
