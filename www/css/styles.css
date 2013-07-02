@@ -31,17 +31,20 @@
 
 #queue {
   min-height: 300px;
-  padding: 0; }
-  #queue ul {
-    list-style: none;
-    margin-left: 0px;
-    padding-left: 0px; }
-    #queue ul li {
-      padding: 7px 10px;
-      border-bottom: 1px solid #ccc; }
-      #queue ul li a {
-        text-decoration: none;
-        color: #111; }
+  padding: 0;
+  /*ul {
+  	list-style: none;
+  	margin-left: 0px;
+  	padding-left: 0px;
+  	li {
+  		padding: 7px 10px;
+  		border-bottom: 1px solid #ccc;
+  		a {
+  			text-decoration: none;
+  			color: #111;
+  		}
+  	}
+  }*/ }
 
 #content {
   min-height: 460px; }
@@ -105,3 +108,57 @@ nav#menu {
 
 .mejs-container {
   margin-bottom: 20px; }
+
+ul.episodes > li {
+  overflow: hidden;
+  position: relative;
+  padding: 7px 10px;
+  border-bottom: 1px solid #ccc; }
+ul.episodes .percentCompleted {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #f0f0f0;
+  width: 50%;
+  z-index: -1;
+  /* Dirty, but beats doing more css. */ }
+ul.episodes .podcastThumb {
+  float: left;
+  background: #ccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: #eee 2px solid;
+  width: 50px;
+  height: 50px;
+  margin: 0 20px 0 0; }
+ul.episodes .details {
+  display: block;
+  float: left;
+  height: 50px;
+  margin: 0 20px 0 0;
+  width: 300px; }
+ul.episodes .title {
+  display: block;
+  height: 35px; }
+ul.episodes ul.meta {
+  display: block;
+  color: #777;
+  font-size: 0.9em;
+  padding: 0;
+  margin: 0; }
+  ul.episodes ul.meta li {
+    float: left;
+    list-style: none; }
+    ul.episodes ul.meta li:first-child {
+      margin-right: 25px; }
+ul.episodes .controls {
+  float: left;
+  margin-top: 10px; }
+  ul.episodes .controls a:first-child {
+    margin-right: 15px; }
+  ul.episodes .controls .playPause.loading {
+    color: #666; }
+  ul.episodes .controls .queue.active {
+    color: #666; }

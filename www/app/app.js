@@ -10,6 +10,7 @@ head.js(
 	//'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.min.js',
 	'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.js',
 	'/js/vendor/bootstrap.min.js',
+	'/js/vendor/date.format.js',
 
 	// By default HTML5 audio sucks - http://mediaelementjs.com/#howitworks - is way better.
 	'/js/vendor/mediaelement/mediaelement-and-player.min.js',
@@ -86,7 +87,7 @@ head.js(
 			Backbone.history.start({pushState: true});
 
 			// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
-			$("#menu, #player, #content").on('click', 'a:not([data-bypass], [target="_blank"])', function (e) {
+			$("#menu, #player, #content, #left, #right").on('click', 'a:not([data-bypass], [target="_blank"])', function (e) {
 				if($(this).attr('href') == null){
 					return;
 				}

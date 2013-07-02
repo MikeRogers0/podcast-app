@@ -1,16 +1,28 @@
-<a href="<%= episode.link %>" target="_blank"><%= episode.title %></a> - <a href="/podcasts/<%= podcast.slug %>"><%= podcast.title %></a>
+<div class="percentCompleted" style="width: <%= episode.percentCompleted %>%">
+    <!-- -->
+</div>
+
+<a href="/podcasts/<%= podcast.slug %>" class="podcastThumb" style="background-image: url('<%= podcast.imageUrl %>');">
+    <!-- <%= podcast.title %> -->
+</a>
+<div class="details">
+    <a href="<%= episode.link %>" target="_blank" class="title"><%= episode.title %></a>
+    <ul class="meta">
+        <li><strong>Published</strong>: <%= new Date(episode.datePublished).format("yyyy-mm-dd") %></li>
+        <li><strong>Duration</strong>: <!-- <%= episode.duration %> --><%= dateFormat.minutes(episode.duration) %></li>
+    </ul>
+</div>
+
+<div class="controls">
     <% if (episode.playing){ %>
-        <a class="playPause batch" data-icon="&#xF16C;"></a>
+        <a class="playPause active batch large" data-icon="&#xF16C;"></a>
     <% } else { %>
-        <a class="playPause batch" data-icon="&#xF16B;"></a>
+        <a class="playPause batch large" data-icon="&#xF16B;"></a>
     <% } %>
 
     <% if (episode.queued){ %>
-        <a class="queue batch" data-icon="&#xF0B4;"></a>
+        <a class="queue active batch large" data-icon="&#xF0B4;"></a>
     <% } else { %>
-        <a class="queue unqueued batch" data-icon="&#xF0B4;"></a>
+        <a class="queue batch large" data-icon="&#xF0B4;"></a>
     <% } %>
-
-<span class="percentCompleted">
-(<%= episode.percentCompleted %>%)
-</span>
+</div>
