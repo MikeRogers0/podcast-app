@@ -14,7 +14,7 @@ PodcastItemView = Backbone.View.extend({
         this.listenTo(this.model, 'playing', this.render);
         this.listenTo(this.model, 'loading', this.loading);
         this.listenTo(this.model, 'change:playhead', this.playhead);
-        this.listenTo(this.model, 'change:queued', this.render);
+        this.listenTo(this.model, 'change:queued change:listened', this.render);
         this.render();
     },
 
@@ -38,6 +38,10 @@ PodcastItemView = Backbone.View.extend({
 
 
         this.$el.html(template);
+
+        if(this.model.get('listened')){
+            this.$el.addClass('listened');
+        }
 
         // Returning the object is a good practice
         // that makes chaining possible

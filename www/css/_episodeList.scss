@@ -1,16 +1,24 @@
 ul.episodes{
+	padding: 0;
+	margin: 0;
 	> li{
 		overflow:hidden;
 		position: relative;
 		padding: 7px 10px;
 		border-bottom: 1px solid #ccc;
+		&.listened{
+			opacity: 0.6;
+			&:hover{
+				opacity: 1;
+			}
+		}
 	}
 	.percentCompleted{
 		position:absolute;
 		top: 0;
 		left: 0;
 		bottom: 0;
-		background: #f0f0f0;
+		background: #f6f6f6;
 		width: 50%;
 		z-index: -1; /* Dirty, but beats doing more css. */
 	}
@@ -30,34 +38,37 @@ ul.episodes{
 		display:block;
 		float: left;
 		height: 50px;
-		margin: 0 20px 0 0;
-		width: 300px;
+		margin: 0 5px 0 0;
 	}
 	.title{
 		display:block;
-		height: 35px;
+		height: 37px;
+		color: #111;
 	}
 	ul.meta{
 		display:block;
 		color: #777;
-		font-size: 0.9em;
+		font-size: 0.8em;
 		padding:0;
 		margin: 0;
 		li{
 			float: left;
 			list-style:none;
 			&:first-child{
-				margin-right: 25px;
+				margin-right: 15px;
 			}
 		}
 	}
 
 	.controls{
-		float: left;
+		float: right;
 		margin-top: 10px;
 		a{
 			&:first-child{
 				margin-right: 15px;
+			}
+			&:hover{
+				cursor: pointer;
 			}
 		}
 		.playPause.loading{

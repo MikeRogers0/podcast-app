@@ -167,6 +167,8 @@ PlayerView = Backbone.View.extend({
 	 */
 	ended: function(e){
 		_this = app.Player;
+
+		_this.model.set({'listened': true});
 		// Just a wrapper.
 		_this.playNext();
 	},
