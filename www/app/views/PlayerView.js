@@ -4,8 +4,6 @@ PlayerView = Backbone.View.extend({
 
 	events : {
 		'change input[name=playbackRate]':'playbackRate',
-		'click .back10': 'back10',
-		'click .playNext': 'playNext',
 	},
 
 	/**
@@ -112,10 +110,6 @@ PlayerView = Backbone.View.extend({
 		this.audioPlayer.currentTime = 1;
 	},
 
-	playNext: function(){
-		this.playNext();
-	},
-
 	playbackRate: function(){
 		this.audioPlayer.playbackRate= this.$el.find('input[name=playbackRate]').val();
 	},
@@ -175,6 +169,7 @@ PlayerView = Backbone.View.extend({
 		_this = app.Player;
 
 		_this.model.set({'listened': true});
+		_this.model.set({'playhead': 0}); // reset the playhead
 		// Just a wrapper.
 		_this.playNext();
 	},
@@ -185,10 +180,15 @@ PlayerView = Backbone.View.extend({
 
 		// Ok, it's over. Lets load up the next one.
 		this.model = episodeItems.getNextInQueue();
-		
-		if(this.model != null){
+
+		// If there isn't anything new
+		if(this.model == null){
+			this.audioPlayer.pause();
+			this.renderBlank();
+		} else {
 			this.render();
 		}
+		
 		if(oldModel != null){
 			oldModel.trigger('playing');
 

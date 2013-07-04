@@ -5,6 +5,18 @@
   font-weight: normal;
   font-style: normal; }
 
+/*body{
+	min-width: $break-small;
+	@media screen and (min-width: $break-small) {
+		min-width: $break-small;
+	}
+	@media screen and (min-width: $break-mid) {
+		min-width: $break-mid;
+	}
+	@media screen and (min-width: $break-large) {
+		min-width: 0;
+	}
+}*/
 #menu {
   background-color: #020202; }
 
@@ -59,13 +71,14 @@ nav#menu {
   nav#menu a {
     color: white;
     float: left;
-    text-decoration: none; }
+    text-decoration: none;
+    font-size: 1.2em; }
   nav#menu ul {
     display: inline-block;
     margin: 0 10px 0 0; }
     nav#menu ul li {
       display: inline-block;
-      margin-right: 5px; }
+      margin-right: 15px; }
       nav#menu ul li .batch {
         padding: 16px 2px; }
 
@@ -103,19 +116,24 @@ nav#menu {
 .batch:before {
   content: attr(data-icon); }
 
-ul.episodes {
+#currentlyPlaying li {
+  border: none;
+  padding: 0; }
+
+.episodes {
   padding: 0;
   margin: 0; }
-  ul.episodes > li {
+  .episodes > li {
     overflow: hidden;
     position: relative;
     padding: 7px 10px;
-    border-bottom: 1px solid #ccc; }
-    ul.episodes > li.listened {
+    border-bottom: 1px solid #ccc;
+    list-style: none; }
+    .episodes > li.listened {
       opacity: 0.6; }
-      ul.episodes > li.listened:hover {
+      .episodes > li.listened:hover {
         opacity: 1; }
-  ul.episodes .percentCompleted {
+  .episodes .percentCompleted {
     position: absolute;
     top: 0;
     left: 0;
@@ -124,7 +142,7 @@ ul.episodes {
     width: 50%;
     z-index: -1;
     /* Dirty, but beats doing more css. */ }
-  ul.episodes .podcastThumb {
+  .episodes .podcastThumb {
     float: left;
     background: #ccc;
     background-position: center;
@@ -133,43 +151,51 @@ ul.episodes {
     border: #eee 2px solid;
     width: 50px;
     height: 50px;
-    margin: 0 20px 0 0; }
-  ul.episodes .details {
+    margin: 0 10px 0 0; }
+    @media screen and (min-width: 420px) {
+      .episodes .podcastThumb {
+        /*width: 50px;
+        height: 50px;*/
+        margin: 0 20px 0 0; } }
+  .episodes .details {
     display: block;
     float: left;
     height: 50px;
     margin: 0 5px 0 0;
-    width: 280px; }
-  ul.episodes .title {
+    width: 265px; }
+    @media screen and (min-width: 420px) {
+      .episodes .details {
+        width: 280px; } }
+  .episodes .title {
     display: block;
     height: 37px;
     color: #111;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden; }
-  ul.episodes ul.meta {
+  .episodes ul.meta {
     display: block;
     color: #777;
     font-size: 0.8em;
     padding: 0;
     margin: 0; }
-    ul.episodes ul.meta li {
+    .episodes ul.meta li {
       float: left;
       list-style: none; }
-      ul.episodes ul.meta li:first-child {
+      .episodes ul.meta li:first-child {
         margin-right: 15px; }
-  ul.episodes .controls {
+  .episodes .controls {
     float: right;
     margin-top: 10px; }
-    ul.episodes .controls a {
+    .episodes .controls a {
       font-size: 2em; }
-      ul.episodes .controls a:first-child {
+      .episodes .controls a:first-child {
         margin-right: 15px; }
-      ul.episodes .controls a:hover {
+      .episodes .controls a:hover {
         cursor: pointer; }
-    ul.episodes .controls .playPause.loading {
+    .episodes .controls .playPause.loading {
       color: #666; }
-    ul.episodes .controls .queue.active {
+    .episodes .controls .queue.active {
       color: #666; }
 
 /**
@@ -181,10 +207,10 @@ ul.episodes {
   left: 0;
   width: 100%;
   height: 1px;
-  opacity: 1px; }
+  opacity: 0; }
 
 .mejs-container {
-  margin-bottom: 20px; }
+  margin-bottom: 30px; }
 
 /*.mejs-back10-button {
 	color: #fff;
