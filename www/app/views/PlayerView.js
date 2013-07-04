@@ -59,6 +59,12 @@ PlayerView = Backbone.View.extend({
 			error: function(e){
 				//debugger;
 			},
+			skip:function(){
+				_this.playNext();
+			},
+			back10: function(){
+				_this.back10();
+			},
 			plugins: ['flash'],
 			type: '',
 			isVideo: false,
