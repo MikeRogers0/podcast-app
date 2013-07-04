@@ -8,7 +8,7 @@ EpisodeModel = CloudModel.extend({
       description: '',
       datePublished: null,
       playhead: 0,
-      duration: 100,
+      duration: 0,
       mp3: '',
       mp3_format: 'audio/mpeg',
       link: '',

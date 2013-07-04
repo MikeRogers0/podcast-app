@@ -110,6 +110,14 @@ dateFormat.masks = {
 dateFormat.minutes = function(seconds){
 	time = parseInt(seconds);
 
+	if(time < (60)){
+		return 'Less then a minute';
+	}
+
+	if(time > (1440 * 60)){ // 24 hours
+		return 'Unknown';
+	}
+
 	var minutes = Math.floor(time / 60);
 	var seconds = time - minutes * 60;
 

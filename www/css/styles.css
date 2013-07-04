@@ -144,11 +144,15 @@ ul.episodes {
     display: block;
     float: left;
     height: 50px;
-    margin: 0 5px 0 0; }
+    margin: 0 5px 0 0;
+    width: 280px; }
   ul.episodes .title {
     display: block;
     height: 37px;
-    color: #111; }
+    color: #111;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; }
   ul.episodes ul.meta {
     display: block;
     color: #777;
@@ -163,10 +167,12 @@ ul.episodes {
   ul.episodes .controls {
     float: right;
     margin-top: 10px; }
-    ul.episodes .controls a:first-child {
-      margin-right: 15px; }
-    ul.episodes .controls a:hover {
-      cursor: pointer; }
+    ul.episodes .controls a {
+      font-size: 2em; }
+      ul.episodes .controls a:first-child {
+        margin-right: 15px; }
+      ul.episodes .controls a:hover {
+        cursor: pointer; }
     ul.episodes .controls .playPause.loading {
       color: #666; }
     ul.episodes .controls .queue.active {

@@ -39,31 +39,37 @@ ul.episodes{
 		float: left;
 		height: 50px;
 		margin: 0 5px 0 0;
+		width: 280px;
 	}
-	.title{
-		display:block;
-		height: 37px;
-		color: #111;
-	}
-	ul.meta{
-		display:block;
-		color: #777;
-		font-size: 0.8em;
-		padding:0;
-		margin: 0;
-		li{
-			float: left;
-			list-style:none;
-			&:first-child{
-				margin-right: 15px;
+		.title{
+			display:block;
+			height: 37px;
+			color: #111;
+			white-space: nowrap;
+			text-overflow:ellipsis;
+			overflow: hidden;
+			
+		}
+		ul.meta{
+			display:block;
+			color: #777;
+			font-size: 0.8em;
+			padding:0;
+			margin: 0;
+			li{
+				float: left;
+				list-style:none;
+				&:first-child{
+					margin-right: 15px;
+				}
 			}
 		}
-	}
 
 	.controls{
 		float: right;
 		margin-top: 10px;
 		a{
+			font-size: 2em;
 			&:first-child{
 				margin-right: 15px;
 			}
