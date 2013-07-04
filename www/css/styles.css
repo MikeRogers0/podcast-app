@@ -173,11 +173,15 @@ ul.episodes {
     display: block;
     float: left;
     height: 50px;
-    margin: 0 5px 0 0; }
+    margin: 0 5px 0 0;
+    width: 280px; }
   ul.episodes .title {
     display: block;
     height: 37px;
-    color: #111; }
+    color: #111;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; }
   ul.episodes ul.meta {
     display: block;
     color: #777;
@@ -192,11 +196,49 @@ ul.episodes {
   ul.episodes .controls {
     float: right;
     margin-top: 10px; }
-    ul.episodes .controls a:first-child {
-      margin-right: 15px; }
-    ul.episodes .controls a:hover {
-      cursor: pointer; }
+    ul.episodes .controls a {
+      font-size: 2em; }
+      ul.episodes .controls a:first-child {
+        margin-right: 15px; }
+      ul.episodes .controls a:hover {
+        cursor: pointer; }
     ul.episodes .controls .playPause.loading {
       color: #666; }
     ul.episodes .controls .queue.active {
       color: #666; }
+
+/**
+ * Offset the audio player so in iOS it's hidden for reals.
+ */
+#podcastPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  opacity: 1px; }
+
+.mejs-container {
+  margin-bottom: 20px; }
+
+/*.mejs-back10-button {
+	color: #fff;
+	display: block;
+	height: 17px;
+	width: auto;
+	padding: 8px 3px 0 3px;
+	overflow: hidden;
+	text-align: center;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	span{
+		color: #fff;
+		font-size: 11px;
+		line-height: 12px;
+		display: block;
+		float: left;
+		margin: 1px 2px 0 0;
+		width: auto;
+	}
+}*/

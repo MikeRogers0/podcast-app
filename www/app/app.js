@@ -14,6 +14,8 @@ head.js(
 
 	// By default HTML5 audio sucks - http://mediaelementjs.com/#howitworks - is way better.
 	'/js/vendor/mediaelement/mediaelement-and-player.min.js',
+	'/js/vendor/mediaelement/mediaelement-back10.js',
+	'/js/vendor/mediaelement/mediaelement-skip.js',
 
 	// A few utils
 	'/js/vendor/utils.js',
