@@ -1,3 +1,16 @@
+/*body{
+	min-width: $break-small;
+	@media screen and (min-width: $break-small) {
+		min-width: $break-small;
+	}
+	@media screen and (min-width: $break-mid) {
+		min-width: $break-mid;
+	}
+	@media screen and (min-width: $break-large) {
+		min-width: 0;
+	}
+}*/
+
 #menu {
 	background-color: $black;
 }
@@ -59,6 +72,7 @@ nav#menu {
 		color: $white;
 		float: left;
 		text-decoration: none;
+		font-size: 1.2em;
 	}
 	text-align: right;
 	display: block;
@@ -67,7 +81,7 @@ nav#menu {
 		margin: 0 10px 0 0;
 		li {
 			display: inline-block;
-			margin-right: 5px;
+			margin-right: 15px;
 			.batch {
 				padding: 16px 2px;
 			}

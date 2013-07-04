@@ -2,7 +2,7 @@ feedUpdater = function(){
 	// The callback for when it's done.
 	runAgain = function(delay){
 		if(delay == null){
-			delay = 3000;
+			delay = 5000;
 		}
 		setTimeout(feedUpdater, delay);
 	}
@@ -17,6 +17,8 @@ feedUpdaterRun = function(callback){
 	if(!navigator.onLine){
 		return false;
 	}
+
+	console.log('updating podcastas');
 
 	// Get the most out of date feed
 	var podcast = podcastItems.getExpiredPodcast();

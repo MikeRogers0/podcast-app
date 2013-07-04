@@ -1,5 +1,10 @@
-Playing: 
-<%= episode.title %> - 
-<a href="/podcasts/<%= podcast.slug %>">
-<%= podcast.title %> 
+<a href="/podcasts/<%= podcast.slug %>" class="podcastThumb" style="background-image: url('<%= podcast.imageUrl %>');">
+    <!-- <%= podcast.title %> -->
 </a>
+<div class="details">
+    <a href="<%= episode.link %>" target="_blank" class="title"><%= episode.title %></a>
+    <ul class="meta">
+        <li><strong>Published</strong>: <% if(episode.datePublished){ %> <%=  new Date(episode.datePublished).format("yyyy-mm-dd") %> <% }  %></li>
+        <li><strong>Duration</strong>: <!-- <%= episode.duration %> --><%= dateFormat.minutes(episode.duration) %></li>
+    </ul>
+</div>

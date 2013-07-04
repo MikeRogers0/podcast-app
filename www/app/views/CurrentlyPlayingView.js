@@ -1,7 +1,12 @@
 CurrentlyPlayingView = Backbone.View.extend({
+	tagName: 'li',
 
 	initialize: function() {
 		this.render();
+
+		if(this.model != null){
+			this.listenTo(this.model, 'change:duration playing', this.render);
+		}
 	},
 
 	render: function() {

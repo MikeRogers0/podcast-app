@@ -3,3 +3,5 @@
 *.sublime-workspace
 
 .sass-cache
+# SCSS is generated on the server.
+www/css/*.css

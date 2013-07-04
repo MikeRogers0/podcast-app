@@ -14,8 +14,8 @@ head.js(
 
 	// By default HTML5 audio sucks - http://mediaelementjs.com/#howitworks - is way better.
 	'/js/vendor/mediaelement/mediaelement-and-player.min.js',
-	'/js/vendor/mediaelement/mediaelement-back10.js',
-	'/js/vendor/mediaelement/mediaelement-skip.js',
+	'/js/vendor/mediaelement/src/mediaelement-back10.js',
+	'/js/vendor/mediaelement/src/mediaelement-skip.js',
 
 	// A few utils
 	'/js/vendor/utils.js',
@@ -108,7 +108,7 @@ head.js(
 			// Load in the crons
 			head.js('/app/crons/feedUpdater.js', function(){
 				// After 2 minutes the feeds will start updating.
-				setTimeout(feedUpdater, 60000);
+				setTimeout(feedUpdater, 5000);
 			});
 		});
 	}

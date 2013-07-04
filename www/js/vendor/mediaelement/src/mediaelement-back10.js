@@ -11,12 +11,9 @@
             .appendTo(controls)
             // add a click toggle event
             .click(function() {
-                /*player.options.back10 = !player.options.back10;
-                if (player.options.loop) {
-                    loop.removeClass('mejs-loop-off').addClass('mejs-loop-on');
-                } else {
-                    loop.removeClass('mejs-loop-on').addClass('mejs-loop-off');
-                }*/
+
+                player.options.back10();
+                
             });     
     }
 })(jQuery);
