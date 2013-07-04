@@ -103,12 +103,6 @@ nav#menu {
 .batch:before {
   content: attr(data-icon); }
 
-#podcastPlayer {
-  width: 100%; }
-
-.mejs-container {
-  margin-bottom: 20px; }
-
 ul.episodes {
   padding: 0;
   margin: 0; }
@@ -177,6 +171,20 @@ ul.episodes {
       color: #666; }
     ul.episodes .controls .queue.active {
       color: #666; }
+
+/**
+ * Offset the audio player so in iOS it's hidden for reals.
+ */
+#podcastPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  opacity: 1px; }
+
+.mejs-container {
+  margin-bottom: 20px; }
 
 /*.mejs-back10-button {
 	color: #fff;
