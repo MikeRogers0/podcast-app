@@ -1,51 +1,202 @@
-/*
-Syntax error: File to import not found or unreadable: mediaelement.
-              Load path: /Users/MikeRogers/Sites/podcast-app
-        on line 6 of www/css/styles.scss
+@font-face {
+  font-family: Batch;
+  src: url("../assets/batch.eot");
+  src: url("../assets/batch.eot?#iefix") format("embedded-opentype"), url("../assets/batch.woff") format("woff"), url("../assets/batch.ttf") format("truetype"), url("../assets/batch.svg#batchregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
 
-1: @import 'fonts';
-2: @import 'variables';
-3: @import 'my-styles';
-4: 
-5: @import 'episodeList';
-6: @import 'mediaelement';
+#menu {
+  background-color: #020202; }
 
-Backtrace:
-www/css/styles.scss:6
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/import_node.rb:67:in `rescue in import'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/import_node.rb:45:in `import'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/import_node.rb:28:in `imported_file'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/import_node.rb:37:in `css_import?'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:217:in `visit_import'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:7:in `visit'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/tree/root_node.rb:20:in `render'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/engine.rb:315:in `_render'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/engine.rb:262:in `render'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `each'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:283:in `block in watch'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:108:in `call'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:108:in `on_change'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:117:in `block in initialize_adapter'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:56:in `call'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:56:in `poll'
-/Users/MikeRogers/.rvm/gems/ruby-2.0.0-p195/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:32:in `block in start'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: mediaelement.\A               Load path: /Users/MikeRogers/Sites/podcast-app\A         on line 6 of www/css/styles.scss\A \A 1: @import 'fonts';\A 2: @import 'variables';\A 3: @import 'my-styles';\A 4: \A 5: @import 'episodeList';\A 6: @import 'mediaelement';"; }
+@font-face {
+  font-family: 'Batch';
+  src: url("../assets/batch.eot");
+  src: url("../assets/batch.eot?#iefix") format("embedded-opentype"), url("../assets/batch.woff") format("woff"), url("../assets/batch.ttf") format("truetype"), url("../assets/batch.svg#batchregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+#player {
+  min-height: 120px;
+  padding: 20px;
+  background-color: #eee; }
+  #player audio {
+    display: none; }
+  #player .audiojs {
+    float: left;
+    margin-right: 20px;
+    width: 100%; }
+
+.red {
+  color: red; }
+
+#queue {
+  min-height: 300px;
+  padding: 0;
+  /*ul {
+  	list-style: none;
+  	margin-left: 0px;
+  	padding-left: 0px;
+  	li {
+  		padding: 7px 10px;
+  		border-bottom: 1px solid #ccc;
+  		a {
+  			text-decoration: none;
+  			color: #111;
+  		}
+  	}
+  }*/ }
+
+#content {
+  min-height: 460px; }
+
+h1 {
+  margin: 0;
+  padding: 0.6em 0.3em; }
+
+nav#menu {
+  text-align: right;
+  display: block; }
+  nav#menu a {
+    color: white;
+    float: left;
+    text-decoration: none; }
+  nav#menu ul {
+    display: inline-block;
+    margin: 0 10px 0 0; }
+    nav#menu ul li {
+      display: inline-block;
+      margin-right: 5px; }
+      nav#menu ul li .batch {
+        padding: 16px 2px; }
+
+#currentlyPlaying {
+  width: 100%; }
+
+.podcastItem {
+  height: 80px;
+  display: block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding-top: 40px;
+  padding-left: 40px; }
+
+.batch {
+  font-family: 'Batch';
+  /*or whatever you've decalred your font name as*/
+  font-size: 16px;
+  line-height: 1;
+  display: inline-block; }
+
+.batch.large {
+  font-size: 32px; }
+
+.batch.huge {
+  font-size: 64px; }
+
+.batch.natural {
+  font-size: inherit; }
+
+.batch:before {
+  content: attr(data-icon); }
+
+/**
+ * Offset the audio player so in iOS it's hidden for reals.
+ */
+#podcastPlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  opacity: 1px; }
+
+.mejs-container {
+  margin-bottom: 20px; }
+
+/*.mejs-back10-button {
+	color: #fff;
+	display: block;
+	height: 17px;
+	width: auto;
+	padding: 8px 3px 0 3px;
+	overflow: hidden;
+	text-align: center;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	span{
+		color: #fff;
+		font-size: 11px;
+		line-height: 12px;
+		display: block;
+		float: left;
+		margin: 1px 2px 0 0;
+		width: auto;
+	}
+}*/
+ul.episodes {
+  padding: 0;
+  margin: 0; }
+  ul.episodes > li {
+    overflow: hidden;
+    position: relative;
+    padding: 7px 10px;
+    border-bottom: 1px solid #ccc; }
+    ul.episodes > li.listened {
+      opacity: 0.6; }
+      ul.episodes > li.listened:hover {
+        opacity: 1; }
+  ul.episodes .percentCompleted {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #f6f6f6;
+    width: 50%;
+    z-index: -1;
+    /* Dirty, but beats doing more css. */ }
+  ul.episodes .podcastThumb {
+    float: left;
+    background: #ccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border: #eee 2px solid;
+    width: 50px;
+    height: 50px;
+    margin: 0 20px 0 0; }
+  ul.episodes .details {
+    display: block;
+    float: left;
+    height: 50px;
+    margin: 0 5px 0 0; }
+  ul.episodes .title {
+    display: block;
+    height: 37px;
+    color: #111; }
+  ul.episodes ul.meta {
+    display: block;
+    color: #777;
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0; }
+    ul.episodes ul.meta li {
+      float: left;
+      list-style: none; }
+      ul.episodes ul.meta li:first-child {
+        margin-right: 15px; }
+  ul.episodes .controls {
+    float: right;
+    margin-top: 10px; }
+    ul.episodes .controls a:first-child {
+      margin-right: 15px; }
+    ul.episodes .controls a:hover {
+      cursor: pointer; }
+    ul.episodes .controls .playPause.loading {
+      color: #666; }
+    ul.episodes .controls .queue.active {
+      color: #666; }
