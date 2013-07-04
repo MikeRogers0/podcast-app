@@ -63,7 +63,7 @@ PlayerView = Backbone.View.extend({
 			type: '',
 			isVideo: false,
 			startVolume: 1,
-			features: ['playpause','progress','current','duration','volume'],
+			features: ['playpause','progress','back10', 'duration', 'skip'],
 			alwaysShowControls: true,
 			pluginPath: '/js/vendor/mediaelement/',
 			flashName: 'flashmediaelement.swf',
