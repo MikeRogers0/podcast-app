@@ -30,7 +30,7 @@ PodcastItemView = Backbone.View.extend({
             episode: _.extend(
                 this.model.attributes, 
                 {
-                    playing: app.Player.isCurrentlyPlaying(this.model.get('id')),
+                    playing: (app.Player ? app.Player.isCurrentlyPlaying(this.model.get('id')) : false),
                     percentCompleted: percentCompleted
                 }
             ),

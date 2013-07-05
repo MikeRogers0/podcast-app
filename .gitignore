@@ -4,4 +4,4 @@
 
 .sass-cache
 # SCSS is generated on the server.
-www/css/*.css
+www/css/styles.css

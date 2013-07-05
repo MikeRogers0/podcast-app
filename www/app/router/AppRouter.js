@@ -24,15 +24,17 @@ var AppRouter = Backbone.Router.extend({
 
         this.$container = $('#container');
         this.$pageTitle = $('head title');
+
+        this.QueueView = new QueueView();
+        $('#queue').html(this.QueueView.el);
     },
 
     home: function () {
-        if (!this.homeView) {
+        //if (!this.homeView) {
             this.homeView = new HomeView();
-            this.QueueView = new QueueView();
-        }
+        //}
         $('#content').html(this.homeView.el);
-        $('#queue').html(this.QueueView.el);
+        
         //this.headerView.selectMenuItem('home-menu');
 
         this.updateMeta({
@@ -45,7 +47,6 @@ var AppRouter = Backbone.Router.extend({
             this.QueueView = new QueueView();
         //}
         $('#content').html(this.QueueView.el);
-        $('#queue').html(this.QueueView.el);
         //this.headerView.selectMenuItem('home-menu');
 
         this.updateMeta({
@@ -58,15 +59,12 @@ var AppRouter = Backbone.Router.extend({
             this.AddFeedView = new AddFeedView();
             this.QueueView = new QueueView();
         }
-        $('#queue').html(this.QueueView.el);
         $('#content').html(this.AddFeedView.el);
         //this.headerView.selectMenuItem('home-menu');
     },
     myPodcasts: function(){
         //if (!this.MyPodcastsView) {
             this.MyPodcastsView = new MyPodcastsView();
-            this.QueueView = new QueueView();
-        $('#queue').html(this.QueueView.el);
         $('#content').html(this.MyPodcastsView.el);
 
         this.updateMeta({
@@ -98,13 +96,10 @@ var AppRouter = Backbone.Router.extend({
             this.PodcastView.el = "<p>Podcast is loading</p>";
         }else{
             this.PodcastView = new PodcastView({model: podcastModel});
-            
-            this.QueueView = new QueueView();
         }
 
         if(this.PodcastView != undefined){
             $('#content').html(this.PodcastView.el);
-            $('#queue').html(this.QueueView.el);
 
             if(this.PodcastView.model != null){
                 options.title = this.PodcastView.model.get('title');
@@ -116,8 +111,6 @@ var AppRouter = Backbone.Router.extend({
 
     deviceSync: function(){
         this.DeviceSyncView = new DeviceSyncView();
-            this.QueueView = new QueueView();
-        $('#queue').html(this.QueueView.el);
         $('#content').html(this.DeviceSyncView.el);
 
         this.updateMeta({
@@ -127,8 +120,6 @@ var AppRouter = Backbone.Router.extend({
     },
     clearData: function(){
         this.ClearDataView = new ClearDataView();
-            this.QueueView = new QueueView();
-        $('#queue').html(this.QueueView.el);
         $('#content').html(this.ClearDataView.el);
 
         this.updateMeta({
