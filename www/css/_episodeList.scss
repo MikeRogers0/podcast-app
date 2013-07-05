@@ -4,9 +4,11 @@
 	> li{
 		overflow:hidden;
 		position: relative;
-		padding: 7px 10px;
+		padding: 7px 2%;
 		border-bottom: 1px solid #ccc;
 		list-style: none;
+		float:left;
+		width: 96%;
 		
 		&.listened{
 			opacity: 0.6;

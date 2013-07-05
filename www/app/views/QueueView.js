@@ -25,7 +25,7 @@ QueueView = Backbone.View.extend({
             this.$queue.append(view.render().el);
     	}, this);
 
-    	this.$queue.sortable({stop: function(event, ui ){
+    	this.$queue.sortable({ axis: "y", containment: "parent",  stop: function(event, ui ){
     		// Update the queue order
     		var lis = $(this).find('li[data-model-id]');
     		lis.each(function(indexInArray, valueOfElement){

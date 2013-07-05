@@ -24,38 +24,8 @@
     font-weight:normal;
     font-style:normal;
   }
-#player {
-	min-height: 120px;
-	padding: 20px;
-	background-color: #eee;
-	audio{
-		display: none;
-	}
-	.audiojs{
-		float: left;
-		margin-right: 20px;
-		width: 100%;
-	}
-}
 .red {
 	color: red;
-}
-#queue {
-	min-height: 300px;
-	padding: 0;
-	/*ul {
-		list-style: none;
-		margin-left: 0px;
-		padding-left: 0px;
-		li {
-			padding: 7px 10px;
-			border-bottom: 1px solid #ccc;
-			a {
-				text-decoration: none;
-				color: #111;
-			}
-		}
-	}*/
 }
 
 
@@ -91,14 +61,6 @@ nav#menu {
 
 #currentlyPlaying{
 	width: 100%;
-}
-
-#myPodcasts {
-	ul {
-		li {
-			
-		}
-	}
 }
 
 .batch {

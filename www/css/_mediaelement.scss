@@ -10,6 +10,15 @@
 	opacity: 0;
 }
 
+#player {
+	overflow:hidden;
+	padding: 20px;
+	background-color: #eee;
+	audio{
+		display: none;
+	}
+}
+
 .mejs-container {
 	margin-bottom: 30px;
 }

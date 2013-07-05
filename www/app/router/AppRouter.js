@@ -26,7 +26,7 @@ var AppRouter = Backbone.Router.extend({
         this.$pageTitle = $('head title');
 
         this.QueueView = new QueueView();
-        $('#queue').html(this.QueueView.el);
+        $('#queueView').html(this.QueueView.el);
     },
 
     home: function () {

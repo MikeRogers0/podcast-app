@@ -1,0 +1,16 @@
+#queueView {
+	padding-bottom: 50px;
+
+	display:none;
+	@media screen and (min-width: $break-mid) {
+		display:block;
+	}
+}
+.home #queueView{
+	display:block;
+}
+
+#queue{
+	overflow:hidden;
+	padding: 0;
+}
