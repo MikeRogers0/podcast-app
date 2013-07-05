@@ -7,6 +7,7 @@ head.js(
 	'//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', // We might want to ditch this later. For now lets just code.
 	'//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js',
 	'//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js',
+	'/js/vendor/jquery-ui-1.10.3.custom.min.js',
 	//'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.min.js',
 	'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.js',
 	'/js/vendor/bootstrap.min.js',

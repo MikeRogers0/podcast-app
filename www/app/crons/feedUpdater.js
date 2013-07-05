@@ -18,8 +18,6 @@ feedUpdaterRun = function(callback){
 		return false;
 	}
 
-	console.log('updating podcastas');
-
 	// Get the most out of date feed
 	var podcast = podcastItems.getExpiredPodcast();
 	if(podcast == null){

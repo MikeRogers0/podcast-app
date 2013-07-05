@@ -25,7 +25,7 @@ EpisodeModel = CloudModel.extend({
     this.podcast = podcastItems.getByID(this.get('podcastID'));
 
     this.on('change', function(){this.save();});
-    this.on('add change:queued', function(){this.cloudSave();}); 
+    this.on('add change:queued change:queuePosition', function(){this.cloudSave();}); 
     this.on('change:queued', function(){this.queuedChanged();}); 
   },
 
@@ -54,5 +54,12 @@ EpisodeModel = CloudModel.extend({
     }
   },
 
-  
+  percentCompleted: function(){
+    var percentCompleted = 0;
+    if(this.get('playhead') != null && this.get('duration') != null && this.get('duration') != 0){
+      percentCompleted = parseInt((this.get('playhead') / this.get('duration')) * 100);
+    }
+
+    return percentCompleted;
+  },
 });
