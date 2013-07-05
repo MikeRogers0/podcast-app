@@ -63,7 +63,7 @@ PlayerView = Backbone.View.extend({
 			back10: function(){
 				_this.back10();
 			},
-			plugins: ['flash'],
+			plugins: ['silverlight', 'flash'],
 			type: '',
 			isVideo: false,
 			startVolume: 1,
@@ -71,6 +71,7 @@ PlayerView = Backbone.View.extend({
 			alwaysShowControls: true,
 			pluginPath: '/js/vendor/mediaelement/',
 			flashName: 'flashmediaelement.swf',
+			silverlightName: 'silverlightmediaelement.xap',
 		});
 	},
 
@@ -95,7 +96,7 @@ PlayerView = Backbone.View.extend({
 		}
 
 		this.audioElementRaw.src = filesItems.getFile(this.model.get('mp3'));
-
+		
         this.model.trigger('loading');
 
         return true;
