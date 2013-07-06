@@ -4,7 +4,7 @@
 QueueView = Backbone.View.extend({
 	initialize: function() {
 		this.render();
-		this.bind('queueChanged', this.render);
+		this.bind('queueChanged', function(){this.render();});
 	},
 
 	render: function(){
