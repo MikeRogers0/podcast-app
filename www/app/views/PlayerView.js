@@ -123,7 +123,7 @@ PlayerView = Backbone.View.extend({
 			_this.audioPlayer.pause();
 		}
 		_this.startPaused = false;
-		_this.audioPlayer.currentTime = app.Player.model.get('playhead');
+		_this.audioPlayer.setCurrentTime(app.Player.model.get('playhead'));
 
         // Reset the last listened to.
         globalSettings.set('lastListeningTo', _this.model.get('id'));
