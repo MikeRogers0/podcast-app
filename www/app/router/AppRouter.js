@@ -57,7 +57,6 @@ var AppRouter = Backbone.Router.extend({
     addFeed: function () {
         if (!this.AddFeed) {
             this.AddFeedView = new AddFeedView();
-            this.QueueView = new QueueView();
         }
         $('#content').html(this.AddFeedView.el);
         //this.headerView.selectMenuItem('home-menu');

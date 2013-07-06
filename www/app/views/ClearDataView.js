@@ -22,6 +22,9 @@ ClearDataView = Backbone.View.extend({
 		// Now removed all the dropbox stuff
 		settings.dropboxClear();
 
+		// Unqueue everything
+		this.clearQueue();
+
 		// Clear these.
 		episodeItems.reset();
 		podcastItems.reset();
