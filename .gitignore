@@ -7,5 +7,5 @@
 www/css/styles.css
 
 # Cordova Stuff
-/platforms
+/platforms/*
 .cordova/hooks
