@@ -6,9 +6,9 @@
     <!-- <%= podcast.title %> -->
 </a>
 <div class="details">
-    <!--<a href="<%= episode.link %>" target="_blank" class="title">--><%= episode.title %><!--</a>-->
+    <div class="title"><%= episode.title %></div>
     <ul class="meta">
-        <li><strong>Published</strong>: <%= new Date(episode.datePublished).format("yyyy-mm-dd") %></li>
+        <li><strong>Published</strong>: <%= new Date(episode.datePublished).timeSince() %> ago</li>
         <li><strong>Duration</strong>: <!-- <%= episode.duration %> --><%= dateFormat.minutes(episode.duration) %></li>
     </ul>
 </div>

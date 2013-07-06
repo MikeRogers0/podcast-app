@@ -44,6 +44,7 @@ PlayerView = Backbone.View.extend({
 		this.renderBlank();
 
 		if(!this.loadtrack()){
+			this.startPaused = false;
 			return;
 		}
 

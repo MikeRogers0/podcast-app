@@ -110,8 +110,8 @@ dateFormat.masks = {
 dateFormat.minutes = function(seconds){
 	time = parseInt(seconds);
 
-	if(time < (60)){
-		return 'Less then a minute';
+	if(time < (30)){
+		return 'Unknown';
 	}
 
 	if(time > (1440 * 60)){ // 24 hours
@@ -122,6 +122,34 @@ dateFormat.minutes = function(seconds){
 	var seconds = time - minutes * 60;
 
 	return minutes+'m '+seconds+'s';
+}
+
+dateFormat.timeSince = function (date) {
+
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+        return interval + " years";
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+        return interval + " months";
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+        return interval + " days";
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+        return interval + " hours";
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+        return interval + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
 }
 
 // Internationalization strings
@@ -139,4 +167,8 @@ dateFormat.i18n = {
 // For convenience...
 Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
+};
+
+Date.prototype.timeSince = function (mask, utc) {
+	return dateFormat.timeSince(this);
 };

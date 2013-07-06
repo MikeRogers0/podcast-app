@@ -25,15 +25,27 @@ QueueView = Backbone.View.extend({
             this.$queue.append(view.render().el);
     	}, this);
 
-    	this.$queue.sortable({ axis: "y", handle: ".podcastThumb", containment: "parent",  stop: function(event, ui ){
-    		// Update the queue order
-    		var lis = $(this).find('li[data-model-id]');
-    		lis.each(function(indexInArray, valueOfElement){
-    			var position = lis.length - indexInArray;
-    			$(this).attr('data-model-queuePosition', position);
-    			episodeItems.getByID(parseInt($(this).attr('data-model-id'))).set({'queuePosition': position});
-    		});
-    	}});
+    	this.$queue.sortable({ 
+    		axis: "y", 
+    		handle: ".podcastThumb", 
+    		containment: "parent", 
+    		opacity: 0.75,
+    		stop: function(event, ui ){
+	    		// Update the queue order
+	    		var lis = $(this).find('li[data-model-id]');
+	    		lis.each(function(indexInArray, valueOfElement){
+	    			var position = lis.length - indexInArray;
+	    			$(this).attr('data-model-queuePosition', position);
+	    			episodeItems.getByID(parseInt($(this).attr('data-model-id'))).set({'queuePosition': position});
+
+	    			$(this).removeClass('dragging');
+	    		});
+    		},
+    		activate: function(event, ui ){
+    			var lis = $(this).find('li[data-model-id]');
+    			lis.addClass('dragging');
+    		}
+    	});
 
 		return this;
 	},
