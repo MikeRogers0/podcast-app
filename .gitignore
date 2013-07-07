@@ -7,5 +7,8 @@
 www/css/styles.css
 
 # Cordova Stuff
-/platforms/*
+/platforms/android/assets/www/*
+/platforms/ios/www/*
+/platforms/ios/build/*
+/platforms/ios/CordovaLib/build/*
 .cordova/hooks
