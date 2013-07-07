@@ -1,0 +1,101 @@
+.episodes{
+	padding: 0;
+	margin: 0;
+	> li{
+		overflow:hidden;
+		position: relative;
+		padding: 7px 2%;
+		border-bottom: 1px solid #ccc;
+		list-style: none;
+		float:left;
+		width: 96%;
+		background: rgba(255,255,255,1);
+		
+		&.listened{
+			opacity: 0.6;
+			&:hover{
+				opacity: 1;
+			}
+		}
+	}
+	.percentCompleted{
+		position:absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		background: #f6f6f6;
+		width: 50%;
+		z-index: -1; /* Dirty, but beats doing more css. */
+	}
+	.podcastThumb{
+		float:left;
+		background: #ccc;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		border: #eee 2px solid;
+		width: 50px;
+		height: 50px;
+		margin: 0 10px 0 0;
+
+		@media screen and (min-width: $break-small) {
+			/*width: 50px;
+			height: 50px;*/
+			margin: 0 20px 0 0;
+		}
+	}
+
+	.details{
+		display:block;
+		float: left;
+		height: 50px;
+		margin: 0 5px 0 0;
+		width: 265px;
+		@media screen and (min-width: $break-small) {
+			width: 280px;
+		}
+	}
+		.title{
+			display:block;
+			height: 37px;
+			color: #111;
+			white-space: nowrap;
+			text-overflow:ellipsis;
+			overflow: hidden;
+			
+		}
+		ul.meta{
+			display:block;
+			color: #777;
+			font-size: 0.8em;
+			padding:0;
+			margin: 0;
+			li{
+				float: left;
+				list-style:none;
+				&:first-child{
+					margin-right: 15px;
+				}
+			}
+		}
+
+	.controls{
+		float: right;
+		margin-top: 10px;
+		a{
+			font-size: 2em;
+			&:first-child{
+				margin-right: 15px;
+			}
+			&:hover{
+				cursor: pointer;
+			}
+		}
+		.playPause.loading{
+			color: #666;
+		}
+		.queue.active{
+			color: #666;
+		}
+	}
+}

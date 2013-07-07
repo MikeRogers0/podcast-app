@@ -1,0 +1,15 @@
+<h1>Device Sync</h1>
+
+<p>Syncing your podcasts over is avilable via Dropbox. </p>
+
+<% if(isAuthenticated){ %>
+	<p><a class="pure-button" id="signOutDropbox">Sign Out of Dropbox</a></p>
+<% } else { %>
+	<p><a class="pure-button" id="authentificateDropbox">Connect to Dropbox</a></p>
+<% } %>
+
+<% if(isAuthenticated){ %>
+<h2>Magic Buttons!</h2>
+<p><a class="pure-button" id="push">Push</a> <a class="pure-button" id="pull">Pull</a></p>
+<p><a class="pure-button" id="forcePush">Force Push</a> <a class="pure-button" id="forcePull">Force Pull</a></p>
+<% } %>
