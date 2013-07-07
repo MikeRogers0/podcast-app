@@ -4,7 +4,7 @@ var AppRouter = Backbone.Router.extend({
 
     routes: {
         ""                  : "home",
-        "queue"				: "queue",
+        "queue"				: "home",
         "podcasts"		: "myPodcasts",
         "podcasts/404":'404',
         "podcasts/301":'301',

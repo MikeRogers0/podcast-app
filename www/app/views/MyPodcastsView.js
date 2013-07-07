@@ -11,7 +11,7 @@ MyPodcastsView = Backbone.View.extend({
 
 		if(subscribedPodcasts.length == 0){
 			// Render not items?
-			this.myPodcasts.append('<li>No podcasts added yet</li>');
+			this.myPodcasts.append('<li><a href="/add-feed" title="Add a new Podcast Feed" class="addPodcast"><div>Add New Podcast Feed</div></a><li>');
 			return this;
 		}
 
