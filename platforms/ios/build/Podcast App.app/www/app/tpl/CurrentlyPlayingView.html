@@ -1,0 +1,9 @@
+<% if(podcast.slug != null){ %>
+	
+<a href="/podcasts/<%= podcast.slug %>" class="podcastThumb" style="background-image: url('<%= podcast.imageUrl %>');">
+    <!-- <%= podcast.title %> -->
+</a>
+	<div class="title">
+	    <%= episode.title %>
+	</div>
+<% } %> 

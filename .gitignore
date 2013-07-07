@@ -5,3 +5,10 @@
 .sass-cache
 # SCSS is generated on the server.
 www/css/styles.css
+
+# Cordova Stuff
+/platforms/android/assets/www/*
+/platforms/ios/www/*
+/platforms/ios/build/*
+/platforms/ios/CordovaLib/build/*
+.cordova/hooks
