@@ -83,11 +83,11 @@ PodcastModel = CloudModel.extend({
                 link: $(item).find('link').text(),
                 mp3: $(item).find('enclosure').attr('url'),
                 mp3_format: $(item).find('enclosure').attr('type'),
-                duration: $(item).find('enclosure').attr('length'),
+                duration: $(item).find('enclosure').attr('length') || dateFormat.HHMMSSToSeconds($(item).find('itunes\\:duration, duration').text()),
                 description: $(item).find('description').text(),
                 podcastID: context.get('id'),
                 queued: false,
-              }
+              };
 
               // Confirm it's legit.
               if(episodeItems.getByWhere({podcastID: newEpisode.podcastID, title: newEpisode.title}) != undefined){

@@ -152,6 +152,15 @@ dateFormat.timeSince = function (date) {
     return Math.floor(seconds) + " seconds";
 }
 
+dateFormat.HHMMSSToSeconds = function(hms){
+	var a = hms.split(':'); // split it at the colons
+
+	// minutes are worth 60 seconds. Hours are worth 60 minutes.
+	var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+
+	return seconds;
+}
+
 // Internationalization strings
 dateFormat.i18n = {
 	dayNames: [

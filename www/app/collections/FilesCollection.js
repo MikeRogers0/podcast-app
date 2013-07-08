@@ -14,7 +14,7 @@ FilesCollection = Backbone.Collection.extend({
 		if(this.canCache){
 			window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 			try{
-				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 500*1024*1024, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
 			}catch(e){
 				/*navigator.PersistentStorage = navigator.PersistentStorage|| navigator.webkitPersistentStorage;
 				navigator.PersistentStorage.requestQuota(8000*1024*1024, function(gb) {
