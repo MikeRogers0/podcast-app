@@ -88,7 +88,10 @@ head.js(
 			episodeItems.fetch();
 
 		    app = new AppRouter();
-			Backbone.history.start({pushState: true, root: location.pathname});
+			Backbone.history.start({
+				pushState: ( location.protocol == 'http:'? true : false ), // Use hashbangs on mobile.
+				root: ( location.protocol == 'http:'? '/' : location.pathname ) // Mobile apps use file:// and don't have a sane root.
+			});
 
 			// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
 			$("#menu, #player, #content, #left, #right").on('click', 'a:not([data-bypass], [target="_blank"])', function (e) {

@@ -2,6 +2,12 @@
 	padding: 0;
 	margin: 10px 0;
 	float:left;
+	width: 100%;
+	display:none;
+	@media screen and (min-width: $break-mid) {
+		display:block;
+	}
+	
 	li{
 		border:none;
 		padding: 0;
@@ -13,4 +19,8 @@
 		height: 35px;
 		margin: 0 10px 0 0;
 	}
+}
+
+.home #currentlyPlaying{
+	display: block;
 }

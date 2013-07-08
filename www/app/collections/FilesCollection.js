@@ -6,7 +6,7 @@ FilesCollection = Backbone.Collection.extend({
 	model: FileModel,
 
 	// I this build is allowed to cache, set this to true on PhoneGap Builds.
-	canCache: false,
+	canCache: true,
 	fileSystem: null,
 
 	initialize: function () {
@@ -16,10 +16,11 @@ FilesCollection = Backbone.Collection.extend({
 			try{
 				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
 			}catch(e){
-				navigator.PersistentStorage = navigator.PersistentStorage|| navigator.webkitPersistentStorage;
+				/*navigator.PersistentStorage = navigator.PersistentStorage|| navigator.webkitPersistentStorage;
 				navigator.PersistentStorage.requestQuota(8000*1024*1024, function(gb) {
 					window.requestFileSystem(window.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
-				}, _this.errorHandler);
+				}, _this.errorHandler);*/
+				this.canCache = false; // We're not on mobile, no fancie caching for us.
 			}	
 		}
     },
