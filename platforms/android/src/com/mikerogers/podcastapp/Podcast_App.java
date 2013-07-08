@@ -24,13 +24,18 @@ import org.apache.cordova.*;
 
 public class Podcast_App extends DroidGap
 {
+    public Boolean running = false;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
-        super.loadUrl(Config.getStartUrl());
-        //super.loadUrl("file:///android_asset/www/index.html")
+
+        if(this.running == false){
+          super.loadUrl(Config.getStartUrl());
+          //super.loadUrl("file:///android_asset/www/index.html")
+        }
+        this.running = true;
     }
 }
 
