@@ -1,0 +1,26 @@
+#menu {
+	background-color: $black;
+
+	a {
+		color: $white;
+		float: left;
+		text-decoration: none;
+		font-size: 1.2em;
+	}
+	> a{
+		padding: 14px 2px;
+	}
+	text-align: right;
+	display: block;
+	ul {
+		display: inline-block;
+		margin: 0 10px 0 0;
+		li {
+			display: inline-block;
+			margin-right: 15px;
+			.batch {
+				padding: 16px 2px;
+			}
+		}
+	}
+}

@@ -11,9 +11,7 @@
 	}
 }*/
 
-#menu {
-	background-color: $black;
-}
+
 @font-face{
     font-family:'Batch';
     src:url('../assets/batch.eot');
@@ -24,40 +22,16 @@
     font-weight:normal;
     font-style:normal;
   }
-.red {
-	color: red;
-}
 
 
 #content {
-	min-height: 460px;
+	
 }
 h1 {
 	margin: 0;
 	padding: 0.6em 0.3em;
 }
 
-nav#menu {
-	a {
-		color: $white;
-		float: left;
-		text-decoration: none;
-		font-size: 1.2em;
-	}
-	text-align: right;
-	display: block;
-	ul {
-		display: inline-block;
-		margin: 0 10px 0 0;
-		li {
-			display: inline-block;
-			margin-right: 15px;
-			.batch {
-				padding: 16px 2px;
-			}
-		}
-	}
-}
 
 #currentlyPlaying{
 	width: 100%;
