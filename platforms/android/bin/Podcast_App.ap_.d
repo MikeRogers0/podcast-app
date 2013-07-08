@@ -83,6 +83,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_fonts.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_homeView.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_mediaelement.scss \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_menu.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_my-styles.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_podcastList.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_queueView.scss \
