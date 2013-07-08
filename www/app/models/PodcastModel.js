@@ -36,6 +36,15 @@ PodcastModel = CloudModel.extend({
     return _.sortBy(episodes, function(episode) { return -episode.get('datePublished'); });
   },
 
+  subscribedToggle: function(){
+    this.set('subscribed', !this.get('subscribed'));
+    if(this.get('subscribed') == false){
+      filesItems.removeFile(this.get('imageUrl'));
+    }else{
+      filesItems.cacheFile(this.get('imageUrl'));
+    }
+  },
+
   // A Cron to run to get newer episodes. If we have time, this should be done in a Worker. If not, do it in a setTimeout().
   updateEpisodes: function(callback){
     var api = "https://ajax.googleapis.com/ajax/services/feed/load",

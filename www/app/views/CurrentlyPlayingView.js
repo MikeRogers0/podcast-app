@@ -21,7 +21,9 @@ CurrentlyPlayingView = Backbone.View.extend({
 		
 		this.$el.html(this.template({
 			episode: this.model.attributes,
-			podcast: this.model.podcast.attributes,
+			podcast: _.extend(this.model.podcast.attributes, {
+                imageUrl: filesItems.getFile(this.model.podcast.get('imageUrl'))
+            }),
         }));
 	},
 });
