@@ -18,12 +18,8 @@ FilesCollection = Backbone.Collection.extend({
 				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
 					_this.onFileSystemSuccess(fileSystem);
 				}, this.onFileSystemFail);
-				/*navigator.PersistentStorage = navigator.PersistentStorage|| navigator.webkitPersistentStorage;
-				navigator.PersistentStorage.requestQuota(8000*1024*1024, function(gb) {
-					window.requestFileSystem(window.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
-				}, _this.errorHandler);*/
 			}catch(e){
-				//alert('Cant cache'+e);
+				alert('Cant cache'+e);
 				this.canCache = false; // We're not on mobile, no fancie caching for us.
 			}	
 		}
@@ -31,27 +27,9 @@ FilesCollection = Backbone.Collection.extend({
 
     onFileSystemSuccess: function(fileSystem){
         this.fileSystem = fileSystem;
-        var _this = this;
+        this.canCache = true;
 
-        try{
-			alert('Attempging file transfwer');
-			// http://docs.phonegap.com/en/1.7.0/cordova_file_file.md.html#FileTransfer_download - this could be better.
-			var fileTransfer = new FileTransfer();
-			fileTransfer.download('http://cdn.fullondesign.co.uk/imgs/partners/mysql.png', fileSystem.root.fullPath+'/mysql.png', function(entry) {
-		        console.log("download complete: " + entry.fullPath);
-		        alert("download complete: " + entry.fullPath);
-		    },
-		    function(error) {
-		    	_this.errorHandler(error);
-		    	alert(error.target);
-		        console.log("download error source " + error.source);
-		        console.log("download error target " + error.target);
-		        console.log("upload error code" + error.code);
-		    });
-
-		}catch(e){
-			alert(e);
-		}
+        this.rootFolder = this.fileSystem.root.fullPath+'/com.mikerogers.podcastapp/';
     },
 
     onFileSystemFail: function(evt){
@@ -84,7 +62,7 @@ FilesCollection = Backbone.Collection.extend({
 			break;
 		};
 
-		alert('Error: ' + msg);
+		//alert('Error: ' + msg);
 
 		//console.log('Error: ' + msg);
 	},
@@ -123,9 +101,7 @@ FilesCollection = Backbone.Collection.extend({
     // Mostly taken from http://css.dzone.com/articles/offline-files-html5-filesystem
     cacheFile: function(url){
     	var _this = this,
-    	xhr = new XMLHttpRequest(),
     	url = url,
-    	_xhr = null;
     	name = encodeURIComponent(url);
 
     	if(!this.canCache){
@@ -139,62 +115,36 @@ FilesCollection = Backbone.Collection.extend({
 
     	// TODO: Check we're online rtoo.
 
-    	alert('Caching File: '+url);
+    	// Download the file
+		var fileTransfer = new FileTransfer();
 
-    	xhr.open('get', url, true);
-		xhr.responseType = 'blob'; // give us an array buffer back please
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState != 4) {
+		fileTransfer.download(url, this.rootFolder+name, function(entry) {
+	        console.log("download complete: " + entry.fullPath);
+
+	        var file = _this.where({url:url})[0];
+
+			if(file != null){
+
+				file.set({
+					cacheURL: entry.fullPath,
+					cached: true
+				});
 				return;
 			}
-			var res = xhr.response, // ArrayBuffer!
-			_fe = null,
-			_xhr = this; 
 
-			_this.fileSystem.root.getFile(name, {create: true}, function (fe) {
-				_fe = fe,
-				_xhr = _xhr;
-				fe.createWriter(function(writer) {
-					// create a blob builder to append the data to
-					var bb = new Blob([res], {'type':_xhr.getResponseHeader('Content-Type')});
+			// Otherwise make it.
+			_this.create(new FileModel({
+				url: url,
+				cacheURL: entry.fullPath,
+				cached: true
+			}));
 
-					writer.onwriteend = function (e) {
-						// If the url already exits update it
-						var file = _this.where({url:url})[0];
-
-						alert('Cached: '+_fe.toURL());
-
-						if(file != null){
-
-							file.set({
-								cacheURL: _fe.toURL(),
-								cached: true
-							});
-							return;
-						}
-
-						// Otherwise make it.
-						_this.create(new FileModel({
-							url: url,
-							cacheURL: _fe.toURL(),
-							cached: true
-						}));
-						
-						//api.flagSynced(fe) // mark as synced in the UI
-					};
-					writer.onerror = function(e){
-						alert(e);
-					};
-
-					// Go to end of file.
-					//writer.seek(writer.length);
-
-					// append the data and write to the file
-					writer.write(bb);
-				});
-			}, _this.errorHandler);
-		};
-
-		xhr.send();
+	    },
+	    function(error) {
+	        console.log("download error source " + error.source);
+	        console.log("download error target " + error.target);
+	        console.log("upload error code" + error.code);
+	        //alert('some error.'+error.code);
+	    });
     },
 });
