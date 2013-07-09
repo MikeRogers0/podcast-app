@@ -14,12 +14,15 @@ FilesCollection = Backbone.Collection.extend({
 		if(this.canCache){
 			window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 			try{
-				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
-			}catch(e){
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+					_this.onFileSystemSuccess(fileSystem);
+				}, this.onFileSystemFail);
 				/*navigator.PersistentStorage = navigator.PersistentStorage|| navigator.webkitPersistentStorage;
 				navigator.PersistentStorage.requestQuota(8000*1024*1024, function(gb) {
 					window.requestFileSystem(window.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
 				}, _this.errorHandler);*/
+			}catch(e){
+				alert('Cant cache'+e);
 				this.canCache = false; // We're not on mobile, no fancie caching for us.
 			}	
 		}
@@ -30,8 +33,9 @@ FilesCollection = Backbone.Collection.extend({
     },
 
     onFileSystemFail: function(evt){
-    	//alert(evt.target.error.code);
+    	//alert(evt);
     	//console.log(evt.target.error.code);
+    	filesItems.canCache = false;
     },
 
 	errorHandler: function(e) {
@@ -113,6 +117,8 @@ FilesCollection = Backbone.Collection.extend({
 
     	// TODO: Check we're online rtoo.
 
+    	alert('Caching File: '+url);
+
     	xhr.open('get', url, true);
 		xhr.responseType = 'arraybuffer'; // give us an array buffer back please
 		xhr.onload = function () {
@@ -130,7 +136,11 @@ FilesCollection = Backbone.Collection.extend({
 					writer.onwriteend = function (e) {
 						// If the url already exits update it
 						var file = _this.where({url:url})[0];
+
+						alert('Cached: '+_fe.toURL());
+
 						if(file != null){
+
 							file.set({
 								cacheURL: _fe.toURL(),
 								cached: true
@@ -147,7 +157,12 @@ FilesCollection = Backbone.Collection.extend({
 						
 						//api.flagSynced(fe) // mark as synced in the UI
 					};
-					//writer.onerror = api.err;
+					writer.onerror = function(e){
+						alert(e);
+					};
+
+					// Go to end of file.
+					//writer.seek(writer.length);
 
 					// append the data and write to the file
 					writer.write(bb);
