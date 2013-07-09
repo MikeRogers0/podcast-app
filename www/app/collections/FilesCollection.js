@@ -11,6 +11,7 @@ FilesCollection = Backbone.Collection.extend({
 
 	initialize: function () {
 		var _this = this;
+		
 		if(this.canCache){
 			window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 			try{
@@ -22,7 +23,7 @@ FilesCollection = Backbone.Collection.extend({
 					window.requestFileSystem(window.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
 				}, _this.errorHandler);*/
 			}catch(e){
-				alert('Cant cache'+e);
+				//alert('Cant cache'+e);
 				this.canCache = false; // We're not on mobile, no fancie caching for us.
 			}	
 		}
@@ -30,6 +31,27 @@ FilesCollection = Backbone.Collection.extend({
 
     onFileSystemSuccess: function(fileSystem){
         this.fileSystem = fileSystem;
+        var _this = this;
+
+        try{
+			alert('Attempging file transfwer');
+			// http://docs.phonegap.com/en/1.7.0/cordova_file_file.md.html#FileTransfer_download - this could be better.
+			var fileTransfer = new FileTransfer();
+			fileTransfer.download('http://cdn.fullondesign.co.uk/imgs/partners/mysql.png', fileSystem.root.fullPath+'/mysql.png', function(entry) {
+		        console.log("download complete: " + entry.fullPath);
+		        alert("download complete: " + entry.fullPath);
+		    },
+		    function(error) {
+		    	_this.errorHandler(error);
+		    	alert(error.target);
+		        console.log("download error source " + error.source);
+		        console.log("download error target " + error.target);
+		        console.log("upload error code" + error.code);
+		    });
+
+		}catch(e){
+			alert(e);
+		}
     },
 
     onFileSystemFail: function(evt){
@@ -101,7 +123,7 @@ FilesCollection = Backbone.Collection.extend({
     // Mostly taken from http://css.dzone.com/articles/offline-files-html5-filesystem
     cacheFile: function(url){
     	var _this = this,
-    	xhr = new XMLHttpRequest,
+    	xhr = new XMLHttpRequest(),
     	url = url,
     	_xhr = null;
     	name = encodeURIComponent(url);
@@ -120,9 +142,12 @@ FilesCollection = Backbone.Collection.extend({
     	alert('Caching File: '+url);
 
     	xhr.open('get', url, true);
-		xhr.responseType = 'arraybuffer'; // give us an array buffer back please
-		xhr.onload = function () {
-			var res = this.response, // ArrayBuffer!
+		xhr.responseType = 'blob'; // give us an array buffer back please
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState != 4) {
+				return;
+			}
+			var res = xhr.response, // ArrayBuffer!
 			_fe = null,
 			_xhr = this; 
 
