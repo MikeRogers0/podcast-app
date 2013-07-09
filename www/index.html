@@ -19,6 +19,11 @@
 
     <!-- http://headjs.com/site/api-documentation.html - we can load most the stuff we need with head.js -->
     <script src="js/vendor/head.min.js"></script>
+    <script>
+        if(location.protocol != 'http:'){
+            head.js('cordova.js');
+        }
+    </script>
 </head>
 <body>
         

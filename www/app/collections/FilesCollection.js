@@ -14,7 +14,7 @@ FilesCollection = Backbone.Collection.extend({
 		if(this.canCache){
 			window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 			try{
-				window.requestFileSystem(LocalFileSystem.PERSISTENT, 500*1024*1024, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
+				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){filesItems.onFileSystemSuccess(fileSystem);}, this.onFileSystemFail);
 			}catch(e){
 				/*navigator.PersistentStorage = navigator.PersistentStorage|| navigator.webkitPersistentStorage;
 				navigator.PersistentStorage.requestQuota(8000*1024*1024, function(gb) {
@@ -30,6 +30,7 @@ FilesCollection = Backbone.Collection.extend({
     },
 
     onFileSystemFail: function(evt){
+    	//alert(evt.target.error.code);
     	//console.log(evt.target.error.code);
     },
 
@@ -56,6 +57,8 @@ FilesCollection = Backbone.Collection.extend({
 			msg = 'Unknown Error';
 			break;
 		};
+
+		alert('Error: ' + msg);
 
 		//console.log('Error: ' + msg);
 	},
@@ -107,6 +110,8 @@ FilesCollection = Backbone.Collection.extend({
     	if(fileTest != url){
     		return true;
     	}
+
+    	// TODO: Check we're online rtoo.
 
     	xhr.open('get', url, true);
 		xhr.responseType = 'arraybuffer'; // give us an array buffer back please

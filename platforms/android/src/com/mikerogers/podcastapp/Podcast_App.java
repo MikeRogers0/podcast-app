@@ -21,11 +21,10 @@ package com.mikerogers.podcastapp;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
-import android.view.WindowManager;
 
 public class Podcast_App extends DroidGap
 {
-    public Boolean running = false;
+    //public Boolean running = false;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -33,11 +32,15 @@ public class Podcast_App extends DroidGap
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
 
-        if(this.running == false){
+        super.setStringProperty("loadingDialog", "Please wait -- loading...");
+        super.init();
+        super.appView.getSettings().setAllowUniversalAccessFromFileURLs(true); 
+        
+        //if(this.running == false){
           super.loadUrl(Config.getStartUrl());
           //super.loadUrl("file:///android_asset/www/index.html")
-        }
-        this.running = true;
+        //}
+        //this.running = true;
     }
 }
 
