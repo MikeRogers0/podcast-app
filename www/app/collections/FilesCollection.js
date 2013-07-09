@@ -29,7 +29,7 @@ FilesCollection = Backbone.Collection.extend({
         this.fileSystem = fileSystem;
         this.canCache = true;
 
-        this.rootFolder = this.fileSystem.root.fullPath+'/com.mikerogers.podcastapp/';
+        this.rootFolder = this.fileSystem.root.fullPath+'/';
     },
 
     onFileSystemFail: function(evt){
@@ -120,13 +120,15 @@ FilesCollection = Backbone.Collection.extend({
 
 		fileTransfer.download(url, this.rootFolder+name, function(entry) {
 	        console.log("download complete: " + entry.fullPath);
+	        console.log(entry, entry.toURL());
+	        alert('Cached: '+entry.fullPath);
 
 	        var file = _this.where({url:url})[0];
 
 			if(file != null){
 
 				file.set({
-					cacheURL: entry.fullPath,
+					cacheURL: entry.toURL(),
 					cached: true
 				});
 				return;
@@ -135,7 +137,7 @@ FilesCollection = Backbone.Collection.extend({
 			// Otherwise make it.
 			_this.create(new FileModel({
 				url: url,
-				cacheURL: entry.fullPath,
+				cacheURL: entry.toURL(),
 				cached: true
 			}));
 
@@ -144,7 +146,7 @@ FilesCollection = Backbone.Collection.extend({
 	        console.log("download error source " + error.source);
 	        console.log("download error target " + error.target);
 	        console.log("upload error code" + error.code);
-	        //alert('some error.'+error.code);
+	        alert('some error.'+error.code);
 	    });
     },
 });
