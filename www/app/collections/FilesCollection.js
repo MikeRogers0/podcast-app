@@ -82,17 +82,19 @@ FilesCollection = Backbone.Collection.extend({
 
     removeFile: function(url){
     	var _this = this,
-    	name = encodeURIComponent(url);
+    	fileName = null;
 
     	if(!this.canCache){
     		return url;
     	}
 
     	file = this.where({url:url})[0];
+
+    	fileName = file.get('fileName');
     	if(file != null){
     		file.destroy();
 
-	    	this.fileSystem.root.getFile(name, {create: true}, function (fe) {
+	    	this.fileSystem.root.getFile(fileName, {create: true}, function (fe) {
 	    		fe.remove(function(){});
 	    	}, _this.errorHandler);
     	}
@@ -102,7 +104,8 @@ FilesCollection = Backbone.Collection.extend({
     cacheFile: function(url){
     	var _this = this,
     	url = url,
-    	name = encodeURIComponent(url);
+    	fileName = (new Date() * 1)+'-'+ Math.floor((Math.random()*10000)+1) +'.'+(url.split('.').pop());
+
 
     	if(!this.canCache){
     		return url;
@@ -118,28 +121,35 @@ FilesCollection = Backbone.Collection.extend({
     	// Download the file
 		var fileTransfer = new FileTransfer();
 
-		fileTransfer.download(url, this.rootFolder+name, function(entry) {
+		fileTransfer.download(url, this.rootFolder+fileName, function(entry) {
 	        console.log("download complete: " + entry.fullPath);
 	        console.log(entry, entry.toURL());
 	        alert('Cached: '+entry.fullPath);
 
-	        var file = _this.where({url:url})[0];
+	        // It's in the file system, give it a URL we can use.
+	        _this.fileSystem.root.getFile(entry.fullPath, {create: true}, function (fe) {
+	        	var file = _this.where({url:url})[0];
 
-			if(file != null){
+	        	alert('Saving URL As: ' + fe.toURL());
 
-				file.set({
-					cacheURL: entry.toURL(),
+				if(file != null){
+
+					file.set({
+						cacheURL: fe.toURL(),
+						fileName: fileName,
+						cached: true
+					});
+					return;
+				}
+
+				// Otherwise make it.
+				_this.create(new FileModel({
+					url: url,
+					cacheURL: fe.toURL(),
+					fileName: fileName,
 					cached: true
-				});
-				return;
-			}
-
-			// Otherwise make it.
-			_this.create(new FileModel({
-				url: url,
-				cacheURL: entry.toURL(),
-				cached: true
-			}));
+				}));
+	        }, _this.errorHandler);
 
 	    },
 	    function(error) {

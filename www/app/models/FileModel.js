@@ -8,6 +8,7 @@ var FileModel = Backbone.Model.extend({
 			url: null, // The URL of the file we're caching
 			cached: false, // if it's been cached
 			cacheURL: null, // It's local URL.
+			fileName: null, // Local filename
 		};
 	},
 

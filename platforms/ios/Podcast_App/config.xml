@@ -82,4 +82,5 @@
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="false" />
+    <preference name="keepRunning" value="true" />
 </widget>
