@@ -1,5 +1,5 @@
 /**
- * Used to manage storage of local files.
+ * Used to manage storage of local files. This only will work on phonegap builds cause of CORS.
  */
 FilesCollection = Backbone.Collection.extend({
 	localStorage: new Backbone.LocalStorage("FilesCollection-bb"),
@@ -19,7 +19,6 @@ FilesCollection = Backbone.Collection.extend({
 					_this.onFileSystemSuccess(fileSystem);
 				}, this.onFileSystemFail);
 			}catch(e){
-				alert('Cant cache'+e);
 				this.canCache = false; // We're not on mobile, no fancie caching for us.
 			}	
 		}
@@ -62,7 +61,7 @@ FilesCollection = Backbone.Collection.extend({
 			break;
 		};
 
-		//alert('Error: ' + msg);
+		alert('Error: ' + msg);
 
 		//console.log('Error: ' + msg);
 	},
@@ -122,15 +121,10 @@ FilesCollection = Backbone.Collection.extend({
 		var fileTransfer = new FileTransfer();
 
 		fileTransfer.download(url, this.rootFolder+fileName, function(entry) {
-	        console.log("download complete: " + entry.fullPath);
-	        console.log(entry, entry.toURL());
-	        alert('Cached: '+entry.fullPath);
 
 	        // It's in the file system, give it a URL we can use.
 	        _this.fileSystem.root.getFile(entry.fullPath, {create: true}, function (fe) {
 	        	var file = _this.where({url:url})[0];
-
-	        	alert('Saving URL As: ' + fe.toURL());
 
 				if(file != null){
 
@@ -151,12 +145,6 @@ FilesCollection = Backbone.Collection.extend({
 				}));
 	        }, _this.errorHandler);
 
-	    },
-	    function(error) {
-	        console.log("download error source " + error.source);
-	        console.log("download error target " + error.target);
-	        console.log("upload error code" + error.code);
-	        alert('some error.'+error.code);
-	    });
+	    }, this.errorHandler);
     },
 });

@@ -97,8 +97,6 @@ PlayerView = Backbone.View.extend({
 		}
 
 		this.audioElementRaw.src = filesItems.getFile(this.model.get('mp3'));
-
-		alert('Playing: '+filesItems.getFile(this.model.get('mp3')));
 		
         this.model.trigger('loading');
 
