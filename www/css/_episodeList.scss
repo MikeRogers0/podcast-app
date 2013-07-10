@@ -9,7 +9,11 @@
 		list-style: none;
 		float:left;
 		width: 96%;
-		background: rgba(255,255,255,1);
+
+		&.dragging{
+			background: rgba(255,255,255,1);
+		}
+		
 		
 		&.listened{
 			opacity: 0.6;
