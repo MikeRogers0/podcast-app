@@ -1,6 +1,7 @@
 (function($) {
     // loop toggle
     MediaElementPlayer.prototype.buildskip = function(player, controls, layers, media) {
+        debugger;
         var
             // create the loop button
             loop =  

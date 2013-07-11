@@ -21,10 +21,18 @@ package com.mikerogers.podcastapp;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
+import java.io.IOException;
+import java.io.*;
+import java.util.*;
+import android.content.Context;
+
 
 public class Podcast_App extends DroidGap
 {
     //public Boolean running = false;
+    private AudioServer mHttpServer;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -32,15 +40,26 @@ public class Podcast_App extends DroidGap
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
 
-        super.setStringProperty("loadingDialog", "Please wait -- loading...");
-        super.init();
-        super.appView.getSettings().setAllowUniversalAccessFromFileURLs(true); 
+        //super.setStringProperty("loadingDialog", "Please wait -- loading...");
+        //super.init();
+        //super.appView.getSettings().setAllowUniversalAccessFromFileURLs(true); 
         
         //if(this.running == false){
           super.loadUrl(Config.getStartUrl());
           //super.loadUrl("file:///android_asset/www/index.html")
         //}
         //this.running = true;
+
+        try {
+          mHttpServer = new AudioServer();
+          mHttpServer.start();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
     }
+    
 }
+
+    
 

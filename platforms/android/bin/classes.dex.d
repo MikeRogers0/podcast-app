@@ -1,5 +1,22 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes.dex : \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/AudioServer.class \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/BuildConfig.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$1$1.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$1.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$AsyncRunner.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$DefaultAsyncRunner.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$DefaultTempFile.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$DefaultTempFileManager.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$DefaultTempFileManagerFactory.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$HTTPSession.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$Method.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$Response$Status.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$Response.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$ResponseException.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$TempFile.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$TempFileManager.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$TempFileManagerFactory.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD.class \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/Podcast_App.class \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/R$attr.class \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/R$drawable.class \
