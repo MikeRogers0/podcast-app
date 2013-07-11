@@ -38,30 +38,8 @@ FilesCollection = Backbone.Collection.extend({
     },
 
 	errorHandler: function(e) {
-		var msg = '';
 
-		switch (e.code) {
-			case FileError.QUOTA_EXCEEDED_ERR:
-			msg = 'QUOTA_EXCEEDED_ERR';
-			break;
-			case FileError.NOT_FOUND_ERR:
-			msg = 'NOT_FOUND_ERR';
-			break;
-			case FileError.SECURITY_ERR:
-			msg = 'SECURITY_ERR';
-			break;
-			case FileError.INVALID_MODIFICATION_ERR:
-			msg = 'INVALID_MODIFICATION_ERR';
-			break;
-			case FileError.INVALID_STATE_ERR:
-			msg = 'INVALID_STATE_ERR';
-			break;
-			default:
-			msg = 'Unknown Error';
-			break;
-		};
-
-		alert('Error: ' + msg);
+		alert('Error: ' + e.code);
 
 		//console.log('Error: ' + msg);
 	},
@@ -121,9 +99,8 @@ FilesCollection = Backbone.Collection.extend({
 		var fileTransfer = new FileTransfer();
 
 		fileTransfer.download(url, this.rootFolder+fileName, function(entry) {
-
 	        // It's in the file system, give it a URL we can use.
-	        _this.fileSystem.root.getFile(entry.fullPath, {create: true}, function (fe) {
+	        _this.fileSystem.root.getFile(fileName, {create: true}, function (fe) {
 	        	var file = _this.where({url:url})[0];
 
 				if(file != null){
