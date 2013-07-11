@@ -44,6 +44,13 @@ FilesCollection = Backbone.Collection.extend({
 		//console.log('Error: ' + msg);
 	},
 
+	clearAll: function(){
+		var _this = this;
+		_.each(this.models, function(model){
+			_this.remove(model);
+		});
+	},
+
     getFile: function(url){
     	if(!this.canCache){
     		return url;
@@ -67,9 +74,13 @@ FilesCollection = Backbone.Collection.extend({
 
     	file = this.where({url:url})[0];
 
-    	fileName = file.get('fileName');
-    	if(file != null){
-    		file.destroy();
+    	this.remove(file);
+    },
+
+    remove: function(model){
+    	if(model != null){
+    		fileName = model.get('fileName');
+    		model.destroy();
 
 	    	this.fileSystem.root.getFile(fileName, {create: true}, function (fe) {
 	    		fe.remove(function(){});

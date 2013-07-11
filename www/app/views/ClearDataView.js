@@ -25,6 +25,9 @@ ClearDataView = Backbone.View.extend({
 		// Unqueue everything
 		this.clearQueue();
 
+		// Clear cached file
+		this.clearCache();
+
 		// Clear these.
 		episodeItems.reset();
 		podcastItems.reset();
@@ -35,6 +38,10 @@ ClearDataView = Backbone.View.extend({
 		localStorage.clear();
 		
 		this.clearButton.text('Data Cleared');
+	},
+
+	clearCache: function(){
+		filesItems.clearAll();
 	},
 
 	clearQueue: function(){
