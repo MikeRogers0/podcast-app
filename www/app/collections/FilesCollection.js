@@ -29,7 +29,7 @@ FilesCollection = Backbone.Collection.extend({
         this.canCache = true;
 
         this.rootFolder = this.fileSystem.root.fullPath+'/';
-        this.appFoler = 'com.mikerogers.podcastapp/';
+        this.appFoler = 'Android/data/com.mikerogers.podcastapp/';
     },
 
     onFileSystemFail: function(evt){
@@ -110,7 +110,7 @@ FilesCollection = Backbone.Collection.extend({
     		fileName = model.get('fileName');
     		model.destroy();
 
-	    	this.fileSystem.root.getFile(fileName, {create: true}, function (fe) {
+	    	this.fileSystem.root.getFile(this.rootFolder+this.appFoler+fileName, {create: true}, function (fe) {
 	    		fe.remove(function(){});
 	    	}, _this.errorHandler);
     	}
@@ -141,13 +141,18 @@ FilesCollection = Backbone.Collection.extend({
 	        // It's in the file system, give it a URL we can use.
 	        _this.fileSystem.root.getFile(_this.appFoler+fileName, {create: false}, function (fe) {
 	        	var file = _this.where({url:url})[0];
+	        	var localURL = fe.toURL();
 
-	        	alert(fe.toURL());
+	        	// Quick fix for Android on Cordova to server from HTTP:// not FILE://
+	        	if(localURL.indexOf('file://') == 0){
+	        		splitURL = localURL.split(_this.appFoler);
+	        		localURL = 'http://127.0.0.1:8080/'+splitURL[1];
+	        	}        	
 
 				if(file != null){
 
 					file.set({
-						cacheURL: fe.toURL(),
+						cacheURL: localURL,
 						fileName: fileName,
 						filePath: _this.appFoler+fileName,
 						cached: true
@@ -158,7 +163,7 @@ FilesCollection = Backbone.Collection.extend({
 				// Otherwise make it.
 				_this.create(new FileModel({
 					url: url,
-					cacheURL: fe.toURL(),
+					cacheURL: localURL,
 					fileName: fileName,
 					filePath: _this.appFoler+fileName,
 					cached: true

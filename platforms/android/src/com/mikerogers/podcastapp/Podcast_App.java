@@ -51,9 +51,11 @@ public class Podcast_App extends DroidGap
         //}
         //this.running = true;
 
+
+        // Start a server to serve the cached data files.
         try {
           // Should be 127.0.0.1 and a weirder port.
-          mHttpServer = new AudioServer("0.0.0.0", 8080, new File(Environment.getExternalStorageDirectory(), "").getAbsoluteFile());
+          mHttpServer = new AudioServer("127.0.0.1", 8080, new File(Environment.getExternalStorageDirectory(), "/Android/data/com.mikerogers.podcastapp/").getAbsoluteFile());
           mHttpServer.start();
         } catch (IOException e) {
           // TODO Auto-generated catch block
