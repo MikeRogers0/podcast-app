@@ -1,4 +1,8 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes.dex : \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/AudioServer$1.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/AudioServer$2.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/AudioServer$3.class \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/AudioServer$4.class \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/AudioServer.class \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/BuildConfig.class \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/bin/classes/com/mikerogers/podcastapp/NanoHTTPD$1$1.class \
