@@ -144,10 +144,10 @@ FilesCollection = Backbone.Collection.extend({
 	        	var localURL = fe.toURL();
 
 	        	// Quick fix for Android on Cordova to server from HTTP:// not FILE://
-	        	if(localURL.indexOf('file://') == 0){
+	        	if(localURL.indexOf('file://') == 0 && localURL.indexOf('file://localhost/') == -1){
 	        		splitURL = localURL.split(_this.appFoler);
 	        		localURL = 'http://127.0.0.1:8080/'+splitURL[1];
-	        	}        	
+	        	}       	
 
 				if(file != null){
 
