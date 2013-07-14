@@ -13,10 +13,16 @@ QueueView = Backbone.View.extend({
 
 		this.updateQueue();
 
-    	this.$queue.sortable({ 
+		this.addSortable();
+		return this;
+	},
+
+	addSortable: function(){
+		this.$queue.sortable({ 
     		axis: "y", 
     		handle: ".podcastThumb", 
     		containment: "parent", 
+    		delay: 50,
     		opacity: 0.75,
     		stop: function(event, ui ){
 	    		// Update the queue order
@@ -34,8 +40,6 @@ QueueView = Backbone.View.extend({
     			lis.addClass('dragging');
     		}
     	});
-
-		return this;
 	},
 
 	updateQueue: function(){

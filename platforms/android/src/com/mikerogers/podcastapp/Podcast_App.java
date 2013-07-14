@@ -43,7 +43,7 @@ public class Podcast_App extends DroidGap
 
         //super.setStringProperty("loadingDialog", "Please wait -- loading...");
         //super.init();
-        super.appView.getSettings().setAllowUniversalAccessFromFileURLs(true); 
+        //super.appView.getSettings().setAllowUniversalAccessFromFileURLs(true); 
         
         //if(this.running == false){
           super.loadUrl(Config.getStartUrl());

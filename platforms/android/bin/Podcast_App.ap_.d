@@ -100,6 +100,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/bootstrap.min.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/date.format.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/dropbox.js \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/fastclick.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/head.min.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/jquery-ui-1.10.3.custom.min.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/jquery.min.js \
