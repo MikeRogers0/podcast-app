@@ -11,8 +11,8 @@ head.js(
 	'js/vendor/jquery.ui.touch-punch.min.js',
 	//'//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.9.2/dropbox.min.js',
 	'js/vendor/dropbox.js',
-	'js/vendor/bootstrap.min.js',
 	'js/vendor/date.format.js',
+	'js/vendor/fastclick.js',
 
 	// By default HTML5 audio sucks - http://mediaelementjs.com/#howitworks - is way better.
 	'js/vendor/mediaelement/mediaelement-and-player.min.js',
@@ -71,6 +71,9 @@ head.js(
 			'PodcastView',
 			'PodcastListItemView',
 			'CurrentlyPlayingView'], function() {
+
+    		FastClick.attach(document.body);
+
 			settings = new SettingsModel();
 			settings.fetch();
 
