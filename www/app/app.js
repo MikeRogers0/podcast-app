@@ -57,6 +57,9 @@ head.js(
 	// The Routers
 	'app/router/AppRouter.js',
 
+	// The Crons
+	'app/crons/feedUpdater.js',
+
 	function(){
 		utils.loadTemplate([
 			'HomeView', 
@@ -113,11 +116,8 @@ head.js(
 				});
 			}
 
-			// Load in the crons
-			head.js('app/crons/feedUpdater.js', function(){
-				// After 2 minutes the feeds will start updating.
-				setTimeout(feedUpdater, 5000);
-			});
+			// After 2 minutes the feeds will start updating.
+			setTimeout(feedUpdater, 5000);
 		});
 	}
 );
