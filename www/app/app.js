@@ -108,6 +108,15 @@ head.js(
 				app.navigate($(this).attr('href'), true);
 			});
 
+			// Add the listner for the menu
+			$('#menuLink').on('click', function(){
+				if($("#navMenu").hasClass('open')){
+					$("#navMenu").removeClass('open')
+				}else{
+					$("#navMenu").addClass('open')
+				}
+			});
+
 			// If the user is using dropbox
 			if(settings.get('dropboxSync')){
 				// Authenicate them, then do a sync.

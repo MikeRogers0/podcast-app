@@ -30,20 +30,24 @@
 </head>
 <body>
         
-<div class="pure-g-r" id="container">
+<div class="pure-g-r">
     <nav class="pure-u-1" id="menu">
-            <a href="/queue">Podcast App</a>
-            <ul>
-                <li>
-                    <a href="/podcasts" class="batch" data-icon="&#xF04B;"></a>
-                </li>
-                <li>
-                    <a href="/settings/device-sync" class="batch" data-icon="&#xF04E;"></a>
-                </li>
-                <li>
-                    <a href="/settings/clear-data" class="batch" data-icon="&#xF04E;"></a>
-                </li>
-            </ul>
+        <div class="container">
+            <a href="#menu" id="menuLink">
+                <img src="/img/navicon.png" width="20" alt="Menu toggle">
+            </a>
+
+            <a href="/queue" id="pageTitle">Podcast App</a>
+
+            <nav id="navMenu">
+                <ul class="container">
+                    <li><a href="/queue" class="batch" data-icon="&#xF04B;">Queue</a></li>
+                    <li><a href="/podcasts" class="batch" data-icon="&#xF04B;">Subscriptions</a></li>
+                    <li><a href="/settings/device-sync" class="batch" data-icon="&#xF04E;">Device Sync</a></li>
+                    <li><a href="/settings/clear-data" class="batch" data-icon="&#xF04E;">Clear Data</a></li>
+                </ul>
+            </nav>
+        </div>
     </nav>
     <div class="pure-u-2-5" id="left">
         <div id="player" class="container">
