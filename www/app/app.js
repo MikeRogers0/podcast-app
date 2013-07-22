@@ -109,12 +109,16 @@ head.js(
 			});
 
 			// Add the listner for the menu
-			$('#menuLink').on('click', function(){
+			$('#menuLink').on('click', function(e){
+				e.preventDefault();
+
 				if($("#navMenu").hasClass('open')){
 					$("#navMenu").removeClass('open')
 				}else{
 					$("#navMenu").addClass('open')
 				}
+
+				return true;
 			});
 
 			// If the user is using dropbox
