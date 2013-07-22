@@ -62,6 +62,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/PodcastView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/QueueItemView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/QueueView.html \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/SearchView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/AddFeedView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/ClearDataView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/CurrentlyPlayingView.js \
@@ -74,6 +75,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/PodcastView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/QueueItemView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/QueueView.js \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/SearchView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/assets/batch.eot \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/assets/batch.svg \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/assets/batch.ttf \
@@ -93,6 +95,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/watch.sh \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/img/glyphicons-halflings-white.png \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/img/glyphicons-halflings.png \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/img/navicon.png \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/backbone-min.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/backbone.dropbox.js \

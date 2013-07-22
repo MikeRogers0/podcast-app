@@ -28,28 +28,19 @@ import java.util.*;
 import android.content.Context;
 
 
-public class Podcast_App extends DroidGap
-{
-    //public Boolean running = false;
+public class Podcast_App extends DroidGap {
+    public Boolean running = false;
     private AudioServer mHttpServer;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
 
         super.onCreate(savedInstanceState);
-        // Set by <content src="index.html" /> in config.xml
 
-        //super.setStringProperty("loadingDialog", "Please wait -- loading...");
-        //super.init();
         //super.appView.getSettings().setAllowUniversalAccessFromFileURLs(true); 
         
-        //if(this.running == false){
-          super.loadUrl(Config.getStartUrl());
-          //super.loadUrl("file:///android_asset/www/index.html")
-        //}
-        //this.running = true;
+        super.loadUrl(Config.getStartUrl());
 
 
         // Start a server to serve the cached data files.
@@ -62,7 +53,6 @@ public class Podcast_App extends DroidGap
           e.printStackTrace();
         }
     }
-    
 }
 
     

@@ -12,10 +12,15 @@
 
 	#menuLink{
 		float: left;
+		padding: 5px 15px 0 0;
 		> div{
 			background: url(../img/navicon.png) repeat-x 0 0;
 			width: 30px;
-			height: 30px;
+			height: 20px;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
 		}
 	}
 
