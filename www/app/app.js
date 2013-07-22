@@ -53,6 +53,7 @@ head.js(
 	'app/views/PodcastView.js',
 	'app/views/PodcastListItemView.js',
 	'app/views/CurrentlyPlayingView.js',
+	'app/views/SearchView.js',
 
 	// The Routers
 	'app/router/AppRouter.js',
@@ -73,7 +74,8 @@ head.js(
 			'MyPodcastsView',
 			'PodcastView',
 			'PodcastListItemView',
-			'CurrentlyPlayingView'], function() {
+			'CurrentlyPlayingView',
+			'SearchView'], function() {
 
     		FastClick.attach(document.body);
 

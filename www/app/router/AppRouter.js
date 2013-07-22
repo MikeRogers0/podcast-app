@@ -10,6 +10,7 @@ var AppRouter = Backbone.Router.extend({
         "podcasts/301":'301',
         "podcasts/:feedUrl" : "podcasts",
         "add-feed"          : "addFeed",
+        "search"          : "search",
         "settings/device-sync"      : "deviceSync",
         "settings/clear-data"		: "clearData"
     },
@@ -60,6 +61,10 @@ var AppRouter = Backbone.Router.extend({
         }
         $('#content').html(this.AddFeedView.el);
         //this.headerView.selectMenuItem('home-menu');
+    },
+    search: function(){
+        this.SearchView = new SearchView();
+        $('#content').html(this.SearchView.el);
     },
     myPodcasts: function(){
         //if (!this.MyPodcastsView) {
