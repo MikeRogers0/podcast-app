@@ -1,18 +1,18 @@
-<h1><%= podcast.title %></h1>
+<h1><%= podcast.get('title') %></h1>
 
 <a class="subscribe pure-button">
-    <% if (podcast.subscribed){ %>
+    <% if (podcast.get('subscribed')){ %>
         Unsubscribe
     <% } else { %>
         Subscribe
     <% } %>
 </a>
 
-<a class="pure-button" href="<%= podcast.link %>">
+<a class="pure-button" href="<%= podcast.get('link') %>">
 	Official Site
 </a>
 
-<% if (podcast.subscribed){ %>
+<% if (podcast.get('subscribed')){ %>
 	<a class="settings pure-button">
 		Settings
 	</a>
@@ -22,7 +22,7 @@
 	Update Episodes
 </a>
 
-<p><%= podcast.description %></p>
+<p><%= podcast.get('description') %></p>
 
 <h2>Episodes</h2>
 <ul id="episodes" class="episodes">

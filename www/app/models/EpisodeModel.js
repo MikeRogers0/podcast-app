@@ -62,4 +62,16 @@ EpisodeModel = CloudModel.extend({
 
     return percentCompleted;
   },
+
+  isPlaying: function(){
+    return (app.Player ? app.Player.isCurrentlyPlaying(this.get('id')) : false)
+  },
+
+  getPublishedDate: function(){
+    return new Date(this.get('datePublished')).timeSince();
+  },
+
+  getDuration: function(){
+    return dateFormat.minutes(this.get('duration'));
+  }
 });

@@ -13,7 +13,7 @@ PodcastView = Backbone.View.extend({
     render: function(){
         // Create the HTML
         var template = this.template({
-            podcast: this.model.attributes
+            podcast: this.model
         });
 
         this.$el.html(template);

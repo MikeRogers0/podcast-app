@@ -45,6 +45,10 @@ PodcastModel = CloudModel.extend({
     }
   },
 
+  getImageURI: function(){
+    return filesItems.getFile(this.get('imageUrl'));
+  },
+
   // A Cron to run to get newer episodes. If we have time, this should be done in a Worker. If not, do it in a setTimeout().
   updateEpisodes: function(callback){
     var api = "https://ajax.googleapis.com/ajax/services/feed/load",

@@ -1,28 +1,28 @@
-<div class="percentCompleted" style="width: <%= episode.percentCompleted %>%">
+<div class="percentCompleted" style="width: <%= episode.percentCompleted() %>%">
     <!-- -->
 </div>
 
-<a href="/podcasts/<%= podcast.slug %>" class="podcastThumb needsclick" style="background-image: url('<%= podcast.imageUrl %>');">
+<a href="/podcasts/<%= podcast.get('slug') %>" class="podcastThumb needsclick" style="background-image: url('<%= podcast.getImageURI() %>');">
     <!-- <%= podcast.title %> -->
 </a>
 <div class="details">
-    <div class="title"><%= episode.title %></div>
+    <div class="title"><%= episode.get('title') %></div>
     <ul class="meta">
-        <li><strong>Published</strong>: <%= new Date(episode.datePublished).timeSince() %> ago</li>
-        <li><strong>Duration</strong>: <!-- <%= episode.duration %> --><%= dateFormat.minutes(episode.duration) %></li>
+        <li><strong>Published</strong>: <%= episode.getPublishedDate() %> ago</li>
+        <li><strong>Duration</strong>: <%= episode.getDuration() %></li>
     </ul>
 </div>
 
 <div class="controls">
-    <% if (episode.playing){ %>
+    <% if (episode.isPlaying()){ %>
         <a class="playPause active batch" data-icon="&#xF16C;"></a>
     <% } else { %>
         <a class="playPause batch" data-icon="&#xF16B;"></a>
     <% } %>
 
-    <% if (episode.queued){ %>
-        <a class="queue active batch" data-icon="&#xF0B4;"></a>
+    <% if (episode.get('queued')){ %>
+        <a class="queue active batch" data-icon="&#xF14D;"></a>
     <% } else { %>
-        <a class="queue batch" data-icon="&#xF0B4;"></a>
+        <a class="queue batch" data-icon="&#xF14C;"></a>
     <% } %>
 </div>

@@ -1,25 +1,25 @@
-<div class="percentCompleted" style="width: <%= episode.percentCompleted %>%">
+<div class="percentCompleted" style="width: <%= episode.percentCompleted() %>%">
     <!-- -->
 </div>
 
 <div class="details">
-    <a href="<%= episode.link %>" target="_blank" class="title"><%= episode.title %></a>
+    <div class="title"><%= episode.get('title') %></div>
     <ul class="meta">
-        <li><strong>Published</strong>: <%= new Date(episode.datePublished).format("yyyy-mm-dd") %></li>
-        <li><strong>Duration</strong>: <!-- <%= episode.duration %> --><%= dateFormat.minutes(episode.duration) %></li>
+        <li><strong>Published</strong>: <%= episode.getPublishedDate() %> ago</li>
+        <li><strong>Duration</strong>: <%= episode.getDuration() %></li>
     </ul>
 </div>
 
 <div class="controls">
-    <% if (episode.playing){ %>
+    <% if (episode.isPlaying()){ %>
         <a class="playPause active batch" data-icon="&#xF16C;"></a>
     <% } else { %>
         <a class="playPause batch" data-icon="&#xF16B;"></a>
     <% } %>
 
-    <% if (episode.queued){ %>
-        <a class="queue active batch" data-icon="&#xF0B4;"></a>
+    <% if (episode.get('queued')){ %>
+        <a class="queue active batch" data-icon="&#xF14D;"></a>
     <% } else { %>
-        <a class="queue batch" data-icon="&#xF0B4;"></a>
+        <a class="queue batch" data-icon="&#xF14C;"></a>
     <% } %>
 </div>

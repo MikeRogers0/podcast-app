@@ -18,9 +18,7 @@ PodcastListItemView = Backbone.View.extend({
     render: function(){
         // Create the HTML
         var template = this.template({
-            podcast: _.extend(this.model.attributes, {
-                imageUrl: filesItems.getFile(this.model.get('imageUrl'))
-            })
+            podcast: this.model
         });
 
         this.$el.html(template);

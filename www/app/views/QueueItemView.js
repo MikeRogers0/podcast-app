@@ -5,7 +5,7 @@ QueueItemView = PodcastItemView.extend({
         // Create the HTML
         
         var template = this.template({
-            podcast: _.extend(this.model.podcast.attributes, {
+            /*podcast: _.extend(this.model.podcast.attributes, {
                 imageUrl: filesItems.getFile(this.model.podcast.get('imageUrl'))
             }),
             episode: _.extend(
@@ -14,7 +14,9 @@ QueueItemView = PodcastItemView.extend({
                     playing: (app.Player ? app.Player.isCurrentlyPlaying(this.model.get('id')) : false),
                     percentCompleted: this.model.percentCompleted()
                 }
-            ),
+            ),*/
+            podcast: this.model.podcast,
+            episode: this.model,
         });
 
 
