@@ -28,14 +28,12 @@ import java.util.*;
 import android.content.Context;
 
 
+
 public class Podcast_App extends DroidGap {
-    public Boolean running = false;
     private AudioServer mHttpServer;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //super.appView.getSettings().setAllowUniversalAccessFromFileURLs(true); 

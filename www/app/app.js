@@ -97,7 +97,8 @@ head.js(
 
 		    app = new AppRouter();
 			Backbone.history.start({
-				pushState: ( location.protocol == 'http:'? true : false ), // Use hashbangs on mobile.
+				//pushState: ( location.protocol == 'http:'? true : false ), // Use hashbangs on mobile.
+				pushState: true,
 				root: ( location.protocol == 'http:'? '/' : location.pathname ) // Mobile apps use file:// and don't have a sane root.
 			});
 
@@ -115,12 +116,17 @@ head.js(
 				e.preventDefault();
 
 				if($("#navMenu").hasClass('open')){
-					$("#navMenu").removeClass('open')
+					$("#navMenu").removeClass('open');
 				}else{
-					$("#navMenu").addClass('open')
+					$("#navMenu").addClass('open');
 				}
 
 				return true;
+			});
+
+			// When the nav is clicked, hide it.
+			$("#navMenu").on('click', function(){
+				$("#navMenu").removeClass('open');
 			});
 
 			// If the user is using dropbox

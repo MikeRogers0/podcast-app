@@ -12,10 +12,6 @@
     <preference name="webviewbounce" value="false" />
     <preference name="keepRunning" value="true" />
     <preference name="exit-on-suspend" value="false" />
-    <preference name="permissions" value="none"/>
 
-    <feature name="http://api.phonegap.com/1.0/media"/>
-    <feature name="http://api.phonegap.com/1.0/network"/>
-    <feature name="http://api.phonegap.com/1.0/file"/>
-    <feature name="http://api.phonegap.com/1.0/battery"/>
+    <preference name="loadingDialog" value="Podcast App, All Your Podcasts in a place" />
 </widget>

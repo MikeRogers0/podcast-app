@@ -73,5 +73,5 @@
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="false" />
     <preference name="keepRunning" value="true" />
-    <preference name="permissions" value="none" />
+    <preference name="loadingDialog" value="Podcast App, All Your Podcasts in a place" />
 </widget>

@@ -33,16 +33,17 @@
 		text-align: left;
 		padding-right: 30px;
 		border-right: 1px solid $black;
-		left: -100%;
+		left: -173px;
+		width: 143px;
 
-		-moz-transition:left 0.5s;
-		-webkit-transition:left 0.5s;
-		transition:left 0.5s;
+		-moz-transition:left 0.25s ease;
+		-webkit-transition:left 0.25s ease;
+		transition:left 0.25s ease;
 
 		&.open{
-			-moz-transition:left 0.2s;
-			-webkit-transition:left 0.2s;
-			transition:left 0.2s;
+			-moz-transition:left 0.25s ease;
+			-webkit-transition:left 0.25s ease;
+			transition:left 0.25s ease;
 			left: 0;
 		}
 	}
