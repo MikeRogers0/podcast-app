@@ -235,8 +235,11 @@ PlayerView = Backbone.View.extend({
 	 * Tells someone if the ID they provide is playing or not.
 	 */
 	isCurrentlyPlaying: function(id){
-		if(id == null && (this.audioPlayer != undefined && this.audioPlayer.paused)){
-			return false
+		if(id == undefined){
+			if(this.audioPlayer != undefined && !this.audioPlayer.paused){
+				return true;
+			}
+			return false;
 		}
 
 		if(this.model == null || this.audioPlayer == undefined || (this.audioPlayer != undefined && this.audioPlayer.paused)){
