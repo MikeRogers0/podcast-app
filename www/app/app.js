@@ -140,6 +140,12 @@ head.js(
 
 			// After 2 minutes the feeds will start updating.
 			setTimeout(feedUpdater, 5000);
+
+			head.js(
+				// Cordova Specific stuff
+				'app/crons/cordova.js',
+				function(){}
+			);
 		});
 	}
 );
