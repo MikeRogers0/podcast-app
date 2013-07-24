@@ -98,8 +98,8 @@ head.js(
 
 		    app = new AppRouter();
 			Backbone.history.start({
-				//pushState: ( location.protocol == 'http:'? true : false ), // Use hashbangs on mobile.
-				pushState: true,
+				pushState: ( location.protocol == 'http:'? true : false ), // Use hashbangs on mobile.
+				//pushState: true,
 				root: ( location.protocol == 'http:'? '/' : location.pathname ) // Mobile apps use file:// and don't have a sane root.
 			});
 
