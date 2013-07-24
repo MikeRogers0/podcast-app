@@ -1,0 +1,1 @@
+SearchResultView = PodcastListItemView.extend({});

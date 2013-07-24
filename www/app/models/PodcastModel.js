@@ -66,6 +66,10 @@ PodcastModel = CloudModel.extend({
         success: function(data, textStatus, jqXHR){
             // TODO: Do some checks on the response.
 
+            if(data.responseData == null){
+              return;
+            }
+
             // Conver the XML reponse to a element we can jQuery over.
             var xmlDoc = $.parseXML( data.responseData.xmlString ),
             $xml = $( xmlDoc ),

@@ -63,7 +63,15 @@ var AppRouter = Backbone.Router.extend({
         //this.headerView.selectMenuItem('home-menu');
     },
     search: function(){
-        this.SearchView = new SearchView();
+        if(!this.SearchView){
+            this.SearchView = new SearchView();
+        }
+
+        this.updateMeta({
+            class: 'search',
+            title: 'Search',
+        });
+
         $('#content').html(this.SearchView.el);
     },
     myPodcasts: function(){
