@@ -72,7 +72,9 @@ var AppRouter = Backbone.Router.extend({
             title: 'Search',
         });
 
-        $('#content').html(this.SearchView.el);
+        $('#content').html(this.SearchView.$el);
+
+        this.SearchView.addListners();
     },
     myPodcasts: function(){
         //if (!this.MyPodcastsView) {

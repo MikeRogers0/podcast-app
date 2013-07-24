@@ -15,6 +15,13 @@ SearchView = Backbone.View.extend({
 		return this;
 	},
 
+	addListners: function(){
+		this.$el.find('form').on('submit', function(e){
+			app.SearchView.renderResults();
+			app.SearchView.search(e);
+		})
+	},
+
 	search: function(e){
 		e.preventDefault(); // Stop the form going to a hidden page
 		
@@ -35,12 +42,16 @@ SearchView = Backbone.View.extend({
 	},
 
 	renderResults: function(){
+		if(this.termValue == undefined){
+			return;
+		}
 		//$resultsList
 		var results = podcastItems.searchAttr(this.termValue, ['title', 'description']),
 		resultsEl = $();
 
 		// No results? Bye *Waves from a growing distance*.
 		if(results == null){
+			this.$resultsList.html('Can\'t find anything yet...');
 			return;
 		}
 
