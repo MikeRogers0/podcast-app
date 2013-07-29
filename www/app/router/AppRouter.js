@@ -89,7 +89,7 @@ var AppRouter = Backbone.Router.extend({
 
     404: function(){},
     301: function(){},
-    podcasts: function(feedUrl){
+    podcasts: function(feedUrl, options){
         options = {
             class: 'podcasts',
             title: 'Podcast Overview',
@@ -99,15 +99,21 @@ var AppRouter = Backbone.Router.extend({
         
         var podcastModel = podcastItems.getByFeedURL(feedUrl);
         if(podcastModel == undefined){
-            //try{
-                podcastItems.addFeed(feedUrl, true);
-            //}catch(err){
-                // Do Something
-              //  throw 'Podcast Not Found';
-           // }
-            // A loading screen could be better.
-            this.PodcastView = {};
-            this.PodcastView.el = "<p>Podcast is loading</p>";
+
+            if(options.reloaded == undefined){
+                podcastItems.addFeed(feedUrl, function(){
+                    app.podcasts(feedUrl, {reloaded: true});
+                });
+
+                // A loading screen could be better.
+                this.PodcastView = {};
+                this.PodcastView.el = "<p>Podcast is loading</p>";
+            }else{
+                // A loading screen could be better.
+                this.PodcastView = {};
+                this.PodcastView.el = "<p>Can't find podcast :(</p>";
+            }
+            
         }else{
             this.PodcastView = new PodcastView({model: podcastModel});
         }

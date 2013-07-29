@@ -51,13 +51,14 @@
 		
 		li {
 			margin: 5px 0;
-			padding: 7px 0;
+			padding: 0;
 		}
 	}
 
 	a{
 		color: $white;
 		text-decoration: none;
+		padding: 7px 0;
 	}
 
 	.batch:before {
