@@ -159,8 +159,7 @@ PodcastCollection = CloudCollection.extend({
                     return;
                 }
 
-                // TODO - check we have all of these, thus it's a podcast.
-                var newPodcast = this.create(new PodcastModel({
+                newPodcastData = {
                     title: $xml.find('channel > title').text(),
                     feedUrl: ($xml.find('atom\\:link[href], link[href]').attr('href') ? $xml.find('atom\\:link[href], link[href]').attr('href') : feedURL), // jQuery so smart we have to repeat this shit.
                     description: $xml.find('channel > description').text(),
@@ -170,10 +169,19 @@ PodcastCollection = CloudCollection.extend({
                     lastChecked: (new Date()).getTime(),
                     lastUpdated: null,
                     explicit: ($xml.find('channel > itunes\\:explicit, channel > explicit').text() == 'no' ? false : true)
-                }));
+                };
+
+                if(newPodcastData.feedUrl.indexOf('http://') == -1 && newPodcastData.feedUrl.indexOf('https://') == -1){
+                    newPodcastData.feedUrl = feedURL;
+                }
+
+                var newPodcast = this.create(new PodcastModel(newPodcastData));
+
+                // Now add some episodes
+                newPodcast.updateEpisodes(callback, $xml)
 
                 if(typeof callback == "function"){
-                    callback();
+                    //callback();
                     //newPodcast.updateEpisodes(callback);
                 }else if(callback === true){
                     /*newPodcast.updateEpisodes(function(){

@@ -23,6 +23,8 @@ SearchView = Backbone.View.extend({
 	},
 
 	search: function(e){
+		var _this = this;
+
 		e.preventDefault(); // Stop the form going to a hidden page
 		
 		this.$searchResults.html('<h3>Search Results</h3><ul class="podcastList"></ul>');
@@ -32,7 +34,9 @@ SearchView = Backbone.View.extend({
 
 		// Check if it's a feed url.
 		if(this.termValue.indexOf('http://') == 0 || this.termValue.indexOf('https://') == 0){
-			podcastItems.addFeed(this.termValue, true);
+			podcastItems.addFeed(this.termValue, function(){
+				_this.renderResults();
+			});
 		} else {
 			this.ajaxSearch(this.termValue);
 			this.renderResults();
@@ -46,7 +50,7 @@ SearchView = Backbone.View.extend({
 			return;
 		}
 		//$resultsList
-		var results = podcastItems.searchAttr(this.termValue, ['title', 'description']),
+		var results = podcastItems.searchAttr(this.termValue, ['title', 'description', 'feedUrl']),
 		resultsEl = $();
 
 		// No results? Bye *Waves from a growing distance*.
