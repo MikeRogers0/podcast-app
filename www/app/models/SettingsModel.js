@@ -31,10 +31,18 @@ SettingsModel = Backbone.Model.extend({
       key: "gkEKyDpBMsA=|++7iyniKA/kjwqydL7CQEtBv9oZ4hp7gSaPMp7Fk3w==",
       sandbox: true
     });
-    this.dropboxClient.authDriver(new Dropbox.Drivers.Redirect({
-      rememberUser: true,
-      useQuery: true
-    }));
+
+    if(location.protocol == 'http:'){
+      this.dropboxClient.authDriver(new Dropbox.Drivers.Redirect({
+        rememberUser: true,
+        useQuery: true
+      }));
+    }else{
+      this.dropboxClient.authDriver(new Dropbox.Drivers.Cordova({
+        rememberUser: true,
+        useQuery: true
+      }));
+    }
   },
 
   dropboxAuth: function(AuthCallback){
