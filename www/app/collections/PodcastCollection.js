@@ -122,7 +122,8 @@ PodcastCollection = CloudCollection.extend({
             url: url,
             dataType: 'jsonp',
             context: this, // Fuck scope, use this ;)
-            fail: function(data, textStatus, jqXHR){},
+            error: function(jqXHR, textStatus, errorThrown){},
+            complete: function(jqXHR, textStatus){},
             success: function(data, textStatus, jqXHR){
                 // TODO: Do some checks on the response.
 
