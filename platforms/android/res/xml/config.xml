@@ -66,6 +66,7 @@
         <param name="android-package" value="org.apache.cordova.InAppBrowser" />
     </feature>
     <plugins>
+        <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     </plugins>
     <access origin="*" />
     <preference name="useBrowserHistory" value="true" />
