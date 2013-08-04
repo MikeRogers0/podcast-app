@@ -31,6 +31,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/img \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/index.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/podcast-app.appcache \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/app.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/collections \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/crons \
@@ -42,6 +43,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/collections/EpisodeCollection.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/collections/FilesCollection.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/collections/PodcastCollection.js \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/crons/cordova.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/crons/feedUpdater.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/models/CloudModel.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/models/EpisodeModel.js \
@@ -50,7 +52,6 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/models/PodcastModel.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/models/SettingsModel.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/router/AppRouter.js \
-/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/AddFeedView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/ClearDataView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/CurrentlyPlayingView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/DeviceSyncView.html \
@@ -62,8 +63,8 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/PodcastView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/QueueItemView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/QueueView.html \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/SearchResultView.html \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/tpl/SearchView.html \
-/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/AddFeedView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/ClearDataView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/CurrentlyPlayingView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/DeviceSyncView.js \
@@ -75,6 +76,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/PodcastView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/QueueItemView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/QueueView.js \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/SearchResultView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/app/views/SearchView.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/assets/batch.eot \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/assets/batch.svg \
@@ -88,6 +90,7 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_menu.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_my-styles.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_podcastList.scss \
+/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_pure.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_queueView.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/_variables.scss \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/css/styles.css \
@@ -100,7 +103,6 @@
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/backbone-min.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/backbone.dropbox.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/backbone.localStorage.js \
-/Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/bootstrap.min.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/date.format.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/dropbox.js \
 /Users/MikeRogers/Sites/podcast-app/platforms/android/assets/www/js/vendor/fastclick.js \

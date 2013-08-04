@@ -106,13 +106,15 @@ head.js(
 				if($(this).attr('href') == null){
 					return;
 				}
-				e.preventDefault();
+				//e.preventDefault();
 				app.navigate($(this).attr('href'), true);
+
+				return false;
 			});
 
 			// Add the listner for the menu
 			$('#menuLink').on('click', function(e){
-				e.preventDefault();
+				//e.preventDefault();
 
 				// Reducesd ram.
 				app.clearViews();
