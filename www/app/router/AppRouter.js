@@ -30,12 +30,11 @@ var AppRouter = Backbone.Router.extend({
     },
 
     home: function () {
-        //if (!this.homeView) {
-            this.homeView = new HomeView();
-        //}
+        this.homeView = new HomeView();
         $('#content').html(this.homeView.el);
-        
-        //this.headerView.selectMenuItem('home-menu');
+
+        this.QueueView = new QueueView();
+        $('#queueView').html(this.QueueView.el);
 
         this.updateMeta({
             class: 'home',
@@ -43,11 +42,8 @@ var AppRouter = Backbone.Router.extend({
         });
     },
     queue: function () {
-        //if (!this.QueueView) {
-            this.QueueView = new QueueView();
-        //}
+        this.QueueView = new QueueView();
         $('#content').html(this.QueueView.el);
-        //this.headerView.selectMenuItem('home-menu');
 
         this.updateMeta({
             class: 'home',
@@ -55,9 +51,7 @@ var AppRouter = Backbone.Router.extend({
         });
     },
     search: function(){
-        if(!this.SearchView){
-            this.SearchView = new SearchView();
-        }
+        this.SearchView = new SearchView();
 
         this.updateMeta({
             class: 'search',
@@ -69,8 +63,7 @@ var AppRouter = Backbone.Router.extend({
         this.SearchView.addListners();
     },
     myPodcasts: function(){
-        //if (!this.MyPodcastsView) {
-            this.MyPodcastsView = new MyPodcastsView();
+        this.MyPodcastsView = new MyPodcastsView();
         $('#content').html(this.MyPodcastsView.el);
 
         this.updateMeta({
@@ -162,5 +155,11 @@ var AppRouter = Backbone.Router.extend({
         this.DeviceSyncView = null;
         this.ClearDataView = null;
         this.PodcastView = null;
+
+        // Only clear the view if we can't see it.
+        if($('#queueView:visible').length == 0){
+            this.QueueView = null;
+            $('#queueView').html('');
+        }
     }
 });

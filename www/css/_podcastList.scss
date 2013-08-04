@@ -9,9 +9,11 @@
 		position:relative;
 		margin-bottom: 30px;
 
-		&:hover div{
-	    	opacity: 1;
-	    }
+		@media screen and (min-width: $break-mid) {
+			&:hover div{
+		    	opacity: 1;
+		    }
+		}
 	}
 	a{
 		height: 60px; 
@@ -28,7 +30,6 @@
 	}
 	div{
 		display:block;
-		opacity: 0.01;
 		position:absolute;
 		bottom: 0;
 		left: 0;
@@ -40,10 +41,14 @@
 		color: #fff;
 		font-size: 0.8em;
 
-		-moz-transition:opacity linear 0.1s;
-	    -webkit-transition:opacity linear 0.1s;
-	    -o-transition: opacity linear 0.1s;
-	    transition: opacity linear 0.1s;
+
+		@media screen and (min-width: $break-mid) {
+			opacity: 0;
+			-moz-transition:opacity linear 0.1s;
+		    -webkit-transition:opacity linear 0.1s;
+		    -o-transition: opacity linear 0.1s;
+		    transition: opacity linear 0.1s;
+		}
 	}
 	.addPodcast{
 		background-size: 50px 50px;
