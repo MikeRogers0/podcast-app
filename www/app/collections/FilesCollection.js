@@ -1,5 +1,6 @@
 /**
  * Used to manage storage of local files. This only will work on phonegap builds cause of CORS.
+ * This needs to queue download instead of all at once.
  */
 FilesCollection = Backbone.Collection.extend({
 	localStorage: new Backbone.LocalStorage("FilesCollection-bb"),

@@ -3,6 +3,9 @@
  * At some ponit i want to rewrite this, but for now it'll be good.
  * I need to make the push & pull more sane at some point.
  * https://www.dropbox.com/developers/core/docs#metadata - use this to do that.
+ *
+ *
+ * This needs to queue downloads, right now it will hit Dropbox with like 1000 requests in one go.
  */
 DropBoxStorage = (function() {
   function DropBoxStorage(client) {
