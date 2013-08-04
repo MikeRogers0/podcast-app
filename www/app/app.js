@@ -116,6 +116,7 @@ head.js(
 
 				// Reducesd ram.
 				app.clearViews();
+				$("#navMenu").height($(window).height() - 45);
 
 				if($("#navMenu").hasClass('open')){
 					$("#navMenu").removeClass('open');
