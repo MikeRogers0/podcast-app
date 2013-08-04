@@ -164,7 +164,6 @@ PodcastCollection = CloudCollection.extend({
                 newPodcastData = {
                     title: $xml.find('channel > title').text(),
                     feedUrl: ($xml.find('atom\\:link[href], link[href]').attr('href') ? $xml.find('atom\\:link[href], link[href]').attr('href') : feedURL), // jQuery so smart we have to repeat this shit.
-                    description: $xml.find('channel > description').text(),
                     subscribed: false,
                     link: $xml.find('channel > link').text(),
                     imageUrl: $xml.find('channel > itunes\\:image, channel > image').attr('href'),
