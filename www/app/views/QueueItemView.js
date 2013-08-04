@@ -32,4 +32,10 @@ QueueItemView = PodcastItemView.extend({
         return this;
     },
 
+    queueToggle: function(){
+        if(this.model.get('queued') == true){
+            this.$el.hide();
+        }
+        this.model.queueToggle();
+    },
 });

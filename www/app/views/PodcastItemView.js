@@ -13,7 +13,7 @@ PodcastItemView = Backbone.View.extend({
 
         this.listenTo(this.model, 'playing', this.render);
         this.listenTo(this.model, 'loading', this.loading);
-        this.listenTo(this.model, 'change:playhead', this.playhead);
+        //this.listenTo(this.model, 'change:playhead', this.playhead);
         this.listenTo(this.model, 'change:queued change:listened', this.render);
         this.render();
     },
@@ -43,7 +43,7 @@ PodcastItemView = Backbone.View.extend({
     },
     playhead: function(){
         //this.$el.find('.percentCompleted').text('('+parseInt((this.model.get('playhead') / this.model.get('duration')) * 100)+'%)');
-        this.$el.find('.percentCompleted').css('width', parseInt((this.model.get('playhead') / this.model.get('duration')) * 100)+'%');
+        //this.$el.find('.percentCompleted').css('width', parseInt((this.model.get('playhead') / this.model.get('duration')) * 100)+'%');
     },
     playPause: function(){
         this.model.playPause();

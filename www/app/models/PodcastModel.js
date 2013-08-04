@@ -89,8 +89,9 @@ PodcastModel = CloudModel.extend({
   },
 
   parseEpisodeXML: function($xml, context, callback){
-    lastUpdated = null,
-    mostRecentEpisode = null;
+    var lastUpdated = null,
+    mostRecentEpisode = null,
+    aMonthAgo = (new Date() * 1) - 2678400000;
 
     $xml.find('channel item').each(function(index, item){
 
@@ -128,8 +129,9 @@ PodcastModel = CloudModel.extend({
 
 
     });
-
-    if(mostRecentEpisode != null && context.get('subscribed')){
+  
+    // If it's the most recent, we can subscript it and it's not over a month old.
+    if(mostRecentEpisode != null && context.get('subscribed') && newEpisode.get('datePublished') > aMonthAgo){
       mostRecentEpisode.queueToggle();
     }
 
