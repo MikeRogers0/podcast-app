@@ -11,12 +11,14 @@ CurrentlyPlayingView = Backbone.View.extend({
 
 	render: function() {
 		if(this.model == null){
+			this.$el.html('');
+			return this;
 			// Quickly make the blank element.
-			this.$el.html(this.template({
+			/*this.$el.html(this.template({
 				episode: new EpisodeModel(),
 				podcast: new PodcastModel(),
 			}));
-			return this;
+			return this;*/
 		}
 		
 		this.$el.html(this.template({

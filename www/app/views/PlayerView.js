@@ -14,7 +14,7 @@ PlayerView = Backbone.View.extend({
 		this.renderBlank();
 
 		if(globalSettings.get('lastListeningTo') != null){
-        	this.model = episodeItems.getByID(globalSettings.get('lastListeningTo'));
+        	//this.model = episodeItems.getByID(globalSettings.get('lastListeningTo'));
         	this.startPaused = true;
         }
 

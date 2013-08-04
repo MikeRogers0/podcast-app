@@ -1,8 +1,8 @@
 <% if(podcast.get('slug') != null){ %>
 	
-<a href="/podcasts/<%= podcast.get('slug') %>" class="podcastThumb" style="background-image: url('<%= podcast.getImageURI() %>');">
-    <!-- <%= podcast.get('title') %> -->
-</a>
+	<a href="/podcasts/<%= podcast.get('slug') %>" class="podcastThumb" style="background-image: url('<%= podcast.getImageURI() %>');">
+	    <!-- <%= podcast.get('title') %> -->
+	</a>
 	<div class="title">
 	    <%= episode.get('title') %>
 	</div>
