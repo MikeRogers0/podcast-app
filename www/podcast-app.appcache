@@ -1,0 +1,11 @@
+CACHE MANIFEST
+# 2013-08-04
+
+# Explicitly cached 'master entries'.
+CACHE:
+assets/*
+img/*
+js/vendor/*
+
+NETWORK:
+*
