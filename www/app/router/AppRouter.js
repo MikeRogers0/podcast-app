@@ -163,4 +163,12 @@ var AppRouter = Backbone.Router.extend({
             }
         }
     },
+
+    clearViews: function(){
+        this.homeView = null;
+        this.SearchView = null;
+        this.DeviceSyncView = null;
+        this.ClearDataView = null;
+        this.PodcastView = null;
+    }
 });

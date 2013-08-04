@@ -55,7 +55,7 @@ SearchView = Backbone.View.extend({
 
 		// No results? Bye *Waves from a growing distance*.
 		if(results == null){
-			this.$resultsList.html('Can\'t find anything yet...');
+			this.$resultsList.html('<li>Searching...this may take a moment.</li>');
 			return;
 		}
 

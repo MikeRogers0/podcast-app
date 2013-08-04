@@ -116,6 +116,9 @@ head.js(
 			$('#menuLink').on('click', function(e){
 				e.preventDefault();
 
+				// Reducesd ram.
+				app.clearViews();
+
 				if($("#navMenu").hasClass('open')){
 					$("#navMenu").removeClass('open');
 				}else{

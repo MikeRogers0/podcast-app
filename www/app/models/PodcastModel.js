@@ -52,7 +52,7 @@ PodcastModel = CloudModel.extend({
   // A Cron to run to get newer episodes. If we have time, this should be done in a Worker. If not, do it in a setTimeout().
   updateEpisodes: function(callback, $xml){
     var api = "https://ajax.googleapis.com/ajax/services/feed/load",
-        count = '50', // Get the latest 50
+        count = '-1', // Load as many as possible.
         params = "?v=1.0&num=" + count + "&output=xml&q=" + this.get('slug'),
         url = api + params,
         redirect = redirect,
@@ -66,6 +66,7 @@ PodcastModel = CloudModel.extend({
     $.ajax({
         url: url,
         dataType: 'jsonp',
+        cache: false,
         context: this, // Fuck scope, use this ;)
         error: function(jqXHR, textStatus, errorThrown){},
         complete: function(jqXHR, textStatus){},

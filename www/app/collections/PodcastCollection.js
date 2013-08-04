@@ -121,6 +121,7 @@ PodcastCollection = CloudCollection.extend({
         $.ajax({
             url: url,
             dataType: 'jsonp',
+            cache: false,
             context: this, // Fuck scope, use this ;)
             error: function(jqXHR, textStatus, errorThrown){},
             complete: function(jqXHR, textStatus){},
