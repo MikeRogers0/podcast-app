@@ -3,9 +3,16 @@ CACHE MANIFEST
 
 # Explicitly cached 'master entries'.
 CACHE:
-assets/*
-img/*
-js/vendor/*
+assets/batch.woff
+img/navicon.png
+js/vendor/jquery.min.js
+js/vendor/underscore-min.js
+js/vendor/backbone-min.js
+js/vendor/jquery-ui-1.10.3.custom.min.js
+js/vendor/jquery.ui.touch-punch.min.js
+js/vendor/date.format.js
+js/vendor/fastclick.js
+js/vendor/mediaelement/mediaelement-and-player.min.js
 
 NETWORK:
 *
