@@ -95,43 +95,44 @@ PodcastModel = CloudModel.extend({
 
     $xml.find('channel item').each(function(index, item){
 
-    // It's not a podcast
-    if($(item).find('enclosure').attr('url') == undefined || (
-    ($(item).find('enclosure').attr('url')).indexOf('.mp3') == -1 && ($(item).find('enclosure').attr('url')).indexOf('.m4a') == -1)){
-      return;
-    }
+      // It's not a podcast
+      if($(item).find('enclosure').attr('url') == undefined || (
+      ($(item).find('enclosure').attr('url')).indexOf('.mp3') == -1 && ($(item).find('enclosure').attr('url')).indexOf('.m4a') == -1)){
+        return;
+      }
 
-    var newEpisode = {
-      title: $(item).find('title').text(),
-      datePublished: (new Date($(item).find('pubDate').text())).getTime(),
-      link: $(item).find('link').text(),
-      mp3: $(item).find('enclosure').attr('url'),
-      mp3_format: $(item).find('enclosure').attr('type'),
-      duration: $(item).find('enclosure').attr('length') || dateFormat.HHMMSSToSeconds($(item).find('itunes\\:duration, duration').text()),
-      description: $(item).find('description').text(),
-      podcastID: context.get('id'),
-      queued: false,
-    };
+      var newEpisode = {
+        title: $(item).find('title').text(),
+        datePublished: (new Date($(item).find('pubDate').text())).getTime(),
+        link: $(item).find('link').text(),
+        mp3: $(item).find('enclosure').attr('url'),
+        mp3_format: $(item).find('enclosure').attr('type'),
+        duration: $(item).find('enclosure').attr('length') || dateFormat.HHMMSSToSeconds($(item).find('itunes\\:duration, duration').text()),
+        description: $(item).find('description').text(),
+        podcastID: context.get('id'),
+        queued: false,
+      };
 
-    // Confirm it's legit.
-    if(episodeItems.getByWhere({podcastID: newEpisode.podcastID, title: newEpisode.title}) != undefined){
-      return;
-    }
+      // Confirm it's legit.
+      if(episodeItems.getByWhere({podcastID: newEpisode.podcastID, title: newEpisode.title}) != undefined){
+        return;
+      }
 
-    // Add it!
-    newEpisode = episodeItems.create(new EpisodeModel(newEpisode));
+      // Add it!
+      newEpisode = new EpisodeModel(newEpisode);
+      episodeItems.create(newEpisode);
 
-    // Get the most recent date updated.
-    if(lastUpdated == null || lastUpdated < newEpisode.get('datePublished')){
-      lastUpdated = newEpisode.get('datePublished');
-      mostRecentEpisode = newEpisode;
-    }
+      // Get the most recent date updated.
+      if(lastUpdated == null || lastUpdated < newEpisode.get('datePublished')){
+        lastUpdated = newEpisode.get('datePublished');
+        mostRecentEpisode = newEpisode;
+      }
 
 
     });
   
     // If it's the most recent, we can subscript it and it's not over a month old.
-    if(mostRecentEpisode != null && context.get('subscribed') && newEpisode.get('datePublished') > aMonthAgo){
+    if(mostRecentEpisode != null && context.get('subscribed') && mostRecentEpisode.get('datePublished') > aMonthAgo){
       mostRecentEpisode.queueToggle();
     }
 

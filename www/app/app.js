@@ -101,17 +101,6 @@ head.js(
 				root: ( location.protocol == 'http:'? '/' : location.pathname ) // Mobile apps use file:// and don't have a sane root.
 			});
 
-			// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
-			$("#menu, #player, #content, #left, #right").on('click', 'a:not([data-bypass], [target="_blank"])', function (e) {
-				if($(this).attr('href') == null){
-					return;
-				}
-				//e.preventDefault();
-				app.navigate($(this).attr('href'), true);
-
-				return false;
-			});
-
 			// Add the listner for the menu
 			$('#menuLink').on('click', function(e){
 				//e.preventDefault();
@@ -126,7 +115,18 @@ head.js(
 					$("#navMenu").addClass('open');
 				}
 
-				return true;
+				return false;
+			});
+
+			// Stop page reload from http://stackoverflow.com/questions/7640362/preventing-full-page-reload-on-backbone-pushstate
+			$("#menu, #player, #content, #left, #right").on('click', 'a:not([data-bypass], [target="_blank"])', function (e) {
+				if($(this).attr('href') == null){
+					return;
+				}
+				//e.preventDefault();
+				app.navigate($(this).attr('href'), true);
+
+				return false;
 			});
 
 			// When the nav is clicked, hide it.
