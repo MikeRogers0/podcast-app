@@ -11,10 +11,14 @@ CloudModel = Backbone.Model.extend({
 			return false;
 		}
 
+		// Make sure we don't sync to often.
+		if((new Date(this.get('modelUpdatedAt'))  - new Date()) >= -60000){
+			return false; // Was synced within the last 1 minute.  
+		}
+
 		if(options == null){
 			options = {};
 		}
-
 
 		//return Backbone.ajaxSync('read', this, options);
 		DropBoxSync = new DropBoxStorage(settings.dropboxClient);

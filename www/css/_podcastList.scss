@@ -2,6 +2,13 @@
 	padding: 0;
 	overflow:hidden;
 	margin-left: -30px;
+	img {
+		top: 0;
+		left:0;
+		right: 0;
+		bottom: 0;
+		position: absolute;
+	}
 	li{
 		list-style:none;
 		float: left;
@@ -43,7 +50,7 @@
 
 
 		@media screen and (min-width: $break-mid) {
-			opacity: 0;
+			opacity: 1;
 			-moz-transition:opacity linear 0.1s;
 		    -webkit-transition:opacity linear 0.1s;
 		    -o-transition: opacity linear 0.1s;

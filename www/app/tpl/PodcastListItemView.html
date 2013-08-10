@@ -1,3 +1,4 @@
-<a href="/podcasts/<%= podcast.get('slug') %>" style="background-image: url('<%=  podcast.getImageURI() %>');">
+<a href="/podcasts/<%= podcast.get('slug') %>" > <!--style="background-image: url('<%=  podcast.getImageURI() %>');"-->
+	<img src="<%=  podcast.getImageURI() %>">
 	<div><%= podcast.get('title') %></div>
 </a>

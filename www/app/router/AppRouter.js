@@ -150,15 +150,15 @@ var AppRouter = Backbone.Router.extend({
     },
 
     clearViews: function(){
-        this.homeView = null;
-        this.SearchView = null;
-        this.DeviceSyncView = null;
-        this.ClearDataView = null;
-        this.PodcastView = null;
+        delete this.homeView;
+        delete this.SearchView;
+        delete this.DeviceSyncView;
+        delete this.ClearDataView;
+        delete this.PodcastView;
 
         // Only clear the view if we can't see it.
         if($('#queueView:visible').length == 0){
-            this.QueueView = null;
+            delete this.QueueView;
             $('#queueView').html('');
         }
     }
