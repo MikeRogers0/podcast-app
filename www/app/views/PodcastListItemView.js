@@ -32,25 +32,29 @@ PodcastListItemView = Backbone.View.extend({
 
     addThumbnail: function(){
         var aLink = this.$el.find('a'),
-        img = new Image();
+        img = new Image(),
+        _this = this;
 
         // Load the thumbnail
         img.onload = function(e){
-            var copyCanvas = document.createElement("canvas"),
-            copyCtx = copyCanvas.getContext("2d"),
-            canvas = document.createElement("canvas"),
+            // If we have cached a resized image.
+            if(this.width == _this.$el.width() && this.height == _this.$el.height()){
+                aLink.append(this);
+                return;
+            }
+
+            var canvas = document.createElement("canvas"),
             ctx = canvas.getContext("2d");
 
             canvas.width = 120;
             canvas.height= 120;
 
-            copyCanvas.width = this.width;
-            copyCanvas.height = this.height;
-            copyCtx.drawImage(img,0,0);
+            ctx.drawImage(img, 0, 0, _this.$el.width(), _this.$el.height());
 
-            ctx.drawImage(copyCanvas, 0, 0, 120, 120);
 
             aLink.append(canvas);
+
+            delete this;
         }
 
         img.src = this.model.getImageURI();
