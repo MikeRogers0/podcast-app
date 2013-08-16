@@ -15,7 +15,7 @@ HomeView = Backbone.View.extend({
 		_.each(recentPodcasts, function(podcastItem){
 			var view = new PodcastListItemView({ model: podcastItem });
 
-            this.$recentPodcasts.append(view.render().el);
+            this.$recentPodcasts.append(view.el);
     	}, this);
 
 		return this;

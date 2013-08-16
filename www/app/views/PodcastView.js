@@ -32,7 +32,7 @@ PodcastView = Backbone.View.extend({
         _.each(podcastEpisodesItems, function(episode){
             var view = new PodcastItemView({ model: episode });
             
-            this.episodes.append(view.render().el);
+            this.episodes.append(view.el);
         }, this);
 
 

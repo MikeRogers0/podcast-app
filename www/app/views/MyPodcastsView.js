@@ -19,7 +19,7 @@ MyPodcastsView = Backbone.View.extend({
 		_.each(subscribedPodcasts, function(podcastItem){
 			var view = new PodcastListItemView({ model: podcastItem });
 
-            this.myPodcasts.append(view.render().el);
+            this.myPodcasts.append(view.el);
     	}, this);
 
     	this.myPodcasts.append('<li><a href="/search" class="addPodcast"><div>Add New Podcast Feed</div></a><li>');

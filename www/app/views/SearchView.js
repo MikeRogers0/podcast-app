@@ -63,7 +63,7 @@ SearchView = Backbone.View.extend({
 
 		_.each(results, function(result){
 			var element = new SearchResultView({model: result});
-			this.$resultsList.append(element.$el);
+			this.$resultsList.append(element.el);
 		}, this);
 	},
 
