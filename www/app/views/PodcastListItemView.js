@@ -46,8 +46,8 @@ PodcastListItemView = Backbone.View.extend({
             var canvas = document.createElement("canvas"),
             ctx = canvas.getContext("2d");
 
-            canvas.width = 120;
-            canvas.height= 120;
+            canvas.width = _this.$el.width();
+            canvas.height= _this.$el.height();
 
             ctx.drawImage(img, 0, 0, _this.$el.width(), _this.$el.height());
 

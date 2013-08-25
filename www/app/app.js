@@ -21,6 +21,7 @@ head.js(
 
 	// A few utils
 	'js/vendor/utils.js',
+	'js/vendor/queueTask.js',
 
 	// LocalStorage plugin for backbone
 	'js/vendor/backbone.localStorage.js',

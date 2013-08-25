@@ -120,20 +120,41 @@ FilesCollection = Backbone.Collection.extend({
     // Mostly taken from http://css.dzone.com/articles/offline-files-html5-filesystem
     cacheFile: function(url){
     	var _this = this,
-    	url = url,
-    	fileName = (new Date() * 1)+'-'+ Math.floor((Math.random()*10000)+1) +'.'+(url.split('.').pop());
+    	url = url;
 
 
     	if(!this.canCache){
-    		return url;
+    		return false;
     	}
 
-    	var fileTest = this.getFile(url);
-    	if(fileTest != url){
+    	var file = this.where({url:url})[0];
+
+    	// If the file is already in the process of being cached.
+    	if(file != null){
     		return true;
     	}
 
-    	// TODO: Check we're online rtoo.
+    	// Otherwise, add the model and queue it to be downloaded.
+    	var fileName = (new Date() * 1)+'-'+ Math.floor((Math.random()*10000)+1) +'.'+(url.split('.').pop());
+
+    	var model = _this.create(new FileModel({
+			url: url,
+			cacheURL: null,
+			fileName: fileName,
+			filePath: _this.appFoler+fileName,
+			cached: false
+		}));
+
+		QueueTask.add(function(callback){
+			_this.downloadFile(model, callback);
+			return false;
+		});
+    },
+
+    downloadFile: function(model, callback){
+    	var file = model,
+    		fileName = file.get('fileName'),
+    		_this = this;
 
     	// Download the file
 		var fileTransfer = new FileTransfer();
@@ -160,15 +181,6 @@ FilesCollection = Backbone.Collection.extend({
 					});
 					return;
 				}
-
-				// Otherwise make it.
-				_this.create(new FileModel({
-					url: url,
-					cacheURL: localURL,
-					fileName: fileName,
-					filePath: _this.appFoler+fileName,
-					cached: true
-				}));
 	        }, _this.errorHandler);
 
 	    }, this.errorCordovaHandler);

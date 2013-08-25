@@ -61,12 +61,16 @@ DropBoxStorage = (function() {
       case 'update':
         //console.log("updating");
         if (model.id != undefined) {
-          this.writeFile(model.url(), JSON.stringify(model));
+          return this.writeFile(model.url(), JSON.stringify(model));
         } else {
-          var _this = this;
+          var _this = this,
+          promises = [];
+
           _.each(model.models, function(model){
-            _this.writeFile(model.url(), JSON.stringify(model));
+            promises.push(_this.writeFile(model.url(), JSON.stringify(model)));
           });
+
+          return $.when.apply($, promises).done();
         }
         return true;
         //return model.toJSON();
@@ -221,14 +225,20 @@ DropBoxStorage = (function() {
   };
 
   DropBoxStorage.prototype.writeFile = function(name, content) {
-    var _this = this;
-    return this.client.writeFile(name, content, function(error, stat) {
+    return this._writeFile(name, content);
+  };
+
+  DropBoxStorage.prototype._writeFile = function(name, content) {
+    var d,
+      _this = this;
+    d = $.Deferred();
+    this.client.writeFile(name, content, function(error, stat) {
       if (error) {
         return _this.showError(error);
       }
-      return true;
-      //return console.log("File saved as revision " + stat.versionTag);
+      return d.resolve();
     });
+    return d.promise();
   };
 
   DropBoxStorage.prototype.createFolder = function(name) {
